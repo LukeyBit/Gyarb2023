@@ -1,3 +1,4 @@
-# Gyarb2023
-## Gymnasiearbete 2023
-En hemsida som hämtar och presenterar recept baserat på användarens matpreferenser och matvaror
+# Gymnasiearbete 2023
+## Ett examensarbete i form av en hemsida med SQLite och Flask
+
+Hemsidan hämtar och presenterar recept från internet, som matchar användarens matvaror och matpreferenser.
