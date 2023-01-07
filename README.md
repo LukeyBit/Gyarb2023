@@ -1,4 +1,7 @@
 # Gymnasiearbete 2023
+
+## Projekt: Recepticle
+
 ### Ett examensarbete i form av en hemsida med SQLite och Flask
 
 Hemsidan hämtar och presenterar recept från internet, som matchar användarens matvaror och matpreferenser.
@@ -14,3 +17,34 @@ Oavsett vad som finns hemma, eller vad som inte finns, så brukar våra morsor a
 ### Metod
 
 För att skapa vår sida och implementera de nödvändiga funktioner använder vi en server som körs med Python Flask och lagrar data i en SQLite-databas. För att samla information från andra sidor använder vi oss av BeautifulSoup och för att designa själva användargränssnittet använder vi Tailwind.
+
+## Setup and running the server
+
+### Setup
+
+To install the necessary dependencies run the following command:
+
+```bash
+pip install -r requirements.txt
+```
+
+To build the database run the following command:
+
+```bash
+python setup.py
+```
+
+The following are the default credentials:
+
+| Username | Password |
+|----------|----------|
+| Lukas    | pearade  |
+| Theo     | lemonade |
+
+### Running the server
+
+To run the server run the following command:
+
+```bash
+python run.py
+```
