@@ -130,3 +130,5 @@ dmypy.json
 
 # Databases
 *.db
+
+/node_modules
