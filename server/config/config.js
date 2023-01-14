@@ -1,0 +1,1 @@
+export const DB_PATH = './database/database1.db'
