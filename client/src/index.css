@@ -3,7 +3,42 @@
 @tailwind utilities;
 
 @layer components {
-  .btn {
-    @apply bg-blue-500 text-white font-bold py-2 px-4 rounded;
+  .navbar {
+    @apply bg-white border-gray-200 px-2 sm:px-4 py-2.5
+  }
+  .navbar__container {
+    @apply container flex flex-wrap items-center justify-between mx-auto;
+  }
+  .navbar__logo {
+    @apply flex items-center;
+  }
+  .navbar__logo-img {
+    @apply h-6 mr-3 sm:h-9;
+    filter: invert(1);
+  }
+  .navbar__logo-text {
+    @apply self-center text-xl font-semibold whitespace-nowrap text-text-color-primary;
+  }
+  .navbar__cta {
+    @apply flex md:order-2;
+  }
+  .navbar__cta-btn {
+    @apply text-white bg-primary hover:bg-secondary focus:ring-4 focus:outline-none focus:ring-fill-color font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-3 md:mr-0;
+  }
+  .navbar__menu-btn {
+    @apply inline-flex items-center p-2 text-sm text-primary rounded-lg md:hidden hover:bg-secondary hover:text-white focus:outline-none focus:ring-2 focus:ring-primary
+  }
+  .navbar__menu {
+    @apply items-center justify-between hidden w-full md:flex md:w-auto md:order-1; 
+    /* hidden */
+  }
+  .navbar__menu ul {
+    @apply flex flex-col p-4 mt-4 border border-gray-100 rounded-lg bg-fill-color md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium md:border-0 md:bg-white
+  }
+  .navbar__menu-link {
+    @apply block py-2 pl-3 pr-4 text-text-color-primary rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-text-color-secondary md:p-0
+  }
+  .navbar__menu-link--active {
+    @apply text-text-color-secondary bg-secondary rounded md:bg-transparent md:text-text-color-primary md:p-0 !important;
   }
 }
