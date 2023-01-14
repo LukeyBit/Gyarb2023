@@ -1,1 +1,1 @@
-export const DB_PATH = './database/database1.db'
+export const DB_PATH = './database/users.sqlite'
