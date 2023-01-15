@@ -10,7 +10,7 @@ const LogIn = () => {
             <h1 class='form__title'>
               Sign in to your account
             </h1>
-            <form class='space-y-4 md:space-y-6' action='#'>
+            <form class='space-y-4 md:space-y-6' action=''>
               <div>
                 <label for='email' class='form__label'>Your email</label>
                 <input type='email' name='email' id='email' class='form__input' placeholder='name@company.com' required='' />

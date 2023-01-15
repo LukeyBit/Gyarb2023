@@ -6,6 +6,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Lobster&family=Roboto+Slab&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Cambo&family=Lobster&family=Roboto+Slab&display=swap');
 
+:root {
+  --primary: #F57966;
+  --secondary: #F7BBB1;
+  --fill-color: #FFE4DF;
+  --text-color-primary: #292727;
+  --text-color-secondary: #4D3A37;
+}
+
 @layer components {
   /* Global */
   .title-font {
@@ -16,6 +24,38 @@
   }
   .subtitle-font {
     @apply font-cambo;
+  }
+
+  /* Form */
+  .form__box {
+    @apply w-full bg-white rounded-lg shadow-xl md:mt-0 sm:max-w-md xl:p-0
+  }
+  .form__container {
+    @apply p-6 space-y-4 md:space-y-6 sm:p-8
+  }
+  .form__title {
+    @apply title-font text-xl leading-tight tracking-tight text-text-color-primary md:text-3xl
+  }
+  .form__label {
+    @apply text-font block mb-2 text-sm font-medium text-text-color-primary
+  }
+  .form__input {
+    @apply subtitle-font justify-center align-middle bg-gray-50 border-gray-300 border text-text-color-primary sm:text-sm rounded-lg focus:ring-primary focus:outline-none focus:border-primary focus:border block w-full p-2.5
+  }
+  .form__input--error {
+    @apply border-red-500
+  }
+  .form__error {
+    @apply text-red-500 text-sm
+  }
+  .form__submit {
+    @apply text-font w-full text-white bg-primary hover:bg-secondary focus:ring-4 focus:outline-none focus:ring-secondary font-medium rounded-lg text-sm px-5 py-2.5 text-center
+  }
+  .form__link-text {
+    @apply text-sm subtitle-font font-light text-text-color-secondary
+  }
+  .form__link-link {
+    @apply font-bold text-text-color-primary hover:underline
   }
 
   /* Navbar */
@@ -96,36 +136,6 @@
   }
   .login__container {
     @apply w-full flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0
-  }
-  .form__box {
-    @apply w-full bg-white rounded-lg shadow-xl md:mt-0 sm:max-w-md xl:p-0
-  }
-  .form__container {
-    @apply p-6 space-y-4 md:space-y-6 sm:p-8
-  }
-  .form__title {
-    @apply title-font text-xl leading-tight tracking-tight text-text-color-primary md:text-3xl
-  }
-  .form__label {
-    @apply text-font block mb-2 text-sm font-medium text-text-color-primary
-  }
-  .form__input {
-    @apply subtitle-font justify-center align-middle bg-gray-50 border-gray-300 border text-text-color-primary sm:text-sm rounded-lg focus:ring-primary focus:outline-none focus:border-primary focus:border block w-full p-2.5
-  }
-  .form__input--error {
-    @apply border-red-500
-  }
-  .form__error {
-    @apply text-red-500 text-sm
-  }
-  .form__submit {
-    @apply text-font w-full text-white bg-primary hover:bg-secondary focus:ring-4 focus:outline-none focus:ring-secondary font-medium rounded-lg text-sm px-5 py-2.5 text-center
-  }
-  .form__link-text {
-    @apply text-sm subtitle-font font-light text-text-color-secondary
-  }
-  .form__link-link {
-    @apply font-bold text-text-color-primary hover:underline
   }
 
   /* Footer */
