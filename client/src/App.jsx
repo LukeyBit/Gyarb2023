@@ -1,6 +1,6 @@
 import React from 'react'
 import { Routes, Route } from 'react-router-dom'
-import { Home, Discover, LogIn, Profile, SignUp, Search } from './containers'
+import { Home, Discover, LogIn, Profile, SignUp, Search, NotFound } from './containers'
 import { Navbar, Footer } from './components'
 
 function App() {
@@ -14,6 +14,7 @@ function App() {
         <Route path="/login" element={<LogIn />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/signup" element={<SignUp />} />
+        <Route path='*' element={<NotFound />} />
       </Routes>
       <Footer />
     </>

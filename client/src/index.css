@@ -5,7 +5,7 @@
 @layer components {
   /* Navbar */
   .navbar {
-    @apply bg-white border-gray-200 px-2 sm:px-4 py-2.5 drop-shadow-xl
+    @apply bg-white border-gray-200 px-2 sm:px-4 py-2.5 -z-10 drop-shadow-xl
   }
   .navbar__container {
     @apply container flex flex-wrap items-center justify-between mx-auto
@@ -29,23 +29,22 @@
     @apply inline-flex items-center p-2 text-sm text-primary rounded-lg md:hidden hover:bg-secondary hover:text-white focus:outline-none focus:ring-2 focus:ring-primary
   }
   .navbar__menu {
-    @apply items-center justify-between w-full md:flex md:w-auto md:order-1 ease-in-out duration-300
+    @apply items-center justify-between md:justify-center w-full md:flex md:w-auto ease-in-out md:order-1 duration-300 md:text-center md:justify-items-center
   }
   .navbar__menu--open {
     @apply translate-y-0 h-full opacity-100
   }
   .navbar__menu--closed {
-    @apply navbar__menu sm:-translate-y-full sm:h-0 sm:opacity-0 md:translate-y-0 md:h-full md:opacity-100
+    @apply navbar__menu -translate-y-full h-0 opacity-0 md:translate-y-0 md:h-full md:opacity-100
   }
-
   .navbar__menu ul {
     @apply flex flex-col p-4 mt-4 border border-gray-100 rounded-lg bg-fill-color md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium md:border-0 md:bg-white
   }
   .navbar__menu-link {
-    @apply block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-text-color-secondary md:p-0
+    @apply block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-text-color-secondary md:p-0 md:border-none
   }
   .navbar__menu-link--active {
-    @apply text-gray-700 bg-secondary rounded md:bg-transparent md:text-text-color-primary md:p-0 !important
+    @apply text-gray-700 border-l-4 bg-white border-l-primary rounded md:bg-transparent md:text-text-color-primary md:p-0 !important
   }
 
   /* Home */
@@ -77,6 +76,6 @@
 
   /* Footer */
   .footer {
-    @apply flex flex-row justify-center items-center gap-4 p-2 bg-fill-color fixed bottom-0 w-full border-t-4 border-t-primary
+    @apply flex flex-col md:flex-row justify-center items-center p-2 bg-fill-color static bottom-0 w-full border-t-4 border-t-primary
   }
 }

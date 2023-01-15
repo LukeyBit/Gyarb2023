@@ -4,6 +4,7 @@ import LogIn from './LogIn'
 import Profile from './Profile'
 import Search from './Search'
 import SignUp from './SignUp'
+import NotFound from './NotFound'
 
 export {
     Discover,
@@ -11,5 +12,6 @@ export {
     LogIn,
     Profile,
     Search,
-    SignUp
+    SignUp,
+    NotFound
 }
