@@ -8,12 +8,12 @@ function App() {
     <>
       <Navbar />
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/discover" element={<Discover />} />
-        <Route path="/search" element={<Search />} />
-        <Route path="/login" element={<LogIn />} />
-        <Route path="/profile" element={<Profile />} />
-        <Route path="/signup" element={<SignUp />} />
+        <Route path='/' element={<Home />} />
+        <Route path='/discover' element={<Discover />} />
+        <Route path='/search' element={<Search />} />
+        <Route path='/login' element={<LogIn />} />
+        <Route path='/profile' element={<Profile />} />
+        <Route path='/signup' element={<SignUp />} />
         <Route path='*' element={<NotFound />} />
       </Routes>
       <Footer />
