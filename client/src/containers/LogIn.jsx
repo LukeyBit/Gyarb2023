@@ -1,31 +1,91 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { loginUser } from '../store/actions/user'
+
 
 const LogIn = () => {
+
+  const [credentials, setCredentials] = useState({username: '', password: ''})
+  const [formError, setError] = useState({message: ''})
+  const dispatch = useDispatch()
+
+  const inputChange = (e) => {
+    setCredentials({...credentials, [e.target.name]: e.target.value})
+    if (credentials.username !== '' || credentials.password !== '') {
+      setError({message: null})
+    }
+  }
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    
+    const usernameRegex = /^[a-zA-Z0-9]{3,}$/
+
+    setCredentials({...credentials, [e.target.name]: e.target.value})
+
+    if (credentials.username === '' || credentials.password === '') {
+      setError({...formError, message: 'Please fill in all fields'})
+    } else if (!usernameRegex.test(credentials.username)) {
+      setError({...formError, message: 'Username and password must be at least 3 characters long and contain only letters and numbers'})
+    } else {
+      dispatch(loginUser(credentials))
+    }
+  }
+
   return (
     <section className='login__section' >
-      <div class='login__container'>
-        <div class='form__box'>
-          <div class='form__container'>
-            <h1 class='form__title'>
+      <div className='login__container'>
+        <div className='form__box'>
+          <div className='form__container'>
+            <h1 className='form__title'>
               Sign in to your account
             </h1>
-            <form class='space-y-4 md:space-y-6' action=''>
+            {
+              formError.message ? <p className='form__error' aria-live='assertive' >{formError.message}</p>
+              : null
+            }
+            <form autoComplete='off' className='space-y-4 md:space-y-6' onSubmit={handleSubmit} >
               <div>
-                <label for='email' class='form__label'>Your email</label>
-                <input type='email' name='email' id='email' class='form__input' placeholder='name@company.com' required='' />
+                <label
+                htmlFor='username'
+                className={`form__label ${formError.message ? 'form__error' : null}`}>
+                  Your username
+                </label>
+
+                <input
+                type='username'
+                name='username'
+                id='username'
+                className='form__input'
+                placeholder='awesomeuser123'
+                required=''
+                onChange={inputChange} />
               </div>
+
               <div>
-                <label for='password' class='form__label'>Password</label>
-                <input type='password' name='password' id='password' placeholder='••••••••' class='form__input' required='' />
+                <label
+                htmlFor='password'
+                className={`form__label ${formError.message ? 'form__error' : null}`}>
+                  Password
+                </label>
+
+                <input
+                type='password'
+                name='password'
+                id='password'
+                placeholder='••••••••'
+                className='form__input'
+                required=''
+                onChange={inputChange} />
               </div>
               
               <button
               type='submit'
-              class='form__submit'
+              className='form__submit'
               >Sign in</button>
-              <p class='form__link-text'>
-                Don’t have an account yet? <Link to='/signup' class='form__link-link'>Sign up</Link>
+              <p className='form__link-text'>
+                Don’t have an account yet? <Link to='/signup' className='form__link-link'>Sign up</Link>
               </p>
             </form>
           </div>
