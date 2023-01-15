@@ -7,6 +7,7 @@ module.exports = {
     './src/**/*.html',
     './src/**/*.jsx',
     './src/**/*.js',
+    './src/**/*.css',
   ],
   theme: {
     extend: {
@@ -15,8 +16,9 @@ module.exports = {
         'secondary': '#F7BBB1',
         'text-color-primary': '#625E5E',
         'text-color-secondary': '#755954',
-        'fill-color': '#FFE4DF'
-      }
+        'fill-color': '#FFE4DF',
+        'gray': colors.trueGray,
+      },
     },
   },
   plugins: [],

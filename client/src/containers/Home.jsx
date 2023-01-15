@@ -2,8 +2,18 @@ import React from 'react'
 
 const Home = () => {
   return (
-    <div>
-      <p className='bg-primary' >Proud to introduce</p>
+    <div className='home__header' >
+      <div className='home__header-backdrop'>
+        <div className='home__header-container'>
+          <div className='home__header-text'>
+            <h1 className='home__header-title'>MealMaster</h1>
+            <p className='home__header-subtitle'>The best way to find your next meal</p>
+          </div>
+          <button className='home__header-btn' >
+            <span>Get started</span>
+          </button>
+        </div>
+      </div>
     </div>
     
   )

@@ -3,33 +3,33 @@
 @tailwind utilities;
 
 @layer components {
+  /* Navbar */
   .navbar {
-    @apply bg-white border-gray-200 px-2 sm:px-4 py-2.5
+    @apply bg-white border-gray-200 px-2 sm:px-4 py-2.5 drop-shadow-xl
   }
   .navbar__container {
-    @apply container flex flex-wrap items-center justify-between mx-auto;
+    @apply container flex flex-wrap items-center justify-between mx-auto
   }
   .navbar__logo {
-    @apply flex items-center;
+    @apply flex items-center
   }
   .navbar__logo-img {
-    @apply h-6 mr-3 sm:h-9;
-    filter: invert(1);
+    @apply h-6 mr-3 sm:h-9
   }
   .navbar__logo-text {
-    @apply self-center text-xl font-semibold whitespace-nowrap text-text-color-primary;
+    @apply self-center text-xl font-semibold whitespace-nowrap text-text-color-primary
   }
-  .navbar__cta {
-    @apply flex md:order-2;
+  .navbar__buttons {
+    @apply flex md:order-2
   }
   .navbar__cta-btn {
-    @apply text-white bg-primary hover:bg-secondary focus:ring-4 focus:outline-none focus:ring-fill-color font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-3 md:mr-0;
+    @apply text-white bg-primary hover:bg-secondary focus:ring-4 focus:outline-none focus:ring-fill-color font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-3 md:mr-0
   }
   .navbar__menu-btn {
     @apply inline-flex items-center p-2 text-sm text-primary rounded-lg md:hidden hover:bg-secondary hover:text-white focus:outline-none focus:ring-2 focus:ring-primary
   }
   .navbar__menu {
-    @apply items-center justify-between hidden w-full md:flex md:w-auto md:order-1; 
+    @apply items-center justify-between hidden w-full md:flex md:w-auto md:order-1 
     /* hidden */
   }
   .navbar__menu ul {
@@ -39,6 +39,38 @@
     @apply block py-2 pl-3 pr-4 text-text-color-primary rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-text-color-secondary md:p-0
   }
   .navbar__menu-link--active {
-    @apply text-text-color-secondary bg-secondary rounded md:bg-transparent md:text-text-color-primary md:p-0 !important;
+    @apply text-text-color-secondary bg-secondary rounded md:bg-transparent md:text-text-color-primary md:p-0 !important
+  }
+
+  /* Home */
+  .home__header {
+    @apply w-full flex justify-center items-center flex-col h-[calc(100vh-6rem)]  bg-cover bg-center bg-no-repeat;
+    background-image: url("https://img.freepik.com/free-photo/salad-from-tomatoes-cucumber-red-onions-lettuce-leaves-healthy-summer-vitamin-menu-vegan-vegetable-food-vegetarian-dinner-table-top-view-flat-lay_2829-6482.jpg?w=1380&t=st=1673740157~exp=1673740757~hmac=5b5f6d980e4300c39618bd9e91c1329883b36957f999b00be92818293c2337b9");
+  }
+  .home__header-backdrop {
+    @apply w-full h-full flex flex-col justify-center items-center backdrop-blur-sm bg-gray-400/20
+  }
+  .home__header-container {
+    @apply flex flex-col justify-center items-center bg-white p-6 rounded-md shadow-lg
+  }
+  .home__header-text {
+    @apply flex flex-col justify-center items-center
+  }
+  .home__header-title {
+    @apply text-6xl font-bold text-center text-gray-800 mb-4
+  }
+  .home__header-subtitle {
+    @apply text-xl text-center text-gray-700
+  }
+  .home__header-btn {
+    @apply text-white bg-primary hover:bg-secondary focus:ring-4 focus:outline-none focus:ring-fill-color font-medium rounded-lg text-sm px-5 py-2.5 text-center mt-4 mb-6
+  }
+  .home__header-img {
+    @apply w-full h-full object-cover
+  }
+
+  /* Footer */
+  .footer {
+    @apply flex flex-row justify-center items-center gap-4 p-2 bg-fill-color fixed bottom-0 w-full border-t-4 border-t-primary
   }
 }

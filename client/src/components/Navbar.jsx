@@ -1,15 +1,17 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
+import logo from '../assets/demo_logo.svg'
+
 const Navbar = () => {
   return (
     <nav className='navbar'>
       <div className='navbar__container'>
         <div className='navbar__logo'>
-          <img src='https://flowbite.com/docs/images/logo.svg' className='navbar__logo-img' alt='MealMaster Logo' />
+          <img src={logo} className='navbar__logo-img' alt='MealMaster Logo' />
           <span className='navbar__logo-text'>MealMaster</span>
         </div>
-        <div className='navbar__cta'>
+        <div className='navbar__buttons'>
           <button type='button' className='navbar__cta-btn'>Get started</button>
           <button data-collapse-toggle='navbar-cta' type='button' className='navbar__menu-btn' aria-controls='navbar-cta' aria-expanded='false'>
             <span className='sr-only'>Open main menu</span>
