@@ -1,8 +1,6 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import secureLocalStorage from 'react-secure-storage'
-import { useDispatch } from 'react-redux'
-import { logoutUser } from '../store/actions/user'
 
 import logo from '../assets/demo_logo.svg'
 
