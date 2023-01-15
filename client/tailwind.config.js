@@ -7,13 +7,15 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['Inter', 'sans-serif'],
+        'lobster': ['Lobster', 'cursive'],
+        'roboto-slab': ['Roboto Slab', 'serif'],
+        'cambo': ['Cambo', 'serif'],
       },
       colors : {
         'primary': '#F57966',
         'secondary': '#F7BBB1',
-        'text-color-primary': '#625E5E',
-        'text-color-secondary': '#755954',
+        'text-color-primary': '#292727',
+        'text-color-secondary': '#4D3A37',
         'fill-color': '#FFE4DF',
         'gray': colors.trueGray,
       },
