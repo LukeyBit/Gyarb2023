@@ -1,9 +1,17 @@
 import React from 'react'
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
 
 import logo from '../assets/demo_logo.svg'
 
 const Navbar = () => {
+
+  const [isMenuOpen, setIsMenuOpen] = useState(false)
+
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen)
+  }
+
   return (
     <nav className='navbar'>
       <div className='navbar__container'>
@@ -13,14 +21,24 @@ const Navbar = () => {
         </div>
         <div className='navbar__buttons'>
           <button type='button' className='navbar__cta-btn'>Get started</button>
-          <button data-collapse-toggle='navbar-cta' type='button' className='navbar__menu-btn' aria-controls='navbar-cta' aria-expanded='false'>
+          <button
+          data-collapse-toggle='navbar-cta'
+          type='button' className='navbar__menu-btn'
+          aria-controls='navbar-cta'
+          aria-expanded='false'
+          onClick={toggleMenu}
+          >
             <span className='sr-only'>Open main menu</span>
             <svg className='w-6 h-6' aria-hidden='true' fill='currentColor' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'>
               <path fill-rule='evenodd' d='M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z' clip-rule='evenodd' />
               </svg>
           </button>
         </div>
-        <div className='navbar__menu' id='navbar-cta'>
+        <div 
+        {...(isMenuOpen ? {'data-collapse-open': true, 'aria-hidden': false} : {'data-collapse-open': false,'aria-hidden': true})
+        }
+        className={` navbar__menu ${isMenuOpen ? 'navbar__menu--open' : 'navbar__menu--closed'}`}
+        id='navbar-cta'>
           <ul>
             <li>
               <Link to='/' className='navbar__menu-link navbar__menu-link--active'>Home</Link>

@@ -29,17 +29,23 @@
     @apply inline-flex items-center p-2 text-sm text-primary rounded-lg md:hidden hover:bg-secondary hover:text-white focus:outline-none focus:ring-2 focus:ring-primary
   }
   .navbar__menu {
-    @apply items-center justify-between hidden w-full md:flex md:w-auto md:order-1 
-    /* hidden */
+    @apply items-center justify-between w-full md:flex md:w-auto md:order-1 ease-in-out duration-300
   }
+  .navbar__menu--open {
+    @apply translate-y-0 h-full opacity-100
+  }
+  .navbar__menu--closed {
+    @apply navbar__menu sm:-translate-y-full sm:h-0 sm:opacity-0 md:translate-y-0 md:h-full md:opacity-100
+  }
+
   .navbar__menu ul {
     @apply flex flex-col p-4 mt-4 border border-gray-100 rounded-lg bg-fill-color md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium md:border-0 md:bg-white
   }
   .navbar__menu-link {
-    @apply block py-2 pl-3 pr-4 text-text-color-primary rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-text-color-secondary md:p-0
+    @apply block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-text-color-secondary md:p-0
   }
   .navbar__menu-link--active {
-    @apply text-text-color-secondary bg-secondary rounded md:bg-transparent md:text-text-color-primary md:p-0 !important
+    @apply text-gray-700 bg-secondary rounded md:bg-transparent md:text-text-color-primary md:p-0 !important
   }
 
   /* Home */
