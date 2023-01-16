@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { loginUser } from '../store/actions/user'
 
@@ -9,6 +9,7 @@ const LogIn = () => {
   const [credentials, setCredentials] = useState({username: '', password: ''})
   const [formError, setError] = useState({message: ''})
   const dispatch = useDispatch()
+  const navigate = useNavigate()
 
   const inputChange = (e) => {
     setCredentials({...credentials, [e.target.name]: e.target.value})
@@ -30,6 +31,8 @@ const LogIn = () => {
       setError({...formError, message: 'Username and password must be at least 3 characters long and contain only letters and numbers'})
     } else {
       dispatch(loginUser(credentials))
+      console.log('login successful')
+      navigate('/discover')
     }
   }
 

@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import secureLocalStorage from 'react-secure-storage'
+import { useDispatch } from 'react-redux'
+import { logoutUser } from '../store/actions/user'
 
 import logo from '../assets/demo_logo.svg'
 
@@ -8,8 +10,17 @@ const Navbar = () => {
 
   const [isMenuOpen, setIsMenuOpen] = useState(false)
 
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen)
+  }
+
+
+  const handleLogout = (e) => {
+    dispatch(logoutUser())
+    navigate('/')
   }
 
   return (
@@ -55,7 +66,7 @@ const Navbar = () => {
                 <Link to='/profile' className='navbar__menu-link'>Profile</Link>
                 </li>
                 <li>
-                <Link to='/profile' className='navbar__menu-link'>Log out</Link>
+                  <Link to='/' onClick={handleLogout} className='navbar__menu-link navbar__menu-link__logout'>Log out</Link>
                 </li>
               </>
             ) : (

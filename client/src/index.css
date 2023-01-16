@@ -98,6 +98,9 @@
   .navbar__menu-link {
     @apply text-font block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-text-color-secondary md:p-0 md:border-none
   }
+  .navbar__menu-link__logout {
+    @apply cursor-pointer text-red-600 hover:text-red-800 !important
+  }
   .navbar__menu-link--active {
     @apply text-gray-700 border-l-4 bg-white border-l-primary rounded md:bg-transparent md:text-text-color-primary md:p-0 !important
   }
