@@ -63,7 +63,7 @@
     @apply bg-white border-gray-200 px-2 sm:px-4 py-2.5 -z-10 drop-shadow-xl
   }
   .navbar__container {
-    @apply container flex flex-wrap items-center justify-end mx-auto
+    @apply container min-w-full flex flex-wrap items-center justify-end px-4
   }
   .navbar__logo {
     @apply flex items-center mr-auto
