@@ -55,7 +55,7 @@ const Navbar = () => {
             <li>
               <NavLink to='/search' className='navbar__menu-link' >Search</NavLink>
             </li>
-            { secureLocalStorage.getItem('profile') && JSON.parse(secureLocalStorage.getItem('profile')).loggedIn ? (
+            { secureLocalStorage.getItem('profile') && secureLocalStorage.getItem('profile').loggedIn ? (
               <>
                 <li>
                 <NavLink to='/profile' className='navbar__menu-link' >Profile</NavLink>
