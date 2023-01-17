@@ -3,10 +3,10 @@ import secureLocalStorage from 'react-secure-storage'
 const userReducer = (state = [], action) => {
     switch ( action.type ) {
         case 'LOGIN':
-            secureLocalStorage.setItem('profile', JSON.stringify({ ...action?.payload.data }))
+            secureLocalStorage.setItem('profile', { ...action?.payload.data })
             return { ...state, authData: action?.payload.data }
         case 'CREATE':
-            secureLocalStorage.setItem('profile', JSON.stringify({ ...action?.payload.data }))
+            secureLocalStorage.setItem('profile', { ...action?.payload.data })
             return { ...state, authData: action?.payload.data }
         case 'LOGOUT':
             secureLocalStorage.clear()

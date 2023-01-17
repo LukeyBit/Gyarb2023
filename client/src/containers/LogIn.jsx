@@ -31,8 +31,8 @@ const LogIn = () => {
       setError({...formError, message: 'Username and password must be at least 3 characters long and contain only letters and numbers'})
     } else {
       dispatch(loginUser(credentials))
-      console.log('login successful')
-      navigate('/discover')
+      
+      navigate('/discover', { replace: true })
     }
   }
 

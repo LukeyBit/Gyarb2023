@@ -63,10 +63,10 @@
     @apply bg-white border-gray-200 px-2 sm:px-4 py-2.5 -z-10 drop-shadow-xl
   }
   .navbar__container {
-    @apply container flex flex-wrap items-center justify-between mx-auto
+    @apply container min-w-full flex flex-wrap items-center justify-end px-4
   }
   .navbar__logo {
-    @apply flex items-center
+    @apply flex items-center mr-auto
   }
   .navbar__logo-img {
     @apply h-6 mr-3 sm:h-9
@@ -101,7 +101,7 @@
   .navbar__menu-link__logout {
     @apply cursor-pointer text-red-600 hover:text-red-800 !important
   }
-  .navbar__menu-link--active {
+  .active {
     @apply text-gray-700 border-l-4 bg-white border-l-primary rounded md:bg-transparent md:text-text-color-primary md:p-0 !important
   }
 
