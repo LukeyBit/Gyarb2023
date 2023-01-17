@@ -3,7 +3,6 @@ import bcrypt from 'bcrypt'
 
 export const loginUser = async (req, res) => {
     const { username, password } = req.body
-    // Check if user exists and compare password
     db.get('SELECT * FROM users WHERE username = ?', [username], async (error, row) => {
         if (error) {
             console.error(error.message)
