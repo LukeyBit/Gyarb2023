@@ -22,8 +22,8 @@ The following are the default credentials:
 
 | Username | Password |
 |----------|----------|
-| Lukas    | pearade  |
-| Theo     | lemonade |
+| lukas    | pearade  |
+| theo     | lemonade |
 
 ### Running the server
 
