@@ -17,7 +17,7 @@ module.exports = {
         'text-color-primary': '#292727',
         'text-color-secondary': '#4D3A37',
         'fill-color': '#FFE4DF',
-        'trueGray': colors.trueGray,
+        'trueGray': colors.neutral,
       },
     },
   },
