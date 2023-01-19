@@ -1,8 +1,8 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
-import  secureLocalStorage from 'react-secure-storage'
-import { loginUser } from '../api'
+import { useDispatch, useSelector } from 'react-redux'
+import { loginUser } from '../store/actions/userActions'
+
 
 
 const LogIn = () => {
@@ -11,6 +11,8 @@ const LogIn = () => {
   const [formError, setError] = useState({message: ''})
   const dispatch = useDispatch()
   const navigate = useNavigate()
+
+  const response = useSelector(store => store.response)
 
   const inputChange = (e) => {
     setCredentials({...credentials, [e.target.name]: e.target.value})
@@ -21,37 +23,21 @@ const LogIn = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    
-    //Move validation to sign up page
-    const usernameRegex = /^[a-zA-Z0-9]{3,}$/
 
     setCredentials({...credentials, [e.target.name]: e.target.value})
 
-    if (credentials.username === '' || credentials.password === '') {
-      
+    if (credentials.username === '' || credentials.password === '') { 
       setError({...formError, message: 'Please fill in all fields'})
-    } else if (!usernameRegex.test(credentials.username)) {
-      setError({...formError, message: 'Username and password must be at least 3 characters long and contain only letters and numbers'})
     } else {
-      loginUser(credentials)
-      .then(res => {
-        if (res.status === 200) {
-          secureLocalStorage.setItem('token', res.data.token)
-          secureLocalStorage.setItem('user', res.data.user)
-          secureLocalStorage.setItem('isAuthorized', true)
-          dispatch({type: 'LOGIN', payload: res.data})
-          navigate('/discover', { replace: true })
-        }
-      })
-      .catch(err => {
-        if (err.status === 401) {
-          setError({...formError, message: 'Username or password incorrect'})
-        } else {
-          setError({...formError, message: 'Something went wrong, please try again'})
-        }
-      })
+      dispatch(loginUser(credentials))
     }
   }
+
+  useEffect(() => {
+    if (response.success) {
+      navigate('/discover')
+    }
+  }, [response, navigate])
 
   return (
     <section className='login__section' >

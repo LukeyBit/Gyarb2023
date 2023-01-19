@@ -16,14 +16,11 @@ const Navbar = () => {
   }
 
   const handleLogout = () => {
-    secureLocalStorage.clear()
     dispatch({type: 'LOGOUT'})
-    window.location.reload()
   }
 
   useEffect(() => {
     if (isAuthorized) {
-      console.log(isAuthorized)
       secureLocalStorage.setItem('isAuthorized', true)
     } else {
       secureLocalStorage.setItem('isAuthorized', false)

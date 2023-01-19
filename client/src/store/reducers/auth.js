@@ -1,3 +1,4 @@
+import secureLocalStorage from 'react-secure-storage'
 
 const initialState = {
     token: null,
@@ -8,6 +9,9 @@ const initialState = {
 const authReducer = (state = initialState, action) => {
     switch (action.type) {
         case 'LOGIN':
+            secureLocalStorage.setItem('token', action.payload.token)
+            secureLocalStorage.setItem('user', action.payload.user)
+            secureLocalStorage.setItem('isAuthorized', true)
             return {
                 ...state,
                 token: action.payload.token,
@@ -15,6 +19,7 @@ const authReducer = (state = initialState, action) => {
                 user: action.payload.user,
             }
         case 'LOGOUT':
+            secureLocalStorage.clear()
             return {
                 ...state,
                 token: null,
