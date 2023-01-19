@@ -1,24 +1,24 @@
-import { db } from '../utils/db.js'
+import { checkUser, createUser } from '../models/user.js'
+import { SECRET_KEY } from '../config/config.js'
+import jwt from 'jsonwebtoken'
 
-export const getUser = (req, res) => {
-    db.all('SELECT * FROM users', (error, rows) => {
-        if (error) {
-            console.error(error.message)
-            res.status(400).json({ error: error.message })
-            return
-        }
-        res.json(rows)
-    })
+export const loginUser = async (req, res) => {
+    const { username, password } = req.body
+    const user = await checkUser(username, password)
+    if (user.success) {
+        const token = jwt.sign({ username }, SECRET_KEY, { expiresIn: '24h' })
+        res.json({ token, user: user.user})
+    } else {
+        res.status(401).json({success: false, message: 'Invalid username or password' })
+    }
 }
 
-export const createUser = (req, res) => {
+export const signupUser = (req, res) => {
     const { username, password } = req.body
-    db.run('INSERT INTO users(username, password) VALUES (?, ?)', [username, password], (error) => {
-        if (error) {
-            console.error(error.message)
-            res.status(400).json({ error: error.message })
-            return
-        }
-        res.json({ message: 'User created' })
-    })
+    const user = createUser(username, password)
+    if (user.success) {
+        res.json({ message: user.message })
+    } else {
+        res.status(user.code).json({ message: user.message })
+    }
 }
