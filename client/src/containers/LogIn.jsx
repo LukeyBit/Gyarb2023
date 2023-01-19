@@ -22,12 +22,13 @@ const LogIn = () => {
   const handleSubmit = (e) => {
     e.preventDefault()
     
+    //Move validation to sign up page
     const usernameRegex = /^[a-zA-Z0-9]{3,}$/
 
     setCredentials({...credentials, [e.target.name]: e.target.value})
 
     if (credentials.username === '' || credentials.password === '') {
-      //Move validation to sign up page
+      
       setError({...formError, message: 'Please fill in all fields'})
     } else if (!usernameRegex.test(credentials.username)) {
       setError({...formError, message: 'Username and password must be at least 3 characters long and contain only letters and numbers'})
