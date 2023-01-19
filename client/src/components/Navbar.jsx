@@ -16,14 +16,14 @@ const Navbar = () => {
   }
 
   const handleLogout = () => {
+    console.log('logout')
     dispatch({type: 'LOGOUT'})
   }
 
   useEffect(() => {
+    console.log(isAuthorized)
     if (isAuthorized) {
       secureLocalStorage.setItem('isAuthorized', true)
-    } else {
-      secureLocalStorage.setItem('isAuthorized', false)
     }
   }, [isAuthorized])
 
@@ -64,7 +64,7 @@ const Navbar = () => {
             <li>
               <NavLink to='/search' className='navbar__menu-link' >Search</NavLink>
             </li>
-            { isAuthorized ? (
+            { secureLocalStorage.getItem('isAuthorized') ? (
               <>
                 <li>
                 <NavLink to='/profile' className='navbar__menu-link' >Profile</NavLink>
