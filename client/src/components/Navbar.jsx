@@ -21,7 +21,6 @@ const Navbar = () => {
   }
 
   useEffect(() => {
-    console.log(isAuthorized)
     if (isAuthorized) {
       secureLocalStorage.setItem('isAuthorized', true)
     }
