@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { NavLink, Link } from 'react-router-dom'
-// import secureLocalStorage from 'react-secure-storage'
+import secureLocalStorage from 'react-secure-storage'
 import { useSelector, useDispatch } from 'react-redux'
 
 
@@ -16,7 +16,7 @@ const Navbar = () => {
   }
 
   const handleLogout = () => {
-    localStorage.clear()
+    secureLocalStorage.clear()
     dispatch({type: 'LOGOUT'})
     window.location.reload()
   }
@@ -24,9 +24,9 @@ const Navbar = () => {
   useEffect(() => {
     if (isAuthorized) {
       console.log(isAuthorized)
-      localStorage.setItem('isAuthorized', true)
+      secureLocalStorage.setItem('isAuthorized', true)
     } else {
-      localStorage.setItem('isAuthorized', false)
+      secureLocalStorage.setItem('isAuthorized', false)
     }
   }, [isAuthorized])
 

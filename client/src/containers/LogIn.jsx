@@ -35,9 +35,9 @@ const LogIn = () => {
       loginUser(credentials)
       .then(res => {
         if (res.status === 200) {
-          localStorage.setItem('token', res.data.token)
-          localStorage.setItem('user', res.data.user)
-          localStorage.setItem('isAuthorized', true)
+          secureLocalStorage.setItem('token', res.data.token)
+          secureLocalStorage.setItem('user', res.data.user)
+          secureLocalStorage.setItem('isAuthorized', true)
           dispatch({type: 'LOGIN', payload: res.data})
           navigate('/discover', { replace: true })
         }
