@@ -1,44 +1,24 @@
-import { db } from '../utils/db.js'
-import bcrypt from 'bcrypt'
+import { checkUser, createUser } from '../models/user.js'
+import { SECRET_KEY } from '../config/config.js'
+import jwt from 'jsonwebtoken'
 
 export const loginUser = async (req, res) => {
     const { username, password } = req.body
-    db.get('SELECT * FROM users WHERE username = ?', [username], async (error, row) => {
-        if (error) {
-            console.error(error.message)
-            res.status(500).json({ error: error.message })
-            return
-        }
-        if (row) {
-            const match = await bcrypt.compare(password, row.password)
-            if (match) {
-                res.json({ 
-                    message: 'User logged in',
-                    data : {
-                        loggedIn: true,
-                        id: row.id,
-                        username: row.username,
-                        preferences: JSON.parse(row.preferences),
-                        items: JSON.parse(row.items)
-                    }
-                })
-            } else {
-                res.status(401).json({ error: 'Invalid credentials' })
-            }
-        } else {
-            res.status(401).json({ error: 'Invalid credentials' })
-        }
-    })
+    const user = await checkUser(username, password)
+    if (user.success) {
+        const token = jwt.sign({ username }, SECRET_KEY, { expiresIn: '1h' })
+        res.json({ token, user: user.user})
+    } else {
+        res.status(401).json({ message: 'Invalid username or password' })
+    }
 }
 
-export const createUser = (req, res) => {
+export const signupUser = (req, res) => {
     const { username, password } = req.body
-    db.run('INSERT INTO users(username, password) VALUES (?, ?)', [username, password], (error) => {
-        if (error) {
-            console.error(error.message)
-            res.status(500).json({ error: error.message })
-            return
-        }
-        res.json({ message: 'User created' })
-    })
+    const user = createUser(username, password)
+    if (user.success) {
+        res.json({ message: user.message })
+    } else {
+        res.status(user.code).json({ message: user.message })
+    }
 }

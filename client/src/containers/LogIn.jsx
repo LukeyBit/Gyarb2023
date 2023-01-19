@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
-import { loginUser } from '../store/actions/user'
+import  secureLocalStorage from 'react-secure-storage'
+import { loginUser } from '../api'
 
 
 const LogIn = () => {
@@ -26,13 +27,28 @@ const LogIn = () => {
     setCredentials({...credentials, [e.target.name]: e.target.value})
 
     if (credentials.username === '' || credentials.password === '') {
+      //Move validation to sign up page
       setError({...formError, message: 'Please fill in all fields'})
     } else if (!usernameRegex.test(credentials.username)) {
       setError({...formError, message: 'Username and password must be at least 3 characters long and contain only letters and numbers'})
     } else {
-      dispatch(loginUser(credentials))
-      
-      navigate('/discover', { replace: true })
+      loginUser(credentials)
+      .then(res => {
+        if (res.status === 200) {
+          localStorage.setItem('token', res.data.token)
+          localStorage.setItem('user', res.data.user)
+          localStorage.setItem('isAuthorized', true)
+          dispatch({type: 'LOGIN', payload: res.data})
+          navigate('/discover', { replace: true })
+        }
+      })
+      .catch(err => {
+        if (err.status === 401) {
+          setError({...formError, message: 'Username or password incorrect'})
+        } else {
+          setError({...formError, message: 'Something went wrong, please try again'})
+        }
+      })
     }
   }
 

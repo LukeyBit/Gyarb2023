@@ -1,22 +1,34 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { NavLink, Link } from 'react-router-dom'
-import secureLocalStorage from 'react-secure-storage'
-import { useDispatch } from 'react-redux'
-import { logoutUser } from '../store/actions/user'
+// import secureLocalStorage from 'react-secure-storage'
+import { useSelector, useDispatch } from 'react-redux'
+
 
 import logo from '../assets/demo_logo.svg'
 
 const Navbar = () => {
   const dispatch = useDispatch()
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const isAuthorized = useSelector(store => store.user.isAuthorized)
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen)
   }
 
   const handleLogout = () => {
-    dispatch(logoutUser())
+    localStorage.clear()
+    dispatch({type: 'LOGOUT'})
+    window.location.reload()
   }
+
+  useEffect(() => {
+    if (isAuthorized) {
+      console.log(isAuthorized)
+      localStorage.setItem('isAuthorized', true)
+    } else {
+      localStorage.setItem('isAuthorized', false)
+    }
+  }, [isAuthorized])
 
   return (
     <nav className='navbar'>
@@ -55,7 +67,7 @@ const Navbar = () => {
             <li>
               <NavLink to='/search' className='navbar__menu-link' >Search</NavLink>
             </li>
-            { secureLocalStorage.getItem('profile') && secureLocalStorage.getItem('profile').loggedIn ? (
+            { isAuthorized ? (
               <>
                 <li>
                 <NavLink to='/profile' className='navbar__menu-link' >Profile</NavLink>
