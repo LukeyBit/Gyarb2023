@@ -33,10 +33,16 @@ const LogIn = () => {
     }
   }
 
+  const loginError = () => {
+    setError({...formError, message: response.message})
+  }
+
   useEffect(() => {
     if (response.success) {
       navigate('/discover')
-    }
+    } else {
+      loginError()
+    } 
   }, [response, navigate])
 
   return (
