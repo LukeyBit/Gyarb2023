@@ -35,7 +35,6 @@ const LogIn = () => {
 
   const loginError = () => {
     setError({...formError, message: response.message})
-    dispatch({type: 'CLEAR'})
   }
 
   useEffect(() => {
