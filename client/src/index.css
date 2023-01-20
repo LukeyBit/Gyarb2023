@@ -141,6 +141,14 @@
     @apply w-full flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0
   }
 
+  /* Sign up */
+  .signUp__section {
+    @apply bg-white h-[calc(100vh-7rem)] flex flex-col justify-center items-center
+  }
+  .signUp__container {
+    @apply w-full flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0
+  }
+
   /* Footer */
   .footer {
     @apply flex flex-col md:flex-row justify-center items-center p-2 bg-fill-color static bottom-0 w-full border-t-4 border-t-primary

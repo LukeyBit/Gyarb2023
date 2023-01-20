@@ -15,10 +15,12 @@ export const loginUser = async (req, res) => {
 
 export const signupUser = (req, res) => {
     const { username, password } = req.body
-    const user = createUser(username, password)
-    if (user.success) {
-        res.json({ message: user.message })
-    } else {
+    try {
+        const user = createUser(username, password)
+        if (user.success) {
+            res.json({ message: user.message })
+        }
+    } catch (error) {
         res.status(user.code).json({ message: user.message })
     }
 }
