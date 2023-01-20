@@ -1,10 +1,16 @@
+import jwt from 'jsonwebtoken'
+import { SECRET_KEY } from '../config/config.js'
 
-const checkAuth = (req, res, next) => {
-    const token = req.headers.authorization.split(' ')[1]
-    if (token === 'null') {
-        return res.status(401).json({ message: 'Unauthenticated' })
+const verifyToken = (req, res, next) => {
+    const token = req.headers['x-access-token']
+    if (!token) {
+        return res.status(403).send({ auth: false, message: 'No token provided.' })
     }
-    const decodedToken = jwt.verify(token, SECRET_KEY)
-    req.userData = { username: decodedToken.username }
-    next()
+    jwt.verify(token, SECRET_KEY, (error, decoded) => {
+        if (error) {
+            return res.status(500).send({ auth: false, message: 'Failed to authenticate token.' })
+        }
+        req.userId = decoded.id
+        next()
+    })
 }
