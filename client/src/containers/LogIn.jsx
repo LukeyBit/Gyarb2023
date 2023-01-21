@@ -32,7 +32,7 @@ const LogIn = () => {
       dispatch(loginUser(credentials))
     }
   }
-
+  
   useEffect(() => {
     if (response.success) {
       navigate('/discover')
