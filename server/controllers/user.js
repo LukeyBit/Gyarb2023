@@ -25,6 +25,5 @@ export const signupUser = (req, res) => {
 }
 
 export const updateUser = (req, res) => {
-    const userData = req.body
-    
+    // Functionality to be added
 }
