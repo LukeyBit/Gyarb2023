@@ -25,14 +25,13 @@ export const checkUser = async (username, password) => {
 export const createUser = async (username, password) => {
     password = await bcrypt.hash(password, 10)
     return new Promise((resolve, reject) => {
-      try {
-        db.run('INSERT INTO users(username, password) VALUES (?, ?)', [username, password])
-        resolve({success: true, code: 200, message: 'User created'})
-      } catch (error) { 
-          if (error && error.message.includes('UNIQUE constraint failed: users.username')) {
-                reject({success: false, code: 401, message: 'Username already exists'})
+        db.run('INSERT INTO users(username, password) VALUES (?, ?)', [username, password], (error) => {
+            if (error && error.message.includes('UNIQUE constraint failed: users.username')) {
+                resolve({success: false, code: 401, message: 'Username already exists'})
             } else if (error) {
-                reject({success: false, code: 500, message: 'User not created'})
+                resolve({success: false, code: 500, message: 'User not created'})
             }
-          }})
+            resolve({success: true, code: 200, message: 'User created'})
+        })
+    })
 }

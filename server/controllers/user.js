@@ -13,14 +13,12 @@ export const loginUser = async (req, res) => {
     }
 }
 
-export const signupUser = (req, res) => {
+export const signupUser = async (req, res) => {
     const { username, password } = req.body
-    try {
-        const user = createUser(username, password)
-        if (user.success) {
-            res.json({ message: user.message })
-        }
-    } catch (error) {
-        res.status(user.code).json({ message: user.message })
+    const user = await createUser(username, password)
+    if (user.success) {
+        res.json({ success: user.success, message: user.message })
+    } else {
+        res.status(401).json({ success: user.success, message: user.message })
     }
 }
