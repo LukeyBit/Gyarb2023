@@ -29,15 +29,11 @@ const SignUp = () => {
     }
   }
 
-  const signupError = () => {
-    setError({...formError, message: response.message})
-  }
-
   useEffect(() => {
     if (response.success) {
       navigate('/discover')
     } else {
-      signupError()
+      setError({ message: response.message })
     }
   }, [response, navigate])
 
