@@ -7,8 +7,8 @@ import { loginUser } from '../store/actions/userActions'
 
 const LogIn = () => {
 
-  const [credentials, setCredentials] = useState({username: '', password: ''})
-  const [formError, setError] = useState({message: ''})
+  const [credentials, setCredentials] = useState({ username: '', password: '' })
+  const [formError, setError] = useState({ message: '' })
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
@@ -17,7 +17,7 @@ const LogIn = () => {
   const inputChange = (e) => {
     setCredentials({...credentials, [e.target.name]: e.target.value})
     if (credentials.username !== '' || credentials.password !== '') {
-      setError({message: null})
+      setError({ message: null })
     }
   }
 
@@ -27,21 +27,17 @@ const LogIn = () => {
     setCredentials({...credentials, [e.target.name]: e.target.value})
 
     if (credentials.username === '' || credentials.password === '') { 
-      setError({...formError, message: 'Please fill in all fields'})
+      setError({ message: 'Please fill in all fields' })
     } else {
       dispatch(loginUser(credentials))
     }
   }
-
-  const loginError = () => {
-    setError({...formError, message: response.message})
-  }
-
+  
   useEffect(() => {
     if (response.success) {
       navigate('/discover')
     } else {
-      loginError()
+      setError({ message: response.message })
     } 
   }, [response, navigate])
 
