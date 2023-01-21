@@ -29,7 +29,7 @@ const SignUp = () => {
     }
   }
 
-  const loginError = () => {
+  const signupError = () => {
     setError({...formError, message: response.message})
   }
 
@@ -37,7 +37,7 @@ const SignUp = () => {
     if (response.success) {
       navigate('/discover')
     } else {
-      loginError()
+      signupError()
     }
   }, [response, navigate])
 
