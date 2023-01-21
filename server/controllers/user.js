@@ -19,6 +19,6 @@ export const signupUser = async (req, res) => {
     if (user.success) {
         res.json({ success: user.success, message: user.message })
     } else {
-        res.status(401).json({ success: user.success, message: user.message })
+        res.status(user.code).json({ success: user.success, message: user.message })
     }
 }

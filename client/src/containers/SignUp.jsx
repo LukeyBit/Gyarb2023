@@ -11,7 +11,7 @@ const SignUp = () => {
   const response = useSelector(store => store.response)
   const navigate = useNavigate()
 
-  const usernameRegex = /^[a-zA-Z0-9]{3,}$/
+  const usernameRegex = /^[a-zåäöA-ZÅÄÖ0-9]{3,}$/
 
   const inputChange = (e) => {
     setCredentials({...credentials, [e.target.name]: e.target.value})
