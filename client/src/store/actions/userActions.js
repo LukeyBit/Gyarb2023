@@ -1,8 +1,8 @@
-import * as api from '../../api'
+import * as userAPI from '../../apis/userAPI'
 
 export const loginUser = (credentials) => async (dispatch) => {
     try {
-        const { data } = await api.loginUser(credentials)
+        const { data } = await userAPI.loginUser(credentials)
         dispatch({ type: 'SUCCESS', payload: { success: true, message: 'Logged in successfully' }})
         dispatch({ type: 'LOGIN', payload: data })
     } catch (error) {
@@ -12,7 +12,7 @@ export const loginUser = (credentials) => async (dispatch) => {
 
 export const createUser = (newUser) => async (dispatch) => {
     try {
-        const { data } = await api.createUser(newUser)
+        const { data } = await userAPI.createUser(newUser)
         dispatch({ type: 'SUCCESS', payload: { success: true, message: 'User created successfully' }})
         dispatch({ type: 'LOGIN', payload: data })
     } catch (error) {
