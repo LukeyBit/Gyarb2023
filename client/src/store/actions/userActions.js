@@ -19,3 +19,8 @@ export const createUser = (newUser) => async (dispatch) => {
         dispatch({ type: 'ERROR', payload: error.response.data })
     }
 }
+
+export const logoutUser = () => async (dispatch) => {
+    dispatch({ type: 'LOGOUT' })
+    dispatch({ type: 'SUCCESS', payload: { success: true, message: 'Logged out successfully' }})
+}

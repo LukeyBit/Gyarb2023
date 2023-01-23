@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { NavLink, Link } from 'react-router-dom'
 import secureLocalStorage from 'react-secure-storage'
 import { useSelector, useDispatch } from 'react-redux'
+import { logoutUser } from '../store/actions/userActions'
 
 
 import logo from '../assets/demo_logo.svg'
@@ -17,7 +18,7 @@ const Navbar = () => {
 
   const handleLogout = () => {
     console.log('logout')
-    dispatch({type: 'LOGOUT'})
+    dispatch(logoutUser())
   }
 
   useEffect(() => {

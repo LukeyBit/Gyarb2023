@@ -1,12 +1,13 @@
 import React from 'react'
 import { Routes, Route } from 'react-router-dom'
 import { Home, Discover, LogIn, Profile, SignUp, Search, NotFound } from './containers'
-import { Navbar, Footer } from './components'
+import { Navbar, Message, Footer } from './components'
 
 function App() {
   return (
     <>
       <Navbar />
+      <Message />
       <Routes>
         <Route path='/' element={<Home />} />
         <Route path='/discover' element={<Discover />} />
