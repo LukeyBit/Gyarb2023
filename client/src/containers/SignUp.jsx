@@ -11,7 +11,7 @@ const SignUp = () => {
   const response = useSelector(store => store.response)
   const navigate = useNavigate()
 
-  const usernameRegex = /^[a-zåäöA-ZÅÄÖ0-9]{3,}$/
+  const usernameRegex = /^[a-zåäöA-ZÅÄÖ0-9]+$/
 
   const inputChange = (e) => {
     setCredentials({...credentials, [e.target.name]: e.target.value})
@@ -22,8 +22,12 @@ const SignUp = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    if (!usernameRegex.test(credentials.username)) {
-      setError({...formError, message: 'Username and password must be at least 3 characters long and contain only letters and numbers'})
+    if (credentials.username.length < 3 || credentials.password.length < 3) {
+      setError({...formError, message: 'Usernames and passwords must be at least 3 characters long'})
+      dispatch({type: 'ERROR', payload: {message: 'Usernames and passwords must be at least 3 characters long'}})
+    } else if (!usernameRegex.test(credentials.username)) {
+      setError({...formError, message: 'Usernames can only contain only letters and numbers'})
+      dispatch({type: 'ERROR', payload: {message: 'Usernames can only contain only letters and numbers'}})
     } else {
       dispatch(createUser(credentials))
     }

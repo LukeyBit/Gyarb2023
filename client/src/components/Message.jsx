@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { BiX } from 'react-icons/bi'
+import { BiX, BiCheck } from 'react-icons/bi'
 import { useSelector } from 'react-redux'
 
 const Message = () => {
@@ -12,7 +12,7 @@ const Message = () => {
       setShow(true)
       setTimeout(() => {
         setShow(false)
-      }, 10000)
+      }, 5000)
     }
   }, [response])
 
@@ -25,7 +25,12 @@ const Message = () => {
         `}
         
         role='alert'>
-        <span className='flex rounded-full bg-white uppercase px-2 py-1 text-xs font-bold ml-2 text-text-color-secondary'>Update</span>
+        <span className='flex rounded-full bg-white uppercase px-2 py-1 ml-2 mr-4 text-text-color-secondary'>{
+        response.success
+        ? <BiCheck />
+        : '!'
+        
+      }</span>
         <span className='text-font mr-2 text-white'>{response.message}</span>
         <BiX
           className='mr-2 w-8 h-8 hover:cursor-pointer hover:text-white'
