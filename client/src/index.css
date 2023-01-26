@@ -107,7 +107,7 @@
 
   /* Home */
   .home__header {
-    @apply w-full flex justify-center items-center flex-col h-[calc(100vh-4rem)]  bg-cover bg-center bg-no-repeat;
+    @apply w-full flex justify-center items-center flex-col h-[calc(100vh-4.6rem)]  bg-cover bg-center bg-no-repeat;
     background-image: url("https://img.freepik.com/free-photo/salad-from-tomatoes-cucumber-red-onions-lettuce-leaves-healthy-summer-vitamin-menu-vegan-vegetable-food-vegetarian-dinner-table-top-view-flat-lay_2829-6482.jpg?w=1380&t=st=1673740157~exp=1673740757~hmac=5b5f6d980e4300c39618bd9e91c1329883b36957f999b00be92818293c2337b9");
   }
   .home__header-backdrop {
@@ -130,6 +130,10 @@
   }
   .home__header-img {
     @apply w-full h-full object-cover
+  }
+  .home__team-img {
+    @apply w-32 h-32 object-cover bg-cover bg-center bg-no-repeat;
+    background-image: url("https://img.freepik.com/free-vector/employees-giving-hands-helping-colleagues-walk-upstairs_74855-5236.jpg?w=1060&t=st=1674737748~exp=1674738348~hmac=21029036f351aafc770931624eeec6eec9f05843dfa8e56f0e54951fd4d39c21");
   }
 
   /* Log in */
