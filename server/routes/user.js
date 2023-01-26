@@ -8,6 +8,6 @@ router.post('/login', loginUser)
 
 router.post('/create', signupUser)
 
-router.post('/update', verifyToken, updateUser)
+router.patch('/update', verifyToken, updateUser)
 
 export default router
