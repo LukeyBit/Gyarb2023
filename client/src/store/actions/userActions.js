@@ -20,7 +20,7 @@ export const createUser = (newUser) => async (dispatch) => {
     }
 }
 
-export const logoutUser = () => async (dispatch) => {
+export const logoutUser = () => (dispatch) => {
     dispatch({ type: 'LOGOUT' })
     dispatch({ type: 'SUCCESS', payload: { success: true, message: 'Logged out successfully' }})
 }

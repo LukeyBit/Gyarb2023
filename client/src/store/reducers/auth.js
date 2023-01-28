@@ -19,7 +19,9 @@ const authReducer = (state = initialState, action) => {
                 user: action.payload.user,
             }
         case 'LOGOUT':
+            console.log('LOGOUT')
             secureLocalStorage.clear()
+            secureLocalStorage.setItem('isAuthorized', false)
             return {
                 ...state,
                 token: null,
