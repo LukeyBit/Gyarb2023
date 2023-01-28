@@ -1,22 +1,27 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useCallback } from 'react'
 import { BiX, BiCheck } from 'react-icons/bi'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 
 const Message = () => {
   const response = useSelector(store => store.response)
   const [show, setShow] = useState(false)
+  const dispatch = useDispatch()
+
+  const closeMessage = useCallback(() => {
+    dispatch({ type: 'CLEAR' })
+    setShow(false)
+  }, [dispatch, setShow])
 
   useEffect(() => {
     if (response && response.message) {
-      console.log('response', response)
       setShow(true)
       setTimeout(() => {
-        setShow(false)
+        closeMessage()
       }, 5000)
     } else {
       setShow(false)
     }
-  }, [response])
+  }, [response, closeMessage])
 
   return (
       <div 
@@ -37,7 +42,7 @@ const Message = () => {
         <span className='text-font mr-2 text-white w-fit'>{response.message}</span>
         <BiX
           className='mr-2 w-8 h-8 hover:cursor-pointer hover:text-white'
-          onClick={() => setShow(false)}
+          onClick={closeMessage}
           />
       </div>
   )
