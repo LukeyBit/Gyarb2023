@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import { BiMenu } from 'react-icons/bi'
 import { NavLink, Link } from 'react-router-dom'
 import secureLocalStorage from 'react-secure-storage'
@@ -17,9 +17,9 @@ const Navbar = () => {
     setIsMenuOpen(!isMenuOpen)
   }
 
-  const handleLogout = () => {
+  const handleLogout = useCallback(() => {
     dispatch(logoutUser())
-  }
+  }, [dispatch])
 
   useEffect(() => {
     if (isAuthorized) {
