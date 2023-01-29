@@ -29,3 +29,9 @@ yarn-error.log*
 # Database
 *.db
 *.sqlite
+
+# Scripts
+*.sh
+*.bat
+*.cmd
+/scripts
