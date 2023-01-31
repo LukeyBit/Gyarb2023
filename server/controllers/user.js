@@ -5,8 +5,8 @@ import jwt from 'jsonwebtoken'
 export const loginUser = async (req, res) => {
     const { username, password } = req.body
     const user = await checkUser(username, password)
-    const id = user.user.id
     if (user.success) {
+        const id = user.user.id
         const token = jwt.sign({ id }, SECRET_KEY, { expiresIn: '24h' })
         res.json({ token, user: user.user})
     } else {
