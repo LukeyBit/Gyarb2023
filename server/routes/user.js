@@ -6,7 +6,7 @@ const router = express.Router()
 
 router.post('/login', loginUser)
 
-router.post('/create', signupUser)
+router.put('/create', signupUser)
 
 router.patch('/update', verifyToken, updateUser)
 
