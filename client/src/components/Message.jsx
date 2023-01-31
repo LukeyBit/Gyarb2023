@@ -6,7 +6,7 @@ const Message = () => {
   const response = useSelector(store => store.response)
   const [show, setShow] = useState(false)
   const dispatch = useDispatch()
-
+  
   const closeMessage = useCallback(() => {
     dispatch({ type: 'CLEAR' })
     setShow(false)
