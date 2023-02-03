@@ -27,3 +27,7 @@ export const signupUser = async (req, res) => {
 export const updateUser = (req, res) => {
     // Functionality to be added
 }
+
+export const authUser = (req, res) => {
+    res.json({ success: true, message: 'User authenticated' })
+}
