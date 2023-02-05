@@ -29,5 +29,6 @@ export const updateUser = (req, res) => {
 }
 
 export const authUser = (req, res) => {
+    console.log('User authenticated')
     res.json({ success: true, message: 'User authenticated' })
 }
