@@ -1,4 +1,4 @@
-import { checkUser, createUser } from '../models/user.js'
+import { checkUser, createUser, updatePassword } from '../models/user.js'
 import { SECRET_KEY } from '../config/config.js'
 import jwt from 'jsonwebtoken'
 
@@ -26,4 +26,16 @@ export const signupUser = async (req, res) => {
 
 export const updateUser = (req, res) => {
     // Functionality to be added
+}
+
+export const updatePass = async (req, res) => {
+    const { id, password, oldPassword } = req.body
+    const user = await updatePassword(id, password, oldPassword)
+    if (user.success) {
+        res.json({ success: user.success, message: user.message })
+    } else {
+        res.status(user.code).json({ success: user.success, message: user.message })
+    }
+
+    
 }

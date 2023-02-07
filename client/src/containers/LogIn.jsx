@@ -21,8 +21,6 @@ const LogIn = () => {
   const handleSubmit = (e) => {
     e.preventDefault()
 
-    setCredentials({ ...credentials, [e.target.name]: e.target.value })
-
     if (credentials.username === '' || credentials.password === '') {
       dispatch({ type: 'ERROR', payload: { success: false, message: 'Please fill in all fields' } })
     } else {
