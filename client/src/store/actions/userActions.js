@@ -24,3 +24,13 @@ export const logoutUser = () => (dispatch) => {
     dispatch({ type: 'LOGOUT' })
     dispatch({ type: 'SUCCESS', payload: { success: true, message: 'Logged out successfully' }})
 }
+
+export const updatePassword = (password) => async (dispatch) => {
+    try {
+        const { data } = await userAPI.updatePassword(password)
+        dispatch({ type: 'SUCCESS', payload: { success: true, message: 'Password updated successfully' }})
+        dispatch({ type: 'LOGIN', payload: data })
+    } catch (error) {
+        dispatch({ type: 'ERROR', payload: error.response.data })
+    }
+}

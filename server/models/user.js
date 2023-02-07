@@ -35,3 +35,14 @@ export const createUser = async (username, password) => {
         })
     })
 }
+
+export const updateUser = (id, username, password) => {
+    return new Promise((resolve, reject) => {
+        db.run('UPDATE users SET username = ?, password = ? WHERE id = ?', [username, password, id], (error) => {
+            if (error) {
+                reject(error)
+            }
+            resolve(true)
+        })
+    })
+}
