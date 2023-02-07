@@ -10,6 +10,7 @@ const ProtectedRoute = ({ requirement = true }) => {
 
 
     useEffect(() => {
+        setAuth(secureLocalStorage.getItem('isAuthorized') || false)
         if (auth !== requirement) {
             if (requirement) {
                 dispatch({ type: 'ERROR', payload: {message: 'You must log in to visit this page'} })

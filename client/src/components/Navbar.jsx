@@ -11,6 +11,7 @@ import logo from '../assets/demo_logo.svg'
 const Navbar = () => {
   const dispatch = useDispatch()
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [auth, setAuth] = useState(secureLocalStorage.getItem('isAuthorized') || false)
   const isAuthorized = useSelector(store => store.user.isAuthorized)
 
   const toggleMenu = () => {
@@ -19,10 +20,12 @@ const Navbar = () => {
 
   const handleLogout = useCallback(() => {
     dispatch(logoutUser())
+    setAuth(false)
   }, [dispatch])
 
   useEffect(() => {
     if (isAuthorized) {
+      setAuth(true)
       secureLocalStorage.setItem('isAuthorized', true)
     }
   }, [isAuthorized])
@@ -62,7 +65,7 @@ const Navbar = () => {
             <li>
               <NavLink to='/search' className='navbar__menu-link' >Search</NavLink>
             </li>
-            { secureLocalStorage.getItem('isAuthorized') ? (
+            { auth ? (
               <>
                 <li>
                 <NavLink to='/profile' className='navbar__menu-link' >Profile</NavLink>
