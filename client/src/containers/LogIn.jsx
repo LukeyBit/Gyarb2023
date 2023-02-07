@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { loginUser } from '../store/actions/userActions'
-import secureLocalStorage from 'react-secure-storage'
 
 
 
@@ -11,8 +10,6 @@ const LogIn = () => {
   const [credentials, setCredentials] = useState({ username: '', password: '' })
   const dispatch = useDispatch()
   const navigate = useNavigate()
-
-  const response = useSelector(store => store.response)
 
   const inputChange = (e) => {
     setCredentials({ ...credentials, [e.target.name]: e.target.value })
@@ -28,14 +25,9 @@ const LogIn = () => {
       dispatch({ type: 'ERROR', payload: { success: false, message: 'Please fill in all fields' } })
     } else {
       dispatch(loginUser(credentials))
+      navigate('/discover', { replace: true })
     }
   }
-
-  useEffect(() => {
-    if (secureLocalStorage.getItem('isAuthorized')) {
-      navigate('/discover')
-    }
-  }, [response, navigate])
 
   return (
     <section className='login__section' >
