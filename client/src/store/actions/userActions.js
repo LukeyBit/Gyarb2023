@@ -1,4 +1,5 @@
 import * as userAPI from '../../apis/userAPI'
+import secureLocalStorage from 'react-secure-storage'
 
 export const loginUser = (credentials) => async (dispatch) => {
     try {
@@ -25,11 +26,10 @@ export const logoutUser = () => (dispatch) => {
     dispatch({ type: 'SUCCESS', payload: { success: true, message: 'Logged out successfully' }})
 }
 
-export const updatePassword = (password) => async (dispatch) => {
+export const updatePassword = (credentials) => async (dispatch) => {
     try {
-        const { data } = await userAPI.updatePassword(password)
-        dispatch({ type: 'SUCCESS', payload: { success: true, message: 'Password updated successfully' }})
-        dispatch({ type: 'LOGIN', payload: data })
+        const { data } = await userAPI.updatePassword(secureLocalStorage.getItem('user').id, credentials.password, credentials.oldPassword)
+        dispatch({ type: 'SUCCESS', payload: { success: true, message: data.message }})
     } catch (error) {
         dispatch({ type: 'ERROR', payload: error.response.data })
     }
