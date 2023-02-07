@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import secureLocalStorage from 'react-secure-storage'
-import { useDispatch, useSelector } from 'react-redux'
-import { Link, useNavigate } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
 import { updatePassword } from '../store/actions/userActions'
 import { BiPencil } from 'react-icons/bi'
 
@@ -9,7 +8,6 @@ const Settings = () => {
     const user = secureLocalStorage.getItem('user')
     const [credentials, setCredentials] = useState({ password: '', oldPassword: '' })
     const dispatch = useDispatch()
-    const navigate = useNavigate()
 
     const inputChange = (e) => {
         setCredentials({ ...credentials, [e.target.name]: e.target.value })

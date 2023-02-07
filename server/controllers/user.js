@@ -30,7 +30,6 @@ export const updateUser = (req, res) => {
 
 export const updatePass = async (req, res) => {
     const { id, password, oldPassword } = req.body
-    console.log(req.body)
     const user = await updatePassword(id, password, oldPassword)
     if (user.success) {
         res.json({ success: user.success, message: user.message })

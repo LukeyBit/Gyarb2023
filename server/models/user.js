@@ -84,17 +84,11 @@ export const updatePassword = (id, password, oldPassword) => {
           resolve({ success: false, code: 500, message: "User was not found" });
         }
         if (row) {
-            console.log(oldPassword)
-            console.log(row)
           const match = await bcrypt.compare(oldPassword, row.password);
-          console.log(match);
           if (match) {
             password = await bcrypt.hash(password, 10);
-            console.log(password);
             db.run(
-              "Update users SET password = ? WHERE id = ?",
-              [password, id],
-              (error) => {
+              "UPDATE users SET password = ? WHERE id = ?", [password, id], (error) => {
                 if (error) {
                   resolve({
                     success: false,
@@ -102,13 +96,13 @@ export const updatePassword = (id, password, oldPassword) => {
                     message: "Password not updated",
                   });
                 }
-                resolve({
-                  success: true,
-                  code: 200,
-                  message: "Password updated",
-                });
               }
-            );
+            )
+            resolve({
+                success: true,
+                code: 200,
+                message: "Password updated",
+              })
           }
           resolve({
             success: false,
