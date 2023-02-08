@@ -88,7 +88,9 @@ export const updatePassword = (id, password, oldPassword) => {
           if (match) {
             password = await bcrypt.hash(password, 10);
             db.run(
-              "UPDATE users SET password = ? WHERE id = ?", [password, id], (error) => {
+              "UPDATE users SET password = ? WHERE id = ?",
+              [password, id],
+              (error) => {
                 if (error) {
                   resolve({
                     success: false,
@@ -97,12 +99,12 @@ export const updatePassword = (id, password, oldPassword) => {
                   });
                 }
               }
-            )
+            );
             resolve({
-                success: true,
-                code: 200,
-                message: "Password updated",
-              })
+              success: true,
+              code: 200,
+              message: "Password updated",
+            });
           }
           resolve({
             success: false,
@@ -114,3 +116,32 @@ export const updatePassword = (id, password, oldPassword) => {
     );
   });
 };
+
+export const updateUsername = (id, username) => {
+  return new Promise((resolve, reject) => {
+    db.get("SELECT username FROM users ", (error, row) => {
+      if (error) {
+        resolve({ success: false, code: 500, message: "Server error" });
+      }
+      if (row) {
+        if (row.username === username) {
+          resolve({
+            success: false,
+            code: 401,
+            message: "Username already exists",
+          });
+        }
+        db.run(
+          "UPDATE users SET username = ? WHERE id = ?",
+          [username, id],
+          (error) => {
+            if (error) {
+              resolve({ success: false, code: 500, message: "Server error" });
+            }
+            resolve({ success: true, code: 200, message: "Username updated" });
+          }
+        )
+      }
+    })
+  })
+}
