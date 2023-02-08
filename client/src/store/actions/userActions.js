@@ -34,3 +34,15 @@ export const updatePassword = (credentials) => async (dispatch) => {
         dispatch({ type: 'ERROR', payload: error.response.data })
     }
 }
+
+export const updateUsername = (username) => async (dispatch) => {
+    try {
+        const { data } = await userAPI.updateUsername(secureLocalStorage.getItem('user').id, username.username)
+        dispatch({ type: 'SUCCESS', payload: { success: true, message: data.message }})
+        const user = secureLocalStorage.getItem('user') 
+        user.username = username.username
+        secureLocalStorage.setItem('user', user)
+    } catch (error) {
+        dispatch({ type: 'ERROR', payload: error.response.data })
+    }
+}
