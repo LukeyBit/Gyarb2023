@@ -24,10 +24,6 @@ export const signupUser = async (req, res) => {
     }
 }
 
-export const updateUser = (req, res) => {
-    // Functionality to be added
-}
-
 export const updatePass = async (req, res) => {
     const { id, password, oldPassword } = req.body
     const user = await updatePassword(id, password, oldPassword)
