@@ -1,13 +1,13 @@
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { loginUser } from '../store/actions/userActions'
 
 
 
 const LogIn = () => {
-
   const [credentials, setCredentials] = useState({ username: '', password: '' })
+  const response = useSelector(state => state.response)
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
@@ -25,7 +25,9 @@ const LogIn = () => {
       dispatch({ type: 'ERROR', payload: { success: false, message: 'Please fill in all fields' } })
     } else {
       dispatch(loginUser(credentials))
-      navigate('/discover', { replace: true })
+      if (response.success) {
+        navigate('/discover', { replace: true })
+      }
     }
   }
 
