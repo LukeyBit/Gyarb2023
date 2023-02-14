@@ -12,7 +12,8 @@ export const updatePassword = (id, password, oldPassword, token) => {
             'X-Auth-Token': token
         }
     }
-    return axios.patch(`${url}/updatePassword`, {id, password, oldPassword}, {}, config)}
+    return axios.patch(`${url}/updatePassword`, {id, password, oldPassword}, {}, config)
+}
 
 export const updateUsername = (id, username, token) => {
     let config = {
@@ -20,4 +21,5 @@ export const updateUsername = (id, username, token) => {
             'X-Auth-Token': token
         }
     }
-    axios.patch(`${url}/updateUsername`, {id, username}, {}, config)}
+    return axios.patch(`${url}/updateUsername`, {id, username}, {}, config)
+}
