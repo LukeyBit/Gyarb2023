@@ -28,7 +28,7 @@ export const logoutUser = () => (dispatch) => {
 
 export const updatePassword = (credentials) => async (dispatch) => {
     try {
-        const { data } = await userAPI.updatePassword(secureLocalStorage.getItem('user').id, credentials.password, credentials.oldPassword)
+        const { data } = await userAPI.updatePassword(secureLocalStorage.getItem('user').id, credentials.password, credentials.oldPassword, secureLocalStorage.getItem('token'))
         dispatch({ type: 'SUCCESS', payload: { success: true, message: data.message }})
     } catch (error) {
         dispatch({ type: 'ERROR', payload: error.response.data })
@@ -37,7 +37,7 @@ export const updatePassword = (credentials) => async (dispatch) => {
 
 export const updateUsername = (username) => async (dispatch) => {
     try {
-        const { data } = await userAPI.updateUsername(secureLocalStorage.getItem('user').id, username.username)
+        const { data } = await userAPI.updateUsername(secureLocalStorage.getItem('user').id, username.username, secureLocalStorage.getItem('token'))
         dispatch({ type: 'SUCCESS', payload: { success: true, message: data.message }})
         const user = secureLocalStorage.getItem('user') 
         user.username = username.username

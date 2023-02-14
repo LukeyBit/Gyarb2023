@@ -39,7 +39,6 @@ const Navbar = () => {
           </Link>
         </div>
         <div className='navbar__buttons'>
-          <button type='button' className='navbar__cta-btn'>Get started</button>
           <button
             data-collapse-toggle='navbar-cta'
             type='button' className='navbar__menu-btn'
