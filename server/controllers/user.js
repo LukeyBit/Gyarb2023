@@ -7,7 +7,7 @@ export const loginUser = async (req, res) => {
     const user = await checkUser(username, password)
     if (user.success) {
         const id = user.user.id
-        const token = jwt.sign({ id }, SECRET_KEY, { expiresIn: '24h' })
+        const token = jwt.sign({ id }, SECRET_KEY, { expiresIn: '1m' })
         res.json({ token, user: user.user})
     } else {
         res.status(401).json({success: false, message: 'Invalid username or password' })
