@@ -88,10 +88,10 @@
     @apply items-center justify-between md:justify-center w-full md:flex md:w-auto ease-in-out md:order-1 duration-300 md:text-center md:justify-items-center;
   }
   .navbar__menu--open {
-    @apply translate-y-0 h-full opacity-100;
+    @apply navbar__menu translate-y-0 h-full opacity-100;
   }
   .navbar__menu--closed {
-    @apply navbar__menu -translate-y-full h-0 opacity-0 md:translate-y-0 md:h-full md:opacity-100;
+    @apply navbar__menu -translate-y-[1000vh] h-0 opacity-0 md:translate-y-0 md:h-full md:opacity-100;
   }
   .navbar__menu ul {
     @apply flex flex-col p-4 mt-4 border border-gray-100 rounded-lg bg-fill-color md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium md:border-0 md:bg-white;
