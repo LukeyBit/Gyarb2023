@@ -46,3 +46,15 @@ export const updateUsername = (username) => async (dispatch) => {
         dispatch({ type: 'ERROR', payload: error.response.data })
     }
 }
+
+export const updateTags = (tags) => async (dispatch) => {
+    try {
+        const user = secureLocalStorage.getItem('user') 
+        const { data } = await userAPI.updateTags(user.id, tags, secureLocalStorage.getItem('token'))
+        dispatch({ type: 'SUCCESS', payload: { success: true, message: data.message }}) 
+        user.preferences = tags
+        secureLocalStorage.setItem('user', user)
+    } catch (error) {
+        dispatch({ type: 'ERROR', payload: error.response.data })
+    }
+}

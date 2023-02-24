@@ -1,4 +1,4 @@
-import { checkUser, createUser, updatePassword, updateUsername } from '../models/user.js'
+import { checkUser, createUser, updatePassword, updateUsername, tagsUpdate } from '../models/user.js'
 import { SECRET_KEY } from '../config/config.js'
 import jwt from 'jsonwebtoken'
 
@@ -37,6 +37,16 @@ export const updatePass = async (req, res) => {
 export const updateName = async (req, res) => {
     const {id, username} = req.body
     const user = await updateUsername(id, username)
+    if (user.success) {
+        res.json({ success: user.success, message: user.message })
+    } else {
+        res.status(user.code).json({ success: user.success, message: user.message })
+    }
+}
+
+export const updateTags = async (req, res) => {
+    const {id, tags} = req.body
+    const user = await tagsUpdate(id, tags)
     if (user.success) {
         res.json({ success: user.success, message: user.message })
     } else {

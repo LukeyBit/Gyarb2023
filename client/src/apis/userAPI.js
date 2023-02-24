@@ -25,3 +25,12 @@ export const updateUsername = (id, username, token) => {
   }
   return axios.patch(`${url}/updateUsername`, { id, username }, config)
 }
+
+export const updateTags = (id, tags, token) => {
+  let config = {
+    headers: {
+      "x-access-token": token,
+    },
+  }
+  return axios.patch(`${url}/updateTags`, { id, tags }, config)
+}
