@@ -1,11 +1,11 @@
-import React, { useState, useRef, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import { updateTags } from '../store/actions/userActions'
 import secureLocalStorage from 'react-secure-storage'
 
 const Preferences = () => {
 
-    let user = useRef(secureLocalStorage.getItem('user'))
+    let userTags = secureLocalStorage.getItem('user').preferences || []
     const dispatch = useDispatch()
 
     const [preferenceTags, setPreferenceTags] = useState([
@@ -26,8 +26,8 @@ const Preferences = () => {
     const [search, setSearch] = useState('')
 
     useEffect(() => {
-        setClickedTags([...user.current.preferences])
-        setPreferenceTags(preferenceTags.filter(tag => !user.current.preferences.includes(tag)))
+        setClickedTags([...userTags])
+        setPreferenceTags(preferenceTags.filter(tag => !userTags.includes(tag)))
     }, [])
 
     const handleSubmit = (e) => {
