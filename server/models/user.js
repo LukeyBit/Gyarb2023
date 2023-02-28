@@ -12,7 +12,7 @@ export const checkUser = async (username, password) => {
         if (match) {
           resolve({ success: true, code: 200, user: { id: row.id, username: row.username, preferences: JSON.parse(row.preferences), items: JSON.parse(row.items) } })
         } else {
-          resolve(false)
+          resolve(false);
         }
       } else {
         resolve(false)
@@ -22,7 +22,7 @@ export const checkUser = async (username, password) => {
 }
 
 export const createUser = async (username, password) => {
-  password = await bcrypt.hash(password, 10)
+  password = await bcrypt.hash(password, 10);
   return new Promise((resolve, reject) => {
     db.run('INSERT INTO users(username, password) VALUES (?, ?)', [username, password], (error) => {
       if (error && error.message.includes('UNIQUE constraint failed: users.username')) {
@@ -87,5 +87,20 @@ export const updateUsername = (id, username) => {
         })
       }
     })
+  })
+}
+
+export const tagsUpdate = (id, tags) => {
+  return new Promise((resolve, reject) => {
+    db.run(
+      "UPDATE users SET preferences = ? WHERE id = ?",
+      [JSON.stringify(tags), id],
+      (error) => {
+        if (error) {
+          resolve({ success: false, code: 500, message: "Server error" });
+        }
+        resolve({ success: true, code: 200, message: "Tags updated" });
+      }
+    )
   })
 }
