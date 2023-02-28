@@ -5,7 +5,9 @@ import secureLocalStorage from 'react-secure-storage'
 
 const Preferences = () => {
 
-    let userTags = secureLocalStorage.getItem('user').preferences || []
+    const user = secureLocalStorage.getItem('user')
+    let userTags = user.preferences || []
+    let userRating = user.rating || {}
     const dispatch = useDispatch()
 
     const [preferenceTags, setPreferenceTags] = useState([
@@ -18,16 +20,38 @@ const Preferences = () => {
         'Paleo',
         'Low Carb',
         'Low Fat',
-        'Low Sodium'
+        'Low Sodium',
+        'Low Sugar',
+        'Egg Free',
+        'Peanut Free',
+        'Tree Nut Free',
+        'Soy Free',
+        'Fish Free',
+        'Shellfish Free',
+        'Sesame Free',
+        'Mustard Free',
+        'Sulfite Free',
+        'Lupine Free',
+        'Mollusk Free',
+        'Wheat Free',
+        'Rye Free',
+        'Barley Free',
+        'Oat Free'
+    ])
+
+    const [pictures, setPictures] = useState([
+        {link:'https://eu-central-1.linodeobjects.com/tasteline/2011/03/kebab-foto-linnea-sward-mathem.jpg', name:'Kebab'},
+        {link:'https://ik.imagekit.io/schysstkak/photos/1x1/SCHYSST_KAK_Spicy_kebabpizza_Recept_1x1.png', name:'Kebab pizza'},
     ])
 
     const [searchResult, setSearchResult] = useState([])
     const [clickedTags, setClickedTags] = useState([])
     const [search, setSearch] = useState('')
 
+
     useEffect(() => {
         setClickedTags([...userTags])
-        setPreferenceTags(preferenceTags.filter(tag => !userTags.includes(tag)))
+        setPreferenceTags(preferenceTags.filter(tag => !userTags.includes(tag))) // eslint-disable-next-line
     }, [])
 
     const handleSubmit = (e) => {
@@ -62,6 +86,14 @@ const Preferences = () => {
             }
         }
         setSearch(document.getElementById('search').value)
+    }
+
+
+    const handleRating = (e) => {
+        e.preventDefault()
+        const rating = e.target.id
+        console.log(rating)
+
     }
 
     return (
@@ -104,6 +136,19 @@ const Preferences = () => {
                     </div>
                     <button type='submit' className='rounded self-end p-1 mt-5 mr-5 mb-5 border border-secondary text-secondary hover:text-primary hover:border-primary hover:animate-pulse'>Save tags</button>
                 </form>
+            </div>
+            <div className='w-full flex flex-col items-center mt-5'>
+                <h1 className='text-text-color-primary text-font my-3'>Which is better?</h1>
+                <div className='flex flex-row gap-12'>
+                    {pictures.map((pic) => {
+                        return (
+                            <div onClick={handleRating} className='h-60 w-60 text-center' key={pic.name}>
+                                <img id={pic.name} className='rounded hover:border-4 hover:border-primary duration-100' src={pic.link} alt="food_pic" />
+                                <p className='mt-2 text-font text-lg'>{pic.name}</p>
+                            </div>
+                        )}
+                    )}
+                </div>
             </div>
         </div>
     )
