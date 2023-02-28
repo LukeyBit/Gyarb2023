@@ -5,7 +5,7 @@ import { updatePassword, updateUsername } from '../store/actions/userActions'
 import { BiPencil } from 'react-icons/bi'
 
 const Settings = () => {
-    let user = useRef(secureLocalStorage.getItem('user'))
+    const user = useRef(secureLocalStorage.getItem('user') || {})
     const [credentials, setCredentials] = useState({ password: '', oldPassword: '' })
     const [username, setUsername] = useState({ username: '' })
     const dispatch = useDispatch()

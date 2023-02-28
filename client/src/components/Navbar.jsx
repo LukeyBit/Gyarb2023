@@ -26,7 +26,6 @@ const Navbar = () => {
   useEffect(() => {
     if (isAuthorized) {
       setAuth(true)
-      secureLocalStorage.setItem('isAuthorized', true)
     }
   }, [isAuthorized])
 
@@ -68,7 +67,7 @@ const Navbar = () => {
                   <NavLink to='/profile' className='navbar__menu-link' >Profile</NavLink>
                 </li>
                 <li>
-                  <Link to='/' onClick={handleLogout} className='navbar__menu-link navbar__menu-link__logout' >Log out</Link>
+                  <Link to='/' onClick={handleLogout} className='navbar__menu-link navbar__menu-link__logout'>Log out</Link>
                 </li>
               </>
             ) : (
