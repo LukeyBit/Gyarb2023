@@ -6,6 +6,7 @@ import Message from './Message'
 import ProtectedRoute from './ProtectedRoute'
 import Settings from './Settings'
 import Preferences from './Preferences'
+import Filters from './Filters'
 
 export {
     Navbar,
@@ -15,5 +16,6 @@ export {
     Message,
     ProtectedRoute,
     Settings,
-    Preferences
+    Preferences,
+    Filters
 }

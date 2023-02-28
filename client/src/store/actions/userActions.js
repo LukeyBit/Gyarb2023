@@ -14,8 +14,8 @@ export const loginUser = (credentials) => async (dispatch) => {
 export const createUser = (newUser) => async (dispatch) => {
     try {
         const { data } = await userAPI.createUser(newUser)
-        dispatch({ type: 'SUCCESS', payload: { success: true, message: 'User created successfully' }})
-        dispatch({ type: 'LOGIN', payload: data })
+        dispatch({ type: 'SUCCESS', payload: { success: true, message: data.message }})
+        dispatch(loginUser(newUser))
     } catch (error) {
         dispatch({ type: 'ERROR', payload: error.response.data })
     }
