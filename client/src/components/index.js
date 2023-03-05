@@ -7,6 +7,7 @@ import ProtectedRoute from './ProtectedRoute'
 import Settings from './Settings'
 import Preferences from './Preferences'
 import Filters from './Filters'
+import Filter from './Filter'
 
 export {
     Navbar,
@@ -17,5 +18,6 @@ export {
     ProtectedRoute,
     Settings,
     Preferences,
-    Filters
+    Filters,
+    Filter
 }
