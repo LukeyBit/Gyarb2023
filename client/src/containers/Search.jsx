@@ -3,18 +3,18 @@ import { Filters } from '../components'
 import { getRecipes } from '../apis/recipeAPI'
 
 const Search = () => {
-  const [search, setSearch] = useState('')
+  const [query, setQuery] = useState('')
   const [results, setResults] = useState([])
 
   const handleSearchChange = (e) => {
-    setSearch(e.target.value)
+    setQuery(e.target.value)
   }
 
   const handleSearchSubmit = async (e) => {
     e.preventDefault()
-
-    if (search !== '') {
-      const { data } = await getRecipes(search)
+    let filters = JSON.parse(sessionStorage.getItem('filters')) || {}
+    if (query !== '' || filters !== {}) {
+      const { data } = await getRecipes(query)
       setResults(data.hits)
       console.log(data)
     }
@@ -25,6 +25,7 @@ const Search = () => {
   //TODO Add "load more" button when scrolling down
   //TODO Add keyword handling
   //TODO Add links to recipes
+  //TODO Change image to thumbnail
 
   return (
     <div className='flex flex-row justify-between min-h-[calc(100vh-7rem)]'>
