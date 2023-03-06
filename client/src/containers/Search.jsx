@@ -42,9 +42,9 @@ const Search = () => {
         <div className='mr-8' >
           {results.length > 0
             ? results.map((result) => (
-              <div key={result.recipe.uri} className='flex md:flex-row flex-col mb-6 gap-x-2 border-2 border-gray-200' >
-                <img src={result.recipe.image} alt={result.recipe.label} className='md:object-scale-down h-40 object-cover' />
-                <div className='text-sm text-font flex flex-col justify-between' >
+              <div key={result.recipe.uri} className='flex md:flex-row flex-col mb-6 border-2 border-gray-200' >
+                <img src={result.recipe.images.REGULAR.url} alt={result.recipe.label} className='md:object-scale-down h-40 object-cover' />
+                <div className='text-sm text-font flex flex-col justify-between mt-2 ml-2 md:mt-0' >
                   <div>
                     <h1 className='title-font text-2xl' >{result.recipe.label}</h1>
                     <p className='text-sm' >Calories: {parseInt(result.recipe.calories)} kcal</p>
