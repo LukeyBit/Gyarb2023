@@ -17,9 +17,6 @@ const Filter = ({ filterName, filterItems }) => {
     const [items, setItems] = useState(filterItems.filter((item) => !currentItems().includes(item)).sort())
     const [dropdownOpen, setDropdownOpen] = useState(false)
 
-    //TODO Add calorie slider
-    //TODO Change to radio buttons for single select filters
-
     const toggleMenu = () => {
         setDropdownOpen(!dropdownOpen)
     }
@@ -37,7 +34,7 @@ const Filter = ({ filterName, filterItems }) => {
 
     return (
         <>
-            <button id='dropdownBgHoverButton' data-dropdown-toggle='dropdownBgHover' className='text-xl text-font w-full flex flex-row justify-center align-middle hover:bg-secondary' type='button' onClick={toggleMenu}>{filterName.charAt(0).toUpperCase() + filterName.slice(1)}
+            <button id='dropdownBgHoverButton' data-dropdown-toggle='dropdownBgHover' className='text-xl text-font w-full flex flex-row justify-start pl-4 align-middle hover:bg-secondary' type='button' onClick={toggleMenu}>{filterName.charAt(0).toUpperCase() + filterName.slice(1)}
                 <svg className='w-4 h-4 ml-2 my-auto' aria-hidden='true' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
                     <path strokeLinecap='round' strokeLinejoin='round' strokeWidth='2' d='M19 9l-7 7-7-7'></path>
                 </svg>

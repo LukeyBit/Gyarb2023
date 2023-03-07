@@ -1,12 +1,14 @@
 import React, { useState, useRef } from 'react'
+import { useDispatch } from 'react-redux'
 import { Filters } from '../components'
-import { getRecipes } from '../apis/recipeAPI'
+import { getRecipes, getNextRecipes } from '../apis/recipeAPI'
 
 const Search = () => {
   const noResultsMessage = useRef('Search for recipes by keywords and/or filters')
   const [query, setQuery] = useState('')
-  const [results, setResults] = useState([])
+  const [results, setResults] = useState({})
   const [toTopVisible, setToTopVisible] = useState(false)
+  const dispatch = useDispatch()
 
   const handleSearchChange = (e) => {
     setQuery(e.target.value)
@@ -18,9 +20,18 @@ const Search = () => {
     let filters = JSON.parse(sessionStorage.getItem('filters')) || {}
     if (query !== '' || filters !== {}) {
       const { data } = await getRecipes(query)
-      setResults(data.hits)
-      console.log(data)
+      setResults(data)
+      console.log(results)
+    } else {
+      dispatch({ type: 'ERROR', payload: { success: false, message: 'Please fill in a search phrase or select a filter' } })
     }
+  }
+
+  const handleGetNext = async () => {
+    const { data } = await getNextRecipes(results._links.next.href)
+    data.hits = [...results.hits, ...data.hits]
+    setResults({ ...results, to: data.to, count: data.count, _links: data._links, hits: data.hits })
+    console.log(data)
   }
 
   window.addEventListener('scroll', () => {
@@ -31,11 +42,10 @@ const Search = () => {
     }
   })
 
-  //TODO Add "load more" button when scrolling down
-  //TODO Add keyword handling
   //TODO Add links to recipes
   //TODO Change image to thumbnail
   //TODO Add button to clear filters
+  //TODO Add calorie slider
 
   return (
     <div className='flex flex-row justify-between min-h-[calc(100vh-7rem)]'>
@@ -52,23 +62,31 @@ const Search = () => {
           </div>
         </form>
         <div className='flex flex-col justify-center align-middle' >
-          {results.length > 0
-            ? results.map((result) => (
-              <div key={result.recipe.uri} className='flex md:flex-row flex-col mb-6 border-2 border-gray-200' >
-                <img src={result.recipe.images.REGULAR.url} alt={result.recipe.label} className='md:object-scale-down h-40 object-cover' />
-                <div className='text-sm text-font flex flex-col justify-between mt-2 ml-2 md:mt-0' >
-                  <div>
-                    <h1 className='title-font text-2xl' >{result.recipe.label}</h1>
-                    <p className='text-sm' >Portions: {result.recipe.yield}</p>
-                    <p className='text-sm' >Ingredients: {result.recipe.ingredients.length}</p>
-                    <p className='text-sm' >Calories: {parseInt(result.recipe.calories)} kcal</p>
-                    <p className='mr-1'>Type: {result.recipe.dishType[0].charAt(0).toUpperCase() + result.recipe.dishType[0].slice(1)}</p>
+          {
+            results.hits && results.hits.length > 0
+              ? results.hits.map((result) => (
+                <div key={result._links.self.href} className='flex md:flex-row flex-col mb-6 border-2 border-gray-200' >
+                  <img src={result.recipe.images.SMALL.url} alt={result.recipe.label} className='md:object-scale-down h-40 object-cover' />
+                  <div className='text-sm text-font flex flex-col justify-between mt-2 ml-2 md:mt-0' >
+                    <div>
+                      <h1 className='title-font text-2xl' >{result.recipe.label}</h1>
+                      <p className='text-sm' >Portions: {result.recipe.yield}</p>
+                      <p className='text-sm' >Ingredients: {result.recipe.ingredients.length}</p>
+                      <p className='text-sm' >Calories: {parseInt(result.recipe.calories)} kcal</p>
+                      <p className='mr-1'>Type: {result.recipe.dishType ? result.recipe.dishType[0].charAt(0).toUpperCase() + result.recipe.dishType[0].slice(1) : 'Undefined'}</p>
+                    </div>
+                    <p className='text-sm mb-2' >Source: {result.recipe.source}</p>
                   </div>
-                  <p className='text-sm mb-2' >Source: {result.recipe.source}</p>
                 </div>
-              </div>
-            ))
-            : <div className='text-font text-2xl text-center' >{noResultsMessage.current}</div>}
+              ))
+              : <div className='text-font text-2xl text-center' >{noResultsMessage.current}</div>
+          }
+          {
+            results.hits && results.hits.length > 0 && results.to < results.count &&
+            <button className='text-font text-white bg-primary hover:bg-secondary focus:ring-4 focus:outline-none focus:ring-secondary font-medium rounded-lg px-3 py-2.5 mb-12' onClick={handleGetNext} type='button' >
+              Load more
+            </button>
+          }
         </div>
       </div>
       {
