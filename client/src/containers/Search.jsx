@@ -3,6 +3,7 @@ import { Filters } from '../components'
 import { getRecipes } from '../apis/recipeAPI'
 
 const Search = () => {
+  let noResultsMessage = 'Search for recipes by keywords and/or filters'
   const [query, setQuery] = useState('')
   const [results, setResults] = useState([])
 
@@ -12,6 +13,7 @@ const Search = () => {
 
   const handleSearchSubmit = async (e) => {
     e.preventDefault()
+    noResultsMessage = 'No results found'
     let filters = JSON.parse(sessionStorage.getItem('filters')) || {}
     if (query !== '' || filters !== {}) {
       const { data } = await getRecipes(query)
@@ -47,6 +49,8 @@ const Search = () => {
                 <div className='text-sm text-font flex flex-col justify-between mt-2 ml-2 md:mt-0' >
                   <div>
                     <h1 className='title-font text-2xl' >{result.recipe.label}</h1>
+                    <p className='text-sm' >Portions: {result.recipe.yield}</p>
+                    <p className='text-sm' >Ingredients: {result.recipe.ingredients.length}</p>
                     <p className='text-sm' >Calories: {parseInt(result.recipe.calories)} kcal</p>
                     <p className='mr-1'>Type: {result.recipe.dishType[0].charAt(0).toUpperCase() + result.recipe.dishType[0].slice(1)}</p>
                   </div>
@@ -54,7 +58,7 @@ const Search = () => {
                 </div>
               </div>
             ))
-            : <div className='flex flex-row text-font text-2xl' >No results</div>}
+            : <div className='flex flex-row text-font text-2xl' >{noResultsMessage}</div>}
         </div>
       </div>
     </div>
