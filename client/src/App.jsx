@@ -1,6 +1,6 @@
 import React from 'react'
 import { Routes, Route } from 'react-router-dom'
-import { Home, Discover, LogIn, Profile, SignUp, Search, NotFound } from './containers'
+import { Home, Discover, LogIn, Profile, SignUp, Search, NotFound, Recipe } from './containers'
 import { Navbar, Message, Footer, ProtectedRoute } from './components'
 
 function App() {
@@ -19,7 +19,6 @@ function App() {
           <Route path='/signup' element={<SignUp />} />
         </Route>
         <Route path='/search' element={<Search />} />
-        
         <Route path='*' element={<NotFound />} />
       </Routes>
       <Footer />
