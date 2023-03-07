@@ -43,7 +43,6 @@ const Search = () => {
   })
 
   //TODO Add links to recipes
-  //TODO Change image to thumbnail
   //TODO Add button to clear filters
   //TODO Add calorie slider
 
