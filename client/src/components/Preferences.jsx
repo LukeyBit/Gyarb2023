@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import { updateTags } from '../store/actions/userActions'
 import secureLocalStorage from 'react-secure-storage'
+import { params, getRecipes } from '../apis/recipeAPI'
 
 const Preferences = () => {
 
@@ -10,34 +11,8 @@ const Preferences = () => {
     let userRating = user.rating || {}
     const dispatch = useDispatch()
 
-    const [preferenceTags, setPreferenceTags] = useState([
-        'Vegan',
-        'Vegetarian',
-        'Gluten Free',
-        'Dairy Free',
-        'Pescatarian',
-        'Keto',
-        'Paleo',
-        'Low Carb',
-        'Low Fat',
-        'Low Sodium',
-        'Low Sugar',
-        'Egg Free',
-        'Peanut Free',
-        'Tree Nut Free',
-        'Soy Free',
-        'Fish Free',
-        'Shellfish Free',
-        'Sesame Free',
-        'Mustard Free',
-        'Sulfite Free',
-        'Lupine Free',
-        'Mollusk Free',
-        'Wheat Free',
-        'Rye Free',
-        'Barley Free',
-        'Oat Free'
-    ])
+
+    const [preferenceTags, setPreferenceTags] = useState(params.recipeParams.health)
 
     const [pictures, setPictures] = useState([
         {link:'https://eu-central-1.linodeobjects.com/tasteline/2011/03/kebab-foto-linnea-sward-mathem.jpg', name:'Kebab'},
@@ -47,10 +22,23 @@ const Preferences = () => {
     const [searchResult, setSearchResult] = useState([])
     const [clickedTags, setClickedTags] = useState([])
     const [search, setSearch] = useState('')
+    const [recipes, setRecipes] = useState([])
+
+    const func = async () => {
+        if (userTags.length === 0) {
+            const { data } = await getRecipes(`&health=${preferenceTags[Math.random() * preferenceTags.length | 0]}`)
+            setRecipes(data.hits)
+        }
+        else {
+            const { data } = await getRecipes(`&health=${userTags.join('&health=')}`)
+            setRecipes(data.hits)
+        }
+    }
 
 
     useEffect(() => {
         setClickedTags([...userTags])
+        func()
         setPreferenceTags(preferenceTags.filter(tag => !userTags.includes(tag))) // eslint-disable-next-line
     }, [])
 
@@ -111,7 +99,7 @@ const Preferences = () => {
                             <div className='flex flex-wrap overflow-y-auto'>
                                 {clickedTags.map((tag) => {
                                     return (
-                                        <div className='flex justify-center flex-row w-24 h-min text-secondary m-1 p-1 rounded border border-secondary hover:border-primary hover:text-primary hover:animate-pulse' key={tag}>
+                                        <div className='flex justify-center flex-row w-max h-min text-secondary m-1 p-1 rounded border border-secondary hover:border-primary hover:text-primary hover:animate-pulse' key={tag}>
                                             <input type="checkbox" checked={true} onChange={handleCheck} name={tag} id={tag} className='mt-2 mr-2 hidden peer' />
                                             <label htmlFor={tag} className='text-sm font-semibold cursor-pointer'>{tag}</label>
                                         </div>
@@ -126,7 +114,7 @@ const Preferences = () => {
                             {searchResult.length === 0 && <p className='text-sm m-2'>No tags found</p>}
                             {searchResult.map((tag) => {
                                 return (
-                                    <div className='flex justify-center flex-row w-24 h-min text-secondary m-1 p-1 rounded border border-secondary hover:border-primary hover:text-primary hover:animate-pulse' key={tag}>
+                                    <div className='flex justify-center flex-row w-max h-min text-secondary m-1 p-1 rounded border border-secondary hover:border-primary hover:text-primary hover:animate-pulse' key={tag}>
                                             <input type="checkbox" onChange={handleCheck} name={tag} id={tag} className='mt-2 mr-2 hidden peer' />
                                             <label htmlFor={tag} className='text-sm font-semibold cursor-pointer'>{tag}</label>
                                     </div>
@@ -137,7 +125,7 @@ const Preferences = () => {
                     <button type='submit' className='rounded self-end p-1 mt-5 mr-5 mb-5 border border-secondary text-secondary hover:text-primary hover:border-primary hover:animate-pulse'>Save tags</button>
                 </form>
             </div>
-            <div className='w-full flex flex-col items-center mt-5'>
+            <div className='w-full flex flex-col items-center mt-5 mb-10'>
                 <h1 className='text-text-color-primary text-font my-3'>Which is better?</h1>
                 <div className='flex flex-row gap-12'>
                     {pictures.map((pic) => {

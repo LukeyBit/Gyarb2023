@@ -1,3 +1,3 @@
-import * as recipeAPI from './recipeAPI'
+import { params, getRecipes } from './recipeAPI'
 
-export { recipeAPI }
+export { params, getRecipes }
