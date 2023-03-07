@@ -41,7 +41,7 @@ const Filter = ({ filterName, filterItems }) => {
             </button>
 
             <div id='dropdownBgHover' className={`z-10 w-full rounded-lg ${dropdownOpen ? null : 'hidden'}`} >
-                <ul className='text-sm h-full w-full max-h-[69vh] overflow-y-auto' aria-labelledby='dropdownBgHoverButton'>
+                <ul className='text-sm h-full w-full max-h-[61vh] overflow-y-auto' aria-labelledby='dropdownBgHoverButton'>
                     {currentItems().map((item) => (
                         <li key={item} className='h-10 flex flex-row justify-start align-middle border-2 border-primary'>
                             <input id={item} type='checkbox' name={item} className='ml-4 mr-2' onChange={filterChange} checked />
