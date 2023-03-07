@@ -43,8 +43,6 @@ const Search = () => {
   })
 
   //TODO Add links to recipes
-  //TODO Add button to clear filters
-  //TODO Add calorie slider
 
   return (
     <div className='flex flex-row justify-between min-h-[calc(100vh-7rem)]'>
