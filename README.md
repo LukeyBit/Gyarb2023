@@ -1,6 +1,6 @@
 # Gymnasiearbete 2023
 
-## Projekt: MealMaster
+**Projekt: MealMaster**
 
 ## Setup and running the server
 

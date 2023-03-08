@@ -6,10 +6,22 @@ const appID = params.appID
 const appKey = params.appKey
 
 export const getRecipes = (query) => {
-    console.log(query)
-    axios.get(`${url}&q=${query}&app_id=${appID}&app_key=${appKey}`)
-        .then(res => {
-            console.log(res)
-        }
-    )
+    let reqUrl = `${url}&q=${query}&app_id=${appID}&app_key=${appKey}`
+
+    let filters = JSON.parse(sessionStorage.getItem('filters')) || {}
+    if (filters !== {} && filters !== null) {
+        Object.keys(filters).forEach((key) => {
+            filters[key].forEach((filter) => {
+                reqUrl += `&${key}=${filter}`
+            })
+        })
+    }
+
+    return axios.get(reqUrl)
 }
+
+export const getNextRecipes = (reqUrl) => axios.get(reqUrl)
+
+export const getRecipe = (id) => axios.get(`${url}&r=http://www.edamam.com/ontologies/edamam.owl%23recipe_${id}&app_id=${appID}&app_key=${appKey}`)
+
+export { params }
