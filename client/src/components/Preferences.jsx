@@ -102,10 +102,12 @@ const Preferences = () => {
 
     const handleRating = (e) => {
         e.preventDefault()
+        
         recipes[e.target.id].recipe.healthLabels.forEach(label => {
+            label = label.replace(/ /g, '-')
             setUserRating({...userRating, health: {...userRating.health, [label.toLowerCase()]: userRating.health[label.toLowerCase()] + 1}})
         })
-        console.log(userRating)
+
         getTwoRecipes(pictures[1].index+1, recipes)
     }
 

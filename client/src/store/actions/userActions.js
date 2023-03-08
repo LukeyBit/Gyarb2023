@@ -58,3 +58,14 @@ export const updateTags = (tags) => async (dispatch) => {
         dispatch({ type: 'ERROR', payload: error.response.data })
     }
 }
+
+export const updateRating = (rating) => async (dispatch) => {
+    try {
+        const user = secureLocalStorage.getItem('user') 
+        const { data } = await userAPI.updateRating(user.id, rating, secureLocalStorage.getItem('token'))
+        user.rating = rating
+        secureLocalStorage.setItem('user', user)
+    } catch (error) {
+        dispatch({ type: 'ERROR', payload: error.response.data })
+    }
+}
