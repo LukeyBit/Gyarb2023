@@ -42,7 +42,7 @@ const Recipe = () => {
           <div>
             <h2 className='text-xl text-font mb-2'>Diets:</h2>
             <ul className='subtitle-font'>
-              {recipe.dietLabels.map((label, index) => (
+              {recipe.dietLabels.map((label) => (
                 <li className='list-disc' key={label}>{label}</li>
               ))}
             </ul>
@@ -50,7 +50,7 @@ const Recipe = () => {
           <div>
             <h2 className='text-xl text-font mb-2'>Cautions:</h2>
             <ul className='subtitle-font'>
-              {recipe.cautions.map((caution, index) => (
+              {recipe.cautions.map((caution) => (
                 <li className='list-disc' key={caution}>{caution}</li>
               ))}
             </ul>
