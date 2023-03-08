@@ -88,7 +88,7 @@ const Search = () => {
       </div>
       {
         toTopVisible &&
-        <button className='fixed bottom-4 right-4 bg-primary rounded-full p-1.5 text-white'
+        <button className='fixed bottom-8 right-8 bg-primary rounded-full p-1.5 text-white'
           onClick={() => { window.scrollTo({ top: 0, behavior: 'smooth' }) }}
           aria-describedby='Return to the top of the page' >
           <svg className='w-5 h-5' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'><path strokeLinecap='round' strokeLinejoin='round' strokeWidth='2' d='M5 10l7-7m0 0l7 7m-7-7v18'></path></svg>

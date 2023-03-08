@@ -20,7 +20,7 @@ export const getRecipes = (query) => {
     return axios.get(reqUrl)
 }
 
-export const getNextRecipes = (url) => axios.get(url)
+export const getNextRecipes = (reqUrl) => axios.get(reqUrl)
 
 export const getRecipe = (id) => axios.get(`${url}&r=http://www.edamam.com/ontologies/edamam.owl%23recipe_${id}&app_id=${appID}&app_key=${appKey}`)
 

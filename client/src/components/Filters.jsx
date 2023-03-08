@@ -20,7 +20,7 @@ const Filters = () => {
         }
       </div>
       <div className='flex justify-center'>
-        <button className='text-font text-white bg-primary hover:bg-secondary focus:ring-4 focus:outline-none focus:ring-secondary font-medium rounded-lg px-3 py-2 mb-6 mt-4' onClick={handleReset} >Reset</button>
+        <button className='text-font text-white bg-primary hover:bg-secondary focus:ring-4 focus:outline-none focus:ring-secondary font-medium rounded-lg px-3 py-2 mb-6 mt-4' onClick={handleReset} >Clear filters</button>
       </div>
     </div>
   )
