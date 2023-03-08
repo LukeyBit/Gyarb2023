@@ -2,21 +2,27 @@ import React, { useState, useEffect, useRef } from 'react'
 import { useDispatch } from 'react-redux'
 import { updateTags } from '../store/actions/userActions'
 import secureLocalStorage from 'react-secure-storage'
-import { params, getRecipes } from '../apis/recipeAPI'
+import { params, getRandomRecipes } from '../apis/recipeAPI'
 
 const Preferences = () => {
 
+    const tagsToObject = () => {
+        let obj = {}
+        params.recipeParams.health.forEach(tag => {
+            tag = tag.toLowerCase()
+            obj[tag] = 0
+        })
+        return obj
+    }
+
     const user = secureLocalStorage.getItem('user')
     let userTags = user.preferences || []
-    let userRating = user.rating || {}
-    let url = ''
     const isMounted = useRef(false)
     const dispatch = useDispatch()
 
-
     const [preferenceTags, setPreferenceTags] = useState(params.recipeParams.health)
 
-    
+    const [userRating , setUserRating] = useState(user.rating || {health: tagsToObject()})
     const [search, setSearch] = useState('')
     const [recipes, setRecipes] = useState([])
     const [pictures, setPictures] = useState([])
@@ -24,23 +30,17 @@ const Preferences = () => {
     const [searchResult, setSearchResult] = useState([])
 
     const loadData = async () => {
-        if (url !== '') {
-            const { data } = await getRecipes(url)
-            setRecipes(data.hits)
-            getTwoRecipes(0, data.hits)
-        }
-
         if (userTags.length === 0) {
-            const { data } = await getRecipes(`&health=${preferenceTags[Math.random() * preferenceTags.length | 0]}`)
+            const { data } = await getRandomRecipes(`&health=${preferenceTags[Math.random() * preferenceTags.length | 0]}`)
             setRecipes(data.hits)
             getTwoRecipes(0, data.hits)
-        }
-        else {
-            const { data } = await getRecipes(`&health=${userTags.join('&health=')}`)
+        } else {
+            const { data } = await getRandomRecipes(`&health=${userTags.join('&health=')}`)
             setRecipes(data.hits)
             getTwoRecipes(0, data.hits)
         }
     }
+
 
     const getTwoRecipes = (index, data) => {
         if (index >= 20) {
@@ -49,8 +49,8 @@ const Preferences = () => {
             const r1 = data[index]
             const r2 = data[index + 1]
             setPictures([
-                {link:r1.recipe.image, name:r1.recipe.label, cuisineType:r1.recipe.cuisineType, healtLabels:r1.recipe.healthLabels},
-                {link:r2.recipe.image, name:r2.recipe.label, cuisineType:r2.recipe.cuisineType, healtLabels:r2.recipe.healthLabels, index: index + 1}
+                {link:r1.recipe.image, name:r1.recipe.label, index: index},
+                {link:r2.recipe.image, name:r2.recipe.label, index: index + 1}
             ])
         }
     }
@@ -102,8 +102,10 @@ const Preferences = () => {
 
     const handleRating = (e) => {
         e.preventDefault()
-        const rating = e.target.id
-        console.log(rating)
+        recipes[e.target.id].recipe.healthLabels.forEach(label => {
+            setUserRating({...userRating, health: {...userRating.health, [label.toLowerCase()]: userRating.health[label.toLowerCase()] + 1}})
+        })
+        console.log(userRating)
         getTwoRecipes(pictures[1].index+1, recipes)
     }
 
@@ -153,8 +155,8 @@ const Preferences = () => {
                 <div className='flex flex-row gap-12'>
                     {pictures.map((pic) => {
                         return (
-                            <div onClick={handleRating} className='h-60 w-60 text-center' key={pic.name}>
-                                <img id={pic.name} className='rounded hover:border-4 hover:border-primary duration-100' src={pic.link} alt="food_pic" />
+                            <div onClick={handleRating} className='h-60 w-60 text-center' key={pic.index}>
+                                <img id={pic.index} className='rounded hover:border-4 hover:border-primary duration-100' src={pic.link} alt="food_pic" />
                                 <p className='mt-2 text-font text-lg'>{pic.name}</p>
                             </div>
                         )}
