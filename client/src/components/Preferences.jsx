@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { useDispatch } from 'react-redux'
 import { updateTags } from '../store/actions/userActions'
 import secureLocalStorage from 'react-secure-storage'
@@ -9,37 +9,60 @@ const Preferences = () => {
     const user = secureLocalStorage.getItem('user')
     let userTags = user.preferences || []
     let userRating = user.rating || {}
+    let url = ''
+    const isMounted = useRef(false)
     const dispatch = useDispatch()
 
 
     const [preferenceTags, setPreferenceTags] = useState(params.recipeParams.health)
 
-    const [pictures, setPictures] = useState([
-        {link:'https://eu-central-1.linodeobjects.com/tasteline/2011/03/kebab-foto-linnea-sward-mathem.jpg', name:'Kebab'},
-        {link:'https://ik.imagekit.io/schysstkak/photos/1x1/SCHYSST_KAK_Spicy_kebabpizza_Recept_1x1.png', name:'Kebab pizza'},
-    ])
-
-    const [searchResult, setSearchResult] = useState([])
-    const [clickedTags, setClickedTags] = useState([])
+    
     const [search, setSearch] = useState('')
     const [recipes, setRecipes] = useState([])
+    const [pictures, setPictures] = useState([])
+    const [clickedTags, setClickedTags] = useState([])
+    const [searchResult, setSearchResult] = useState([])
 
-    const func = async () => {
+    const loadData = async () => {
+        if (url !== '') {
+            const { data } = await getRecipes(url)
+            setRecipes(data.hits)
+            getTwoRecipes(0, data.hits)
+        }
+
         if (userTags.length === 0) {
             const { data } = await getRecipes(`&health=${preferenceTags[Math.random() * preferenceTags.length | 0]}`)
             setRecipes(data.hits)
+            getTwoRecipes(0, data.hits)
         }
         else {
             const { data } = await getRecipes(`&health=${userTags.join('&health=')}`)
             setRecipes(data.hits)
+            getTwoRecipes(0, data.hits)
+        }
+    }
+
+    const getTwoRecipes = (index, data) => {
+        if (index >= 20) {
+            loadData()
+        } else {
+            const r1 = data[index]
+            const r2 = data[index + 1]
+            setPictures([
+                {link:r1.recipe.image, name:r1.recipe.label, cuisineType:r1.recipe.cuisineType, healtLabels:r1.recipe.healthLabels},
+                {link:r2.recipe.image, name:r2.recipe.label, cuisineType:r2.recipe.cuisineType, healtLabels:r2.recipe.healthLabels, index: index + 1}
+            ])
         }
     }
 
 
     useEffect(() => {
-        setClickedTags([...userTags])
-        func()
-        setPreferenceTags(preferenceTags.filter(tag => !userTags.includes(tag))) // eslint-disable-next-line
+        if (!isMounted.current) {
+            loadData()
+            setClickedTags([...userTags])
+            setPreferenceTags(preferenceTags.filter(tag => !userTags.includes(tag))) 
+            isMounted.current = true
+        }// eslint-disable-next-line
     }, [])
 
     const handleSubmit = (e) => {
@@ -81,7 +104,7 @@ const Preferences = () => {
         e.preventDefault()
         const rating = e.target.id
         console.log(rating)
-
+        getTwoRecipes(pictures[1].index+1, recipes)
     }
 
     return (
