@@ -70,7 +70,7 @@ const Recipe = () => {
           <button className='text-xl text-font hover:text-primary hover:cursor-pointer flex flex-row items-center' onClick={toggleDropdown} >More nutritional facts <BiRightArrow className={`ml-1 transition-all ${dropdown && 'rotate-90'}`} size={18} /> </button>
         </div>
         {dropdown && (
-          <div className='flex flex-col items-start'>
+          <div className='flex flex-col items-start mb-10'>
             <table className='md:table-fixed table-auto'>
               <thead className='uppercase'>
                 <tr className='border-b border-gray-500'>
