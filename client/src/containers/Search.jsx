@@ -21,7 +21,6 @@ const Search = () => {
     if (query !== '' || filters !== {}) {
       const { data } = await getRecipes(query)
       setResults(data)
-      console.log(results)
     } else {
       dispatch({ type: 'ERROR', payload: { success: false, message: 'Please fill in a search phrase or select a filter' } })
     }
@@ -31,7 +30,6 @@ const Search = () => {
     const { data } = await getNextRecipes(results._links.next.href)
     data.hits = [...results.hits, ...data.hits]
     setResults({ ...results, to: data.to, count: data.count, _links: data._links, hits: data.hits })
-    console.log(data)
   }
 
   window.addEventListener('scroll', () => {
