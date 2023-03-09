@@ -10,7 +10,7 @@ const Team = () => {
           </div>
           <div className='grid gap-8 mb-6 lg:mb-16 md:grid-cols-2'>
             <div className='items-center bg-gray-50 rounded-lg shadow sm:flex dark:bg-gray-800 dark:border-gray-700'>
-            <div className='home__team-img'></div>
+            <div className='w-32 h-32 object-cover bg-cover bg-center bg-no-repeat home__team-img'></div>
               <div className='p-5'>
                 <h3 className='text-xl font-bold tracking-tight text-gray-900 dark:text-white'>
                   <p>Lukas Andersson</p>
@@ -32,7 +32,7 @@ const Team = () => {
               </div>
             </div>
             <div className='items-center bg-gray-50 rounded-lg shadow sm:flex dark:bg-gray-800 dark:border-gray-700'>
-              <div className='home__team-img'></div>
+              <div className='w-32 h-32 object-cover bg-cover bg-center bg-no-repeat home__team-img'></div>
               <div className='p-5'>
                 <h3 className='text-xl font-bold tracking-tight text-gray-900 dark:text-white'>
                   <p>Theo Lindqvist</p>

@@ -5,7 +5,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Lobster&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Cambo&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Roboto+Slab&display=swap");
-/* @import url('https://fonts.googleapis.com/css2?family=Cambo&family=Lobster&family=Roboto+Slab&display=swap'); */
 
 :root {
   --primary: #f57966;
@@ -27,141 +26,17 @@
     @apply font-cambo;
   }
 
-  /* Form */
-  .form__box {
-    @apply w-full bg-white rounded-lg drop-shadow-xl md:mt-0 sm:max-w-md xl:p-0;
-  }
-  .form__container {
-    @apply p-6 space-y-4 md:space-y-6 sm:p-8;
-  }
-  .form__title {
-    @apply title-font text-xl leading-tight tracking-tight text-text-color-primary md:text-3xl;
-  }
-  .form__label {
-    @apply text-font block mb-2 text-sm font-medium text-text-color-primary;
-  }
-  .form__input {
-    @apply subtitle-font justify-center align-middle bg-gray-50 border-gray-300 border text-text-color-primary sm:text-sm rounded-lg focus:ring-primary focus:outline-none focus:border-primary focus:border block w-full p-2.5;
-  }
-  .form__input--error {
-    @apply border-red-500;
-  }
-  .form__error {
-    @apply text-red-500 text-sm;
-  }
-  .form__submit {
-    @apply text-font w-full text-white bg-primary hover:bg-secondary focus:ring-4 focus:outline-none focus:ring-secondary font-medium rounded-lg text-sm px-5 py-2.5 text-center;
-  }
-  .form__link-text {
-    @apply text-sm subtitle-font font-light text-text-color-secondary;
-  }
-  .form__link-link {
-    @apply font-bold text-text-color-primary hover:underline;
-  }
-
-  /* Navbar */
-  .navbar {
-    @apply bg-white border-gray-200 px-2 sm:px-4 py-2.5 -z-10 drop-shadow-xl;
-  }
-  .navbar__container {
-    @apply container min-w-full flex flex-wrap items-center justify-end px-4;
-  }
-  .navbar__logo {
-    @apply flex items-center mr-auto;
-  }
-  .navbar__logo-img {
-    @apply h-6 mr-3 sm:h-9;
-  }
-  .navbar__logo-text {
-    @apply self-center text-3xl title-font whitespace-nowrap text-text-color-primary;
-  }
-  .navbar__buttons {
-    @apply flex md:order-2;
-  }
-  .navbar__cta-btn {
-    @apply text-font text-white bg-primary hover:bg-secondary focus:ring-4 focus:outline-none focus:ring-fill-color font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-3 md:mr-0 md:ml-2;
-  }
-  .navbar__menu-btn {
-    @apply inline-flex items-center p-2 text-sm text-primary rounded-lg md:hidden hover:bg-secondary hover:text-white focus:outline-none focus:ring-2 focus:ring-primary;
-  }
-  .navbar__menu {
-    @apply items-center justify-between md:justify-center w-full md:flex md:w-auto ease-in-out md:order-1 duration-300 md:text-center md:justify-items-center;
-  }
-  .navbar__menu--open {
-    @apply navbar__menu translate-y-0 h-full opacity-100;
-  }
-  .navbar__menu--closed {
-    @apply navbar__menu -translate-y-[1000vh] h-0 opacity-0 md:translate-y-0 md:h-full md:opacity-100;
-  }
-  .navbar__menu ul {
-    @apply flex flex-col p-4 mt-4 border border-gray-100 rounded-lg bg-fill-color md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium md:border-0 md:bg-white;
-  }
-  .navbar__menu-link {
-    @apply text-font block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-text-color-secondary md:p-0 md:border-none;
-  }
-  .navbar__menu-link__logout {
-    @apply cursor-pointer text-red-600 hover:text-red-800 !important;
-  }
+  /* Active link */
   .active {
     @apply text-gray-700 border-l-4 bg-white border-l-primary rounded md:bg-transparent md:text-text-color-primary md:p-0 !important;
   }
 
   /* Home */
-  .home__header {
-    @apply w-full flex justify-center items-center flex-col h-[calc(100vh-4.6rem)]  bg-cover bg-center bg-no-repeat;
+  .home__header-background {
     background-image: url("https://img.freepik.com/free-photo/salad-from-tomatoes-cucumber-red-onions-lettuce-leaves-healthy-summer-vitamin-menu-vegan-vegetable-food-vegetarian-dinner-table-top-view-flat-lay_2829-6482.jpg?w=1380&t=st=1673740157~exp=1673740757~hmac=5b5f6d980e4300c39618bd9e91c1329883b36957f999b00be92818293c2337b9");
   }
-  .home__header-backdrop {
-    @apply w-full h-full flex flex-col justify-center items-center backdrop-blur-sm bg-gray-400/20;
-  }
-  .home__header-container {
-    @apply flex flex-col justify-center items-center bg-white p-6 rounded-md shadow-lg;
-  }
-  .home__header-text {
-    @apply flex flex-col justify-center items-center;
-  }
-  .home__header-title {
-    @apply title-font text-6xl font-bold text-center text-text-color-primary mb-4;
-  }
-  .home__header-subtitle {
-    @apply text-xl text-font text-center text-text-color-secondary;
-  }
-  .home__header-btn {
-    @apply text-font text-white bg-primary hover:bg-secondary focus:ring-4 focus:outline-none focus:ring-fill-color font-medium rounded-lg text-sm px-5 py-2.5 text-center mt-4 mb-6;
-  }
-  .home__header-img {
-    @apply w-full h-full object-cover;
-  }
+  
   .home__team-img {
-    @apply w-32 h-32 object-cover bg-cover bg-center bg-no-repeat;
     background-image: url("https://img.freepik.com/free-vector/employees-giving-hands-helping-colleagues-walk-upstairs_74855-5236.jpg?w=1060&t=st=1674737748~exp=1674738348~hmac=21029036f351aafc770931624eeec6eec9f05843dfa8e56f0e54951fd4d39c21");
-  }
-
-  /* Log in */
-
-  .login__section {
-    @apply bg-white h-[calc(100vh-7rem)] flex flex-col justify-center items-center;
-  }
-  .login__container {
-    @apply w-full flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0;
-  }
-
-  /* Sign up */
-  .signUp__section {
-    @apply bg-white h-[calc(100vh-7rem)] flex flex-col justify-center items-center;
-  }
-  .signUp__container {
-    @apply w-full flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0;
-  }
-
-  /* Footer */
-  .footer {
-    @apply flex flex-col md:flex-row justify-center items-center p-2 bg-fill-color w-full border-t-4 border-t-primary;
-  }
-  .footer__text {
-    @apply text-center text-sm text-font text-text-color-primary;
-  }
-  .settings__button {
-    all: unset;
   }
 }

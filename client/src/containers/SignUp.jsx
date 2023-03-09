@@ -42,22 +42,22 @@ const SignUp = () => {
   }, [response, navigate])
 
   return (
-    <section className="signUp__section">
-      <div className="signUp__container">
-      <div className='form__box'>
-          <div className='form__container'>
-            <h1 className='form__title'>
+    <section className="bg-white h-[calc(100vh-7rem)] flex flex-col justify-center items-center">
+      <div className="w-full flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
+      <div className='w-full bg-white rounded-lg drop-shadow-xl md:mt-0 sm:max-w-md xl:p-0'>
+          <div className='p-6 space-y-4 md:space-y-6 sm:p-8'>
+            <h1 className='title-font text-xl leading-tight tracking-tight text-text-color-primary md:text-3xl'>
               Sign up for an account
             </h1>
             {
-              formError.message ? <p className='form__error' aria-live='assertive' >{formError.message}</p>
+              formError.message ? <p className='text-red-500 text-sm' aria-live='assertive' >{formError.message}</p>
               : null
             }
             <form autoComplete='off' className='space-y-4 md:space-y-6' onSubmit={handleSubmit} >
               <div>
                 <label
                 htmlFor='username'
-                className={`form__label ${formError.message ? 'form__error' : null}`}>
+                className={`text-font block mb-2 text-sm font-medium text-text-color-primary ${formError.message ? 'text-red-500 text-sm' : null}`}>
                   Choose a username
                 </label>
 
@@ -65,7 +65,7 @@ const SignUp = () => {
                 type='username'
                 name='username'
                 id='username'
-                className='form__input'
+                className='subtitle-font justify-center align-middle bg-gray-50 border-gray-300 border text-text-color-primary sm:text-sm rounded-lg focus:ring-primary focus:outline-none focus:border-primary focus:border block w-full p-2.5'
                 placeholder='awesomeuser123'
                 required=''
                 onChange={inputChange} />
@@ -74,7 +74,7 @@ const SignUp = () => {
               <div>
                 <label
                 htmlFor='password'
-                className={`form__label ${formError.message ? 'form__error' : null}`}>
+                className={`text-font block mb-2 text-sm font-medium text-text-color-primary ${formError.message ? 'text-red-500 text-sm' : null}`}>
                   Choose a password
                 </label>
 
@@ -83,14 +83,14 @@ const SignUp = () => {
                 name='password'
                 id='password'
                 placeholder='••••••••'
-                className='form__input'
+                className='subtitle-font justify-center align-middle bg-gray-50 border-gray-300 border text-text-color-primary sm:text-sm rounded-lg focus:ring-primary focus:outline-none focus:border-primary focus:border block w-full p-2.5'
                 required=''
                 onChange={inputChange} />
               </div>
               
               <button
               type='submit'
-              className='form__submit'
+              className='text-font w-full text-white bg-primary hover:bg-secondary focus:ring-4 focus:outline-none focus:ring-secondary font-medium rounded-lg text-sm px-5 py-2.5 text-center'
               >Sign up</button>
             </form>
           </div>
