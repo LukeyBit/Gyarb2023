@@ -68,7 +68,7 @@ const Search = () => {
               ? results.hits.map((result, index) => (
                 <div key={result._links.self.href} className='flex md:flex-row flex-col mb-6 border-2 border-gray-200'>
                   <img src={result.recipe.images.SMALL.url} alt={result.recipe.label} className='md:object-scale-down h-40 object-cover' />
-                  <div className='text-sm text-font flex flex-col justify-between mt-2 ml-2 md:mt-0 w-3/4' >
+                  <div className='text-sm text-font flex flex-col justify-between mt-2 ml-2 md:mt-0 w-1/2' >
                     <div>
                       <h1 className='title-font text-2xl' >{result.recipe.label}</h1>
                       <p className='text-sm' >Servings: {result.recipe.yield}</p>
@@ -80,8 +80,8 @@ const Search = () => {
                       <p className='text-sm' >Source: {result.recipe.source}</p>
                     </div>
                   </div>
-                  <div className='flex'>
-                    <Link to={`/recipe/${index}`} className='text-font text-white bg-primary hover:bg-secondary focus:ring-4 focus:outline-none focus:ring-secondary font-medium rounded-lg px-3 py-2.5 w-fit h-fit m-auto' onClick={handleRecipeClick} id={index}>The full recipe</Link>
+                  <div className='flex flex-row w-1/4 justify-end items-center'>
+                    <Link to={`/recipe/${index}`} className='text-font text-sm text-white bg-primary hover:bg-secondary focus:ring-4 focus:outline-none focus:ring-secondary font-medium rounded-lg px-3 py-2.5 w-fit h-fit mr-2' onClick={handleRecipeClick} id={index}>View recipe</Link>
                   </div>
                 </div>
               ))
