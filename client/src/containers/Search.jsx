@@ -1,9 +1,11 @@
 import React, { useState, useRef } from 'react'
 import { useDispatch } from 'react-redux'
+import { Link, useNavigate } from 'react-router-dom'
 import { Filters } from '../components'
 import { getRecipes, getNextRecipes } from '../apis/recipeAPI'
 
 const Search = () => {
+  const navigate = useNavigate()
   const noResultsMessage = useRef('Search for recipes by keywords and/or filters')
   const [query, setQuery] = useState('')
   const [results, setResults] = useState({})
@@ -40,7 +42,11 @@ const Search = () => {
     }
   })
 
-  //TODO Add links to recipes
+  const handleRecipeClick = (e) => {
+    e.preventDefault()
+    console.log(results.hits[e.target.id].recipe)
+    navigate(`/recipe/${e.target.id}` , { state: { recipe: results.hits[e.target.id].recipe }})
+  }
 
   return (
     <div className='flex flex-row justify-between min-h-[calc(100vh-7rem)]'>
@@ -59,18 +65,23 @@ const Search = () => {
         <div className='flex flex-col justify-center align-middle' >
           {
             results.hits && results.hits.length > 0
-              ? results.hits.map((result) => (
-                <div key={result._links.self.href} className='flex md:flex-row flex-col mb-6 border-2 border-gray-200' >
+              ? results.hits.map((result, index) => (
+                <div key={result._links.self.href} className='flex md:flex-row flex-col mb-6 border-2 border-gray-200'>
                   <img src={result.recipe.images.SMALL.url} alt={result.recipe.label} className='md:object-scale-down h-40 object-cover' />
-                  <div className='text-sm text-font flex flex-col justify-between mt-2 ml-2 md:mt-0' >
+                  <div className='text-sm text-font flex flex-col justify-between mt-2 ml-2 md:mt-0 w-1/2' >
                     <div>
                       <h1 className='title-font text-2xl' >{result.recipe.label}</h1>
-                      <p className='text-sm' >Portions: {result.recipe.yield}</p>
+                      <p className='text-sm' >Servings: {result.recipe.yield}</p>
                       <p className='text-sm' >Ingredients: {result.recipe.ingredients.length}</p>
                       <p className='text-sm' >Calories: {parseInt(result.recipe.calories)} kcal</p>
                       <p className='mr-1'>Type: {result.recipe.dishType ? result.recipe.dishType[0].charAt(0).toUpperCase() + result.recipe.dishType[0].slice(1) : 'Undefined'}</p>
                     </div>
-                    <p className='text-sm mb-2' >Source: {result.recipe.source}</p>
+                    <div className='mb-2' >
+                      <p className='text-sm' >Source: {result.recipe.source}</p>
+                    </div>
+                  </div>
+                  <div className='flex flex-row w-1/4 justify-end items-center'>
+                    <Link to={`/recipe/${index}`} className='text-font text-sm text-white bg-primary hover:bg-secondary focus:ring-4 focus:outline-none focus:ring-secondary font-medium rounded-lg px-3 py-2.5 w-fit h-fit mr-2' onClick={handleRecipeClick} id={index}>View recipe</Link>
                   </div>
                 </div>
               ))
