@@ -22,7 +22,7 @@ const Preferences = () => {
 
     const [preferenceTags, setPreferenceTags] = useState(params.recipeParams.health)
 
-    const [userRating , setUserRating] = useState(user.rating || {health: tagsToObject()})
+    const [userRating, setUserRating] = useState(user.rating || { health: tagsToObject() })
     const [search, setSearch] = useState('')
     const [recipes, setRecipes] = useState([])
     const [pictures, setPictures] = useState([])
@@ -49,8 +49,8 @@ const Preferences = () => {
             const r1 = data[index]
             const r2 = data[index + 1]
             setPictures([
-                {link:r1.recipe.image, name:r1.recipe.label, index: index},
-                {link:r2.recipe.image, name:r2.recipe.label, index: index + 1}
+                { link: r1.recipe.image, name: r1.recipe.label, index: index },
+                { link: r2.recipe.image, name: r2.recipe.label, index: index + 1 }
             ])
         }
     }
@@ -60,7 +60,7 @@ const Preferences = () => {
         if (!isMounted.current) {
             loadData()
             setClickedTags([...userTags])
-            setPreferenceTags(preferenceTags.filter(tag => !userTags.includes(tag))) 
+            setPreferenceTags(preferenceTags.filter(tag => !userTags.includes(tag)))
             isMounted.current = true
         }// eslint-disable-next-line
     }, [])
@@ -102,24 +102,39 @@ const Preferences = () => {
 
     const handleRating = (e) => {
         e.preventDefault()
-        
+
         recipes[e.target.id].recipe.healthLabels.forEach(label => {
             label = label.replace(/ /g, '-')
-            setUserRating({...userRating, health: {...userRating.health, [label.toLowerCase()]: userRating.health[label.toLowerCase()] + 1}})
+            setUserRating({ ...userRating, health: { ...userRating.health, [label.toLowerCase()]: userRating.health[label.toLowerCase()] + 1 } })
         })
 
-        getTwoRecipes(pictures[1].index+1, recipes)
+        getTwoRecipes(pictures[1].index + 1, recipes)
     }
 
     return (
-        <div className='w-[65vw] pt-8 shadow-lg'>
+        <div className='w-[65vw] pt-8 shadow-lg pb-24'>
             <div>
                 <h1 className='ml-8 subtitle-font font-semibold text-xl'>Tags</h1>
                 <form className='ml-8 flex flex-col h-max shadow-lg rounded-xl' autoComplete='off' onSubmit={handleSubmit}>
                     <div className='flex flex-row'>
-                        <div className='relative z-0 mt-2 ml-2 w-[25vw] h-12 mb-6 group flex flex-row py-auto'>
-                            <input type="search" name="search" id="search" className="block py-2.5 px-0 text-sm text-gray-900 bg-transparent border-0 border-b-2 border-secondary appearance-none focus:outline-none focus:ring-0 focus:border-primary peer" placeholder=" " onChange={handleSearch} />
-                            <label htmlFor="search" className="font-semibold peer-focus:font-medium absolute text-sm text-secondary duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-primary peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Search for tags</label>
+                        <div className='w-1/2 flex flex-none flex-col'>
+                            <div className='relative z-0 mt-2 ml-2 w-[25vw] h-12 mb-6 group flex flex-row py-auto'>
+                                <input type="search" name="search" id="search" className="block py-2.5 px-0 text-sm text-gray-900 bg-transparent border-0 border-b-2 border-secondary appearance-none focus:outline-none focus:ring-0 focus:border-primary peer" placeholder=" " onChange={handleSearch} />
+                                <label htmlFor="search" className="font-semibold peer-focus:font-medium absolute text-sm text-secondary duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-primary peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Search for tags</label>
+                            </div>
+                            <div id='showTagSearch' className='grow-0'>
+                                <div className='flex flex-wrap overflow-y-auto'>
+                                    {(searchResult.length === 0 && search !== '') && <p className='text-sm m-2'>No tags found</p>}
+                                    {searchResult.map((tag) => {
+                                        return (
+                                            <div className='flex justify-center flex-row w-max h-min text-secondary m-1 p-1 rounded border border-secondary hover:border-primary hover:text-primary hover:animate-pulse' key={tag}>
+                                                <input type="checkbox" onChange={handleCheck} name={tag} id={tag} className='mt-2 mr-2 hidden peer' />
+                                                <label htmlFor={tag} className='text-sm font-semibold cursor-pointer'>{tag}</label>
+                                            </div>
+                                        )
+                                    })}
+                                </div>
+                            </div>
                         </div>
                         <div id='showTags' className='w-[35vw] h-36 shadow-md flex flex-col mb-1'>
                             <h3 className='pt-2 pl-2 h-min'>My tags</h3>
@@ -135,24 +150,10 @@ const Preferences = () => {
                             </div>
                         </div>
                     </div>
-                    <div id='showTagSearch' className='flex flex-col'>
-                        <h3 className='p-2'>Search result</h3>
-                        <div className='flex flex-wrap overflow-y-auto'>
-                            {searchResult.length === 0 && <p className='text-sm m-2'>No tags found</p>}
-                            {searchResult.map((tag) => {
-                                return (
-                                    <div className='flex justify-center flex-row w-max h-min text-secondary m-1 p-1 rounded border border-secondary hover:border-primary hover:text-primary hover:animate-pulse' key={tag}>
-                                            <input type="checkbox" onChange={handleCheck} name={tag} id={tag} className='mt-2 mr-2 hidden peer' />
-                                            <label htmlFor={tag} className='text-sm font-semibold cursor-pointer'>{tag}</label>
-                                    </div>
-                                )
-                            })}
-                        </div>
-                    </div>
                     <button type='submit' className='rounded self-end p-1 mt-5 mr-5 mb-5 border border-secondary text-secondary hover:text-primary hover:border-primary hover:animate-pulse'>Save tags</button>
                 </form>
             </div>
-            <div className='w-full flex flex-col items-center mt-5 mb-10'>
+            <div className='w-full flex flex-col items-center mt-5'>
                 <h1 className='text-text-color-primary text-font my-3'>Which is better?</h1>
                 <div className='flex flex-row gap-12'>
                     {pictures.map((pic) => {
@@ -161,7 +162,8 @@ const Preferences = () => {
                                 <img id={pic.index} className='rounded hover:border-4 hover:border-primary duration-100' src={pic.link} alt="food_pic" />
                                 <p className='mt-2 text-font text-lg'>{pic.name}</p>
                             </div>
-                        )}
+                        )
+                    }
                     )}
                 </div>
             </div>
