@@ -44,7 +44,6 @@ const Search = () => {
 
   const handleRecipeClick = (e) => {
     e.preventDefault()
-    console.log(results.hits[e.target.id].recipe)
     navigate(`/recipe/${e.target.id}` , { state: { recipe: results.hits[e.target.id].recipe }})
   }
 
