@@ -1,1 +1,35 @@
-@tailwind base;@tailwind components;@tailwind utilities;@import url(https://fonts.googleapis.com/css2?family=Lobster&display=swap);@import url(https://fonts.googleapis.com/css2?family=Cambo&display=swap);@import url(https://fonts.googleapis.com/css2?family=Roboto+Slab&display=swap);:root{--primary:#f57966;--secondary:#f7bbb1;--fill-color:#ffe4df;--text-color-primary:#292727;--text-color-secondary:#4d3a37}@layer components{.title-font{@apply font-lobster;}.text-font{@apply font-roboto-slab;}.subtitle-font{@apply font-cambo;}.home__header-background{background-image:url("https://img.freepik.com/free-photo/salad-from-tomatoes-cucumber-red-onions-lettuce-leaves-healthy-summer-vitamin-menu-vegan-vegetable-food-vegetarian-dinner-table-top-view-flat-lay_2829-6482.jpg?w=1380&t=st=1673740157~exp=1673740757~hmac=5b5f6d980e4300c39618bd9e91c1329883b36957f999b00be92818293c2337b9")}.home__team-img{background-image:url("https://img.freepik.com/free-vector/employees-giving-hands-helping-colleagues-walk-upstairs_74855-5236.jpg?w=1060&t=st=1674737748~exp=1674738348~hmac=21029036f351aafc770931624eeec6eec9f05843dfa8e56f0e54951fd4d39c21")}}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import url("https://fonts.googleapis.com/css2?family=Lobster&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Cambo&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Slab&display=swap");
+:root {
+  --primary: #f57966;
+  --secondary: #f7bbb1;
+  --fill-color: #ffe4df;
+  --text-color-primary: #292727;
+  --text-color-secondary: #4d3a37;
+}
+@layer components {
+  /* Global */
+  .title-font {
+    @apply font-lobster;
+  }
+  .text-font {
+    @apply font-roboto-slab;
+  }
+  .subtitle-font {
+    @apply font-cambo;
+  }
+  .active {
+    @apply text-gray-700 border-l-4 bg-white border-l-primary rounded md:bg-transparent md:text-text-color-primary md:p-0 !important;
+  }
+  /* Images */
+  .home__header-background {
+    background-image: url("https://img.freepik.com/free-photo/salad-from-tomatoes-cucumber-red-onions-lettuce-leaves-healthy-summer-vitamin-menu-vegan-vegetable-food-vegetarian-dinner-table-top-view-flat-lay_2829-6482.jpg?w=1380&t=st=1673740157~exp=1673740757~hmac=5b5f6d980e4300c39618bd9e91c1329883b36957f999b00be92818293c2337b9");
+  }
+  .home__team-img {
+    background-image: url("https://img.freepik.com/free-vector/employees-giving-hands-helping-colleagues-walk-upstairs_74855-5236.jpg?w=1060&t=st=1674737748~exp=1674738348~hmac=21029036f351aafc770931624eeec6eec9f05843dfa8e56f0e54951fd4d39c21");
+  }
+}
