@@ -105,10 +105,7 @@ const Preferences = () => {
     const handleRating = (e) => {
         e.preventDefault()
         let rating = userRating
-        console.log(recipes[e.target.id].recipe)
-        console.log(rating)
         labelList.forEach(key => {
-            console.log(key)
             recipes[e.target.id].recipe[key].forEach(label => {
                 label = label.replace(/ /g, '-')
                 rating = { ...rating, [key]: { ...rating[key], [label.toLowerCase()]: rating[key][label.toLowerCase()] + 1 } }
