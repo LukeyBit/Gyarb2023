@@ -14,8 +14,9 @@ const dbSetup = async (db) => {
             "id"	INTEGER NOT NULL UNIQUE,
             "username"	TEXT NOT NULL UNIQUE,
             "password"	TEXT NOT NULL,
-            "preferences"	TEXT,
+            "tags"	TEXT,
             "items"	TEXT,
+            "rating" TEXT,
             PRIMARY KEY("id")
         )`)
         .run(`INSERT INTO users(username, password) VALUES (?, ?)`, ['lukas', password1])
