@@ -30,18 +30,18 @@ const Navbar = () => {
   }, [isAuthorized])
 
   return (
-    <nav className='navbar'>
-      <div className='navbar__container'>
-        <div className='navbar__logo'>
+    <nav className='bg-white border-gray-200 px-2 sm:px-4 py-2.5 -z-10 drop-shadow-xl'>
+      <div className='container min-w-full flex flex-wrap items-center justify-end px-4'>
+        <div className='flex items-center mr-auto'>
           <Link to='/' aria-label='MealMaster Logo Link' className='flex items-center' >
-            <img src={logo} className='navbar__logo-img' alt='MealMaster Logo' />
-            <span className='navbar__logo-text hover:text-text-color-secondary'>MealMaster</span>
+            <img src={logo} className='h-6 mr-3 sm:h-9' alt='MealMaster Logo' />
+            <span className='self-center text-3xl title-font whitespace-nowrap text-text-color-primary hover:text-text-color-secondary'>MealMaster</span>
           </Link>
         </div>
-        <div className='navbar__buttons'>
+        <div className='flex md:order-2'>
           <button
             data-collapse-toggle='navbar-cta'
-            type='button' className='navbar__menu-btn'
+            type='button' className='inline-flex items-center p-2 text-sm text-primary rounded-lg md:hidden hover:bg-secondary hover:text-white focus:outline-none focus:ring-2 focus:ring-primary px-5 py-2.5 text-center mr-3 md:mr-0 md:ml-2'
             aria-controls='navbar-cta'
             aria-expanded='false'
             onClick={toggleMenu}
@@ -52,31 +52,31 @@ const Navbar = () => {
         </div>
         <div
           { ...(isMenuOpen ? { 'data-collapse-open': true, 'aria-hidden': false } : { 'data-collapse-open': false, 'aria-hidden': true }) }
-          className={` navbar__menu ${isMenuOpen ? 'navbar__menu--open' : 'navbar__menu--closed'}`}
+          className={` items-center justify-between md:justify-center w-full md:flex md:w-auto ease-in-out md:order-1 duration-300 md:text-center md:justify-items-center${isMenuOpen ? 'translate-y-0 h-full opacity-100' : '-translate-y-[1000vh] h-0 opacity-0 md:translate-y-0 md:h-full md:opacity-100'}`}
           id='navbar-cta'>
-          <ul>
+          <ul className='flex flex-col p-4 mt-4 border border-gray-100 rounded-lg bg-fill-color md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium md:border-0 md:bg-white'>
             <li>
-              <NavLink to='/search' className='navbar__menu-link' >Search</NavLink>
+              <NavLink to='/search' className='text-font block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-text-color-secondary md:p-0 md:border-none' >Search</NavLink>
             </li>
             {auth ? (
               <>
                 <li>
-                  <NavLink to='/discover' className='navbar__menu-link' >Discover</NavLink>
+                  <NavLink to='/discover' className='text-font block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-text-color-secondary md:p-0 md:border-none' >Discover</NavLink>
                 </li>
                 <li>
-                  <NavLink to='/profile' className='navbar__menu-link' >Profile</NavLink>
+                  <NavLink to='/profile' className='text-font block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-text-color-secondary md:p-0 md:border-none' >Profile</NavLink>
                 </li>
                 <li>
-                  <Link to='/' onClick={handleLogout} className='navbar__menu-link navbar__menu-link__logout'>Log out</Link>
+                  <Link to='/' onClick={handleLogout} className='text-font block py-2 pl-3 pr-4 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-text-color-secondary md:p-0 md:border-none cursor-pointer text-red-600 hover:text-red-800 !important'>Log out</Link>
                 </li>
               </>
             ) : (
               <>
                 <li>
-                  <NavLink to='/login' className='navbar__menu-link' >Log in</NavLink>
+                  <NavLink to='/login' className='text-font block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-text-color-secondary md:p-0 md:border-none' >Log in</NavLink>
                 </li>
                 <li>
-                  <NavLink to='/signup' className='navbar__menu-link' >Sign up</NavLink>
+                  <NavLink to='/signup' className='text-font block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-text-color-secondary md:p-0 md:border-none' >Sign up</NavLink>
                 </li>
               </>
             )}
