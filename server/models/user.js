@@ -10,7 +10,7 @@ export const checkUser = async (username, password) => {
       if (row) {
         const match = await bcrypt.compare(password, row.password)
         if (match) {
-          resolve({ success: true, code: 200, user: { id: row.id, username: row.username, preferences: JSON.parse(row.preferences), items: JSON.parse(row.items) } })
+          resolve({ success: true, code: 200, user: { id: row.id, username: row.username, tags: JSON.parse(row.tags), items: JSON.parse(row.items), rating: JSON.parse(row.rating) } })
         } else {
           resolve(false);
         }
@@ -93,13 +93,28 @@ export const updateUsername = (id, username) => {
 export const tagsUpdate = (id, tags) => {
   return new Promise((resolve, reject) => {
     db.run(
-      "UPDATE users SET preferences = ? WHERE id = ?",
+      "UPDATE users SET tags = ? WHERE id = ?",
       [JSON.stringify(tags), id],
       (error) => {
         if (error) {
           resolve({ success: false, code: 500, message: "Server error" });
         }
         resolve({ success: true, code: 200, message: "Tags updated" });
+      }
+    )
+  })
+}
+
+export const ratingUpdate = (id, rating) => {
+  return new Promise((resolve, reject) => {
+    db.run(
+      "UPDATE users SET rating = ? WHERE id = ?",
+      [JSON.stringify(rating), id],
+      (error) => {
+        if (error) {
+          resolve({ success: false, code: 500, message: "Server error" });
+        }
+        resolve({ success: true, code: 200, message: "Rating updated" });
       }
     )
   })

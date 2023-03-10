@@ -34,3 +34,12 @@ export const updateTags = (id, tags, token) => {
   }
   return axios.patch(`${url}/updateTags`, { id, tags }, config)
 }
+
+export const updateRating = (id, rating, token) => {
+  let config = {
+    headers: {
+      "x-access-token": token,
+    },
+  }
+  return axios.patch(`${url}/updateRating`, { id, rating }, config)
+}

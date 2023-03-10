@@ -1,20 +1,21 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { useDispatch } from 'react-redux'
-import { updateTags } from '../store/actions/userActions'
+import { updateTags, updateRating } from '../store/actions/userActions'
 import secureLocalStorage from 'react-secure-storage'
 import { params, getRandomRecipes } from '../apis/recipeAPI'
 
 const Preferences = () => {
 
-    const tagsToObject = () => {
+    const tagsToObject = (str) => {
         let obj = {}
-        params.recipeParams.health.forEach(tag => {
+        params.recipeParams[str].forEach(tag => {
             tag = tag.toLowerCase()
             obj[tag] = 0
         })
         return obj
     }
 
+    const labelList = ['healthLabels', 'dietLabels', 'cuisineType', 'dishType']
     const user = secureLocalStorage.getItem('user')
     let userTags = user.preferences || []
     const isMounted = useRef(false)
@@ -22,7 +23,8 @@ const Preferences = () => {
 
     const [preferenceTags, setPreferenceTags] = useState(params.recipeParams.health)
 
-    const [userRating, setUserRating] = useState(user.rating || { health: tagsToObject() })
+    const [userRating, setUserRating] = useState(user.rating || { healthLabels: tagsToObject('health'), dietLabels: tagsToObject('diet'), cuisineType: tagsToObject('cuisineType'), dishType: tagsToObject('dishType') })
+    const [loading, setLoading] = useState(true)
     const [search, setSearch] = useState('')
     const [recipes, setRecipes] = useState([])
     const [pictures, setPictures] = useState([])
@@ -102,13 +104,24 @@ const Preferences = () => {
 
     const handleRating = (e) => {
         e.preventDefault()
-
-        recipes[e.target.id].recipe.healthLabels.forEach(label => {
-            label = label.replace(/ /g, '-')
-            setUserRating({ ...userRating, health: { ...userRating.health, [label.toLowerCase()]: userRating.health[label.toLowerCase()] + 1 } })
+        let rating = userRating
+        console.log(recipes[e.target.id].recipe)
+        console.log(rating)
+        labelList.forEach(key => {
+            console.log(key)
+            recipes[e.target.id].recipe[key].forEach(label => {
+                label = label.replace(/ /g, '-')
+                rating = { ...rating, [key]: { ...rating[key], [label.toLowerCase()]: rating[key][label.toLowerCase()] + 1 } }
+            })
         })
-
+        setLoading(true)
+        dispatch(updateRating(rating))
+        setUserRating(rating)
         getTwoRecipes(pictures[1].index + 1, recipes)
+    }
+
+    const imageLoaded = () => {
+        setLoading(false)
     }
 
     return (
@@ -159,7 +172,13 @@ const Preferences = () => {
                     {pictures.map((pic) => {
                         return (
                             <div onClick={handleRating} className='h-60 w-60 text-center' key={pic.index}>
-                                <img id={pic.index} className='rounded hover:border-4 hover:border-primary duration-100' src={pic.link} alt="food_pic" />
+                                <img id={pic.index} className='rounded hover:border-4 hover:border-primary duration-100' src={pic.link} alt="food_pic" style={{ display: loading ? 'none' : 'block' }} onLoad={imageLoaded} />
+                                <div style={{ display: loading ? 'block' : 'none' }} className='w-full h-full flex rounded bg-gray-100'>
+                                    <svg aria-hidden="true" className="w-10 h-10 text-gray-200 animate-spin fill-primary" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="currentColor" />
+                                        <path d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z" fill="currentFill" />
+                                    </svg>
+                                </div>
                                 <p className='mt-2 text-font text-lg'>{pic.name}</p>
                             </div>
                         )
