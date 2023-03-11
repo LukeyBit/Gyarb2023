@@ -1,7 +1,8 @@
-import { params, getRecipes, getNextRecipes  } from './recipeAPI'
+import { params, getRecipes, getNextRecipes, getRandomRecipes  } from './recipeAPI'
 
 export { 
     params,
     getRecipes, 
-    getNextRecipes
+    getNextRecipes,
+    getRandomRecipes
 }
