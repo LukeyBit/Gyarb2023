@@ -1,11 +1,10 @@
 import React, { useState, useRef } from 'react'
 import { useDispatch } from 'react-redux'
-import { Link, useNavigate } from 'react-router-dom'
-import { Filters } from '../components'
+import { Filters, Result } from '../components'
 import { getRecipes, getNextRecipes } from '../apis/recipeAPI'
+import { BiArrowToTop } from 'react-icons/bi'
 
 const Search = () => {
-  const navigate = useNavigate()
   const noResultsMessage = useRef('Search for recipes by keywords and/or filters')
   const [query, setQuery] = useState('')
   const [results, setResults] = useState({})
@@ -42,11 +41,6 @@ const Search = () => {
     }
   })
 
-  const handleRecipeClick = (e) => {
-    e.preventDefault()
-    navigate(`/recipe/${e.target.id}` , { state: { recipe: results.hits[e.target.id].recipe }})
-  }
-
   return (
     <div className='flex flex-row justify-between min-h-[calc(100vh-7rem)]'>
       <Filters />
@@ -65,24 +59,7 @@ const Search = () => {
           {
             results.hits && results.hits.length > 0
               ? results.hits.map((result, index) => (
-                <div key={result._links.self.href} className='flex md:flex-row flex-col mb-6 border-2 border-gray-200'>
-                  <img src={result.recipe.images.SMALL.url} alt={result.recipe.label} className='md:object-scale-down h-40 object-cover' />
-                  <div className='text-sm text-font flex flex-col justify-between mt-2 ml-2 md:mt-0 w-1/2' >
-                    <div>
-                      <h1 className='title-font text-2xl' >{result.recipe.label}</h1>
-                      <p className='text-sm' >Servings: {result.recipe.yield}</p>
-                      <p className='text-sm' >Ingredients: {result.recipe.ingredients.length}</p>
-                      <p className='text-sm' >Calories: {parseInt(result.recipe.calories)} kcal</p>
-                      <p className='mr-1'>Type: {result.recipe.dishType ? result.recipe.dishType[0].charAt(0).toUpperCase() + result.recipe.dishType[0].slice(1) : 'Undefined'}</p>
-                    </div>
-                    <div className='mb-2' >
-                      <p className='text-sm' >Source: {result.recipe.source}</p>
-                    </div>
-                  </div>
-                  <div className='flex flex-row w-1/4 justify-end items-center'>
-                    <Link to={`/recipe/${index}`} className='text-font text-sm text-white bg-primary hover:bg-secondary focus:ring-4 focus:outline-none focus:ring-secondary font-medium rounded-lg px-3 py-2.5 w-fit h-fit mr-2' onClick={handleRecipeClick} id={index}>View recipe</Link>
-                  </div>
-                </div>
+                <Result key={result._links.self.href} result={result} index={index} />
               ))
               : <div className='text-font text-2xl text-center' >{noResultsMessage.current}</div>
           }
@@ -99,7 +76,7 @@ const Search = () => {
         <button className='fixed bottom-8 right-8 bg-primary rounded-full p-1.5 text-white'
           onClick={() => { window.scrollTo({ top: 0, behavior: 'smooth' }) }}
           aria-describedby='Return to the top of the page' >
-          <svg className='w-5 h-5' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'><path strokeLinecap='round' strokeLinejoin='round' strokeWidth='2' d='M5 10l7-7m0 0l7 7m-7-7v18'></path></svg>
+          <BiArrowToTop className='w-8 h-8' />
         </button>
       }
     </div>

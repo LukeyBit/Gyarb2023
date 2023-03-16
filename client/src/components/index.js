@@ -8,6 +8,7 @@ import Settings from './Settings'
 import Preferences from './Preferences'
 import Filters from './Filters'
 import Filter from './Filter'
+import Result from './Result'
 
 export {
     Navbar,
@@ -19,5 +20,6 @@ export {
     Settings,
     Preferences,
     Filters,
-    Filter
+    Filter,
+    Result
 }

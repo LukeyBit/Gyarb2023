@@ -1,4 +1,5 @@
 import axios from 'axios'
+import secureLocalStorage from 'react-secure-storage'
 import params from './params.json'
 
 const url = 'https://api.edamam.com/api/recipes/v2?type=public&beta=false'
@@ -25,5 +26,20 @@ export const getRecipes = (query) => {
 export const getNextRecipes = (reqUrl) => axios.get(reqUrl)
 
 export const getRecipe = (id) => axios.get(`${url}&r=http://www.edamam.com/ontologies/edamam.owl%23recipe_${id}&app_id=${appID}&app_key=${appKey}`)
+
+export const getRecommendedRecipes = () => {
+    let reqUrl = `${url}&app_id=${appID}&app_key=${appKey}`
+
+    let { rating } = secureLocalStorage.getItem('user')
+    Object.keys(rating).forEach((key) => {
+        let maxValue = Math.max(...Object.values(rating[key]))
+        let maxKeys = Object.keys(rating[key]).filter((k) => rating[key][k] === maxValue)
+        let maxKey = maxKeys[Math.floor(Math.random() * maxKeys.length)]
+
+        reqUrl += `&${key}=${maxKey}`
+    })
+
+    return axios.get(reqUrl)
+}
 
 export { params }
