@@ -52,7 +52,7 @@ const Navbar = () => {
         </div>
         <div
           { ...(isMenuOpen ? { 'data-collapse-open': true, 'aria-hidden': false } : { 'data-collapse-open': false, 'aria-hidden': true }) }
-          className={` items-center justify-between md:justify-center w-full md:flex md:w-auto ease-in-out md:order-1 duration-300 md:text-center md:justify-items-center${isMenuOpen ? 'translate-y-0 h-full opacity-100' : '-translate-y-[1000vh] h-0 opacity-0 md:translate-y-0 md:h-full md:opacity-100'}`}
+          className={` items-center justify-between md:justify-center w-full md:flex md:w-auto ease-in-out md:order-1 duration-300 md:text-center md:justify-items-center${isMenuOpen ? 'translate-y-0 h-full opacity-100' : '-translate-y-[1000vh] hidden opacity-0 md:translate-y-0 md:h-full md:opacity-100'}`}
           id='navbar-cta'>
           <ul className='flex flex-col p-4 mt-4 border border-gray-100 rounded-lg bg-fill-color md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium md:border-0 md:bg-white'>
             <li>

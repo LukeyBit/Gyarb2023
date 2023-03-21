@@ -25,8 +25,8 @@ const Message = () => {
 
   return (
       <div 
-        className={`transition-all duration-500 ease-in-out p-2 md:w-fit sm:w-full items-center justify-between md:rounded-full flex flex-row md:fixed md:left-1/2 md:top-20 z-10 drop-shadow-lg ${show 
-          ? 'opacity-100 md:translate-x-[-50%] sm:translate-x-0' 
+        className={`transition-all duration-500 ease-in-out p-2 w-3/4 md:w-fit  items-center justify-between rounded-full flex flex-row fixed left-1/2 top-20 z-10 drop-shadow-lg ${show 
+          ? 'opacity-100 translate-x-[-50%] visible' 
           : 'opacity-0 translate-x-full hidden'} 
           ${response.success ? 'bg-green-500' : 'bg-red-400'}
         `}
