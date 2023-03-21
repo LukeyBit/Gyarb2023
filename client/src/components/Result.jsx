@@ -17,7 +17,7 @@ const Result = ({ result, index }) => {
     return (
         <div key={result._links.self.href} className='flex md:flex-row flex-col mb-6 border-2 border-gray-200'>
             <div className='flex flex-row justify-center align-middle h-48'>
-                <img src={result.recipe.images.SMALL.url} alt={result.recipe.label} className={`md:object-scale-down h-full object-cover ${!loaded && 'hidden'}`} onLoad={imageLoaded} />
+                <img src={result.recipe.images.SMALL.url} alt={result.recipe.label} className={`md:object-scale-down h-full object-cover w-full ${!loaded && 'hidden'}`} onLoad={imageLoaded} />
                 {!loaded &&
                     <div className='flex flex-row justify-center items-center w-48'>
                         <svg aria-hidden="true" className="w-10 h-10 text-gray-200 animate-spin fill-primary" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -39,7 +39,7 @@ const Result = ({ result, index }) => {
                     <p className='text-sm' >Source: {result.recipe.source}</p>
                 </div>
             </div>
-            <div className='flex flex-row w-1/4 justify-end items-center'>
+            <div className='flex flex-row md:w-1/4 md:justify-end items-center w-full justify-center md:my-0 my-4'>
                 <Link to={`/recipe/${index}`} className='text-font text-sm text-white bg-primary hover:bg-secondary focus:ring-4 focus:outline-none focus:ring-secondary font-medium rounded-lg px-3 py-2.5 w-fit h-fit mr-2' onClick={handleRecipeClick} id={index}>View recipe</Link>
             </div>
         </div>

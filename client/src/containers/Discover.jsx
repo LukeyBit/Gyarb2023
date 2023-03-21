@@ -1,7 +1,7 @@
 import React, { useState, useCallback, useEffect } from 'react'
 import { getRecommendedRecipes, getNextRecipes } from '../apis/recipeAPI'
 import { Result } from '../components'
-import { BiArrowToTop } from 'react-icons/bi'
+import { BiUpArrow } from 'react-icons/bi'
 
 const Discover = () => {
   const [results, setResults] = useState([])
@@ -49,7 +49,7 @@ const Discover = () => {
         <button className='fixed bottom-8 right-8 bg-primary rounded-full p-1.5 text-white'
           onClick={() => { window.scrollTo({ top: 0, behavior: 'smooth' }) }}
           aria-describedby='Return to the top of the page' >
-          <BiArrowToTop className='w-8 h-8' />
+          <BiUpArrow className='w-8 h-8' />
         </button>
       }
     </div>
