@@ -55,7 +55,7 @@ const Search = () => {
             </button>
           </div>
         </form>
-        <div className='flex flex-col justify-center align-middle' >
+        <div className='flex flex-col justify-center align-middle px-10' >
           {
             results.hits && results.hits.length > 0
               ? results.hits.map((result, index) => (
