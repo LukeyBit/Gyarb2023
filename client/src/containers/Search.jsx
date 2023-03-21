@@ -47,7 +47,7 @@ const Search = () => {
       <div className='flex flex-col w-full lg:pr-10'>
         <form className='flex flex-row mt-8 w-full justify-center align-middle mb-8' onSubmit={handleSearchSubmit} >
           <div className='flex flex-row w-full justify-center align-top md:text-base text-sm'>
-            <input type='text' id='search' className='subtitle-font justify-center align-middle bg-gray-50 border-gray-300 border text-text-color-primary sm:text-sm rounded-lg focus:ring-primary focus:outline-none focus:border-primary focus:border block w-3/4 p-2.5 mr-4' placeholder='Keywords separated by comma' onChange={handleSearchChange} />
+            <input type='text' id='search' className='subtitle-font justify-center align-middle bg-gray-50 border-gray-300 border text-text-color-primary sm:text-sm rounded-lg focus:ring-primary focus:outline-none focus:border-primary focus:border block w-3/4 p-2.5 mr-4' placeholder='Search by ingredients or keywords' onChange={handleSearchChange} />
             <label htmlFor='search' className='sr-only'>Search</label>
             <button type='submit' className='text-font text-white bg-primary hover:bg-secondary focus:ring-4 focus:outline-none focus:ring-secondary font-medium rounded-lg px-3 py-2.5' onClick={handleSearchSubmit} >
               <BiSearch className='w-5 h-5' />
