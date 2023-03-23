@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux'
 import { updateTags, updateRating } from '../store/actions/userActions'
 import secureLocalStorage from 'react-secure-storage'
 import { params, getRandomRecipes } from '../apis/recipeAPI'
+import { BiSearch } from 'react-icons/bi'
 
 const Preferences = () => {
 
@@ -122,37 +123,38 @@ const Preferences = () => {
     }
 
     return (
-        <div className='w-[65vw] pt-8 shadow-lg pb-24'>
-            <div>
-                <h1 className='ml-8 subtitle-font font-semibold text-xl'>Tags</h1>
+        <div className='w-full md:w-[65vw] pt-8 pb-24'>
+            <div className='text-center mt-5'>
                 <form className='ml-8 flex flex-col h-max shadow-lg rounded-xl' autoComplete='off' onSubmit={handleSubmit}>
-                    <div className='flex flex-row'>
-                        <div className='w-1/2 flex flex-none flex-col'>
-                            <div className='relative z-0 mt-2 ml-2 w-[25vw] h-12 mb-6 group flex flex-row py-auto'>
-                                <input type="search" name="search" id="search" className="block py-2.5 px-0 text-sm text-gray-900 bg-transparent border-0 border-b-2 border-secondary appearance-none focus:outline-none focus:ring-0 focus:border-primary peer" placeholder=" " onChange={handleSearch} />
-                                <label htmlFor="search" className="font-semibold peer-focus:font-medium absolute text-sm text-secondary duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-primary peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Search for tags</label>
-                            </div>
-                            <div id='showTagSearch' className='grow-0'>
-                                <div className='flex flex-wrap overflow-y-auto'>
-                                    {(searchResult.length === 0 && search !== '') && <p className='text-sm m-2'>No tags found</p>}
-                                    {searchResult.map((tag) => {
-                                        return (
-                                            <div className='flex justify-center flex-row w-max h-min text-secondary m-1 p-1 rounded border border-secondary hover:border-primary hover:text-primary hover:animate-pulse' key={tag}>
-                                                <input type="checkbox" onChange={handleCheck} name={tag} id={tag} className='mt-2 mr-2 hidden peer' />
-                                                <label htmlFor={tag} className='text-sm font-semibold cursor-pointer'>{tag}</label>
-                                            </div>
-                                        )
-                                    })}
+                <h1 className='title-font text-2xl'>Your health tags</h1>
+                    <div className='flex flex-col p-10'>
+                        <div className='mt-2 ml-2 mb-6 py-auto'>
+                            <div className='relative w-full'>
+                                <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                                    <BiSearch className='w-5 h-5 text-gray-500' />
                                 </div>
+                                <input type="text" name="search" id="search" className="subtitle-font justify-center align-middle bg-gray-50 border-gray-300 border text-text-color-primary sm:text-sm rounded-lg focus:ring-primary focus:outline-none focus:border-primary focus:border block w-full p-2.5 pl-10" placeholder="Search for tags" onChange={handleSearch} />
                             </div>
                         </div>
-                        <div id='showTags' className='w-[35vw] h-36 shadow-md flex flex-col mb-1'>
-                            <h3 className='pt-2 pl-2 h-min'>My tags</h3>
-                            <div className='flex flex-wrap overflow-y-auto'>
+                        <div id='showTags' className='flex overflow-y-auto w-full md:max-h-20'>
+                        <div className='flex flex-wrap'>
                                 {clickedTags.map((tag) => {
                                     return (
+                                        <div className='flex justify-center flex-row w-max h-min text-white m-1 p-1 rounded bg-primary hover:border-primary hover:bg-secondary hover:animate-pulse' key={tag}>
+                                            <input type="checkbox" checked={true} onChange={handleCheck} name={tag} id={tag} className='mt-2 mr-2 hidden peer text-font' />
+                                            <label htmlFor={tag} className='text-sm font-semibold cursor-pointer'>{tag}</label>
+                                        </div>
+                                    )
+                                })}
+                            </div>
+                        </div>
+                        <div id='showTagSearch' className=' overflow-y-auto w-full md:max-h-20'>
+                            <div className='flex flex-wrap overflow-y-auto'>
+                                {(searchResult.length === 0 && search !== '') && <p className='text-sm m-2'>No tags found</p>}
+                                {searchResult.map((tag) => {
+                                    return (
                                         <div className='flex justify-center flex-row w-max h-min text-secondary m-1 p-1 rounded border border-secondary hover:border-primary hover:text-primary hover:animate-pulse' key={tag}>
-                                            <input type="checkbox" checked={true} onChange={handleCheck} name={tag} id={tag} className='mt-2 mr-2 hidden peer' />
+                                            <input type="checkbox" onChange={handleCheck} name={tag} id={tag} className='mt-2 mr-2 hidden peer text-font' />
                                             <label htmlFor={tag} className='text-sm font-semibold cursor-pointer'>{tag}</label>
                                         </div>
                                     )
@@ -163,12 +165,13 @@ const Preferences = () => {
                     <button type='submit' className='rounded self-end p-1 mt-5 mr-5 mb-5 border border-secondary text-secondary hover:text-primary hover:border-primary hover:animate-pulse'>Save tags</button>
                 </form>
             </div>
-            <div className='w-full flex flex-col items-center mt-5'>
-                <h1 className='text-text-color-primary text-font my-3'>Which is better?</h1>
-                <div className='flex flex-row gap-12'>
+            <div className='flex flex-col items-center mt-5 ml-8 shadow-lg rounded-lg'>
+                <h1 className='text-text-color-primary mt-2 text-2xl title-font'>Which is better?</h1>
+                <p className='text-text-color-primary text-font'>Rate food to get recommendations based on your preferences</p>
+                <div className='flex flex-row gap-12 mt-3'>
                     {pictures.map((pic) => {
                         return (
-                            <div onClick={handleRating} className='h-60 w-60 text-center' key={pic.index}>
+                            <div onClick={handleRating} className='w-44 h-fit md:w-60 text-center pb-5' key={pic.index}>
                                 <img id={pic.index} className='rounded hover:border-4 hover:border-primary duration-100' src={pic.link} alt="food_pic" style={{ display: loading ? 'none' : 'block' }} onLoad={imageLoaded} />
                                 <div style={{ display: loading ? 'block' : 'none' }} className='w-full h-full flex rounded bg-gray-100'>
                                     <svg aria-hidden="true" className="w-10 h-10 text-gray-200 animate-spin fill-primary" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
