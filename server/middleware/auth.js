@@ -11,7 +11,7 @@ export const verifyToken = (req, res, next) => {
   jwt.verify(token, SECRET_KEY, (error, decoded) => {
     if (error) {
       return res
-        .status(500)
+        .status(401)
         .send({ success: false, message: 'Failed to authenticate token.' })
     }
     req.userId = decoded.id

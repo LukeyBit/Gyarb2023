@@ -3,7 +3,7 @@ import { Settings, Preferences  } from '../components'
 
 const Profile = () => {
   return (
-    <div className='flex'>
+    <div className='flex flex-col md:flex-row'>
       <Settings/>
       <Preferences/>
     </div>
