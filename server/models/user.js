@@ -10,7 +10,7 @@ export const checkUser = async (username, password) => {
       if (row) {
         const match = await bcrypt.compare(password, row.password)
         if (match) {
-          resolve({ success: true, code: 200, user: { id: row.id, username: row.username, tags: JSON.parse(row.tags), items: JSON.parse(row.items), rating: JSON.parse(row.rating) } })
+          resolve({ success: true, code: 200, user: { id: row.id, username: row.username, tags: JSON.parse(row.tags), rating: JSON.parse(row.rating) } })
         } else {
           resolve(false);
         }

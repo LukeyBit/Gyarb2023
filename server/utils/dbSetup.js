@@ -15,7 +15,6 @@ const dbSetup = async (db) => {
             "username"	TEXT NOT NULL UNIQUE,
             "password"	TEXT NOT NULL,
             "tags"	TEXT,
-            "items"	TEXT,
             "rating" TEXT,
             PRIMARY KEY("id")
         )`)
