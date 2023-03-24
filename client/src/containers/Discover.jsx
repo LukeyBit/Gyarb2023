@@ -1,5 +1,5 @@
 import React, { useState, useCallback, useEffect } from 'react'
-import { getRecommendedRecipes, getNextRecipes } from '../apis/recipeAPI'
+import { getRecommendedRecipes } from '../apis/recipeAPI'
 import { Result } from '../components'
 import { BiUpArrow } from 'react-icons/bi'
 
@@ -18,6 +18,7 @@ const Discover = () => {
   const loadRecipes = useCallback(async () => {
     const { data } = await getRecommendedRecipes()
     setResults(data)
+    console.log(data)
   }, [setResults])
 
   useEffect(() => {
@@ -25,7 +26,7 @@ const Discover = () => {
   }, [loadRecipes])
 
   const handleGetNext = async () => {
-    const { data } = await getNextRecipes(results._links.next.href)
+    const { data } = await getRecommendedRecipes()
     data.hits = [...results.hits, ...data.hits]
     setResults({ ...results, to: data.to, count: data.count, _links: data._links, hits: data.hits })
   }

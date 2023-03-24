@@ -19,26 +19,28 @@ export const getRecipes = (query) => {
             })
         })
     }
-
     return axios.get(reqUrl)
 }
 
 export const getNextRecipes = (reqUrl) => axios.get(reqUrl)
 
-export const getRecipe = (id) => axios.get(`${url}&r=http://www.edamam.com/ontologies/edamam.owl%23recipe_${id}&app_id=${appID}&app_key=${appKey}`)
-
 export const getRecommendedRecipes = () => {
-    let reqUrl = `${url}&app_id=${appID}&app_key=${appKey}`
+    let reqUrl = `${url}&app_id=${appID}&app_key=${appKey}&random=true`
+    let healthLabels = secureLocalStorage.getItem('user').preferences ||[]
+
+    if (healthLabels){
+        healthLabels.forEach(tag => reqUrl += `&health=${tag}`)
+    }
 
     let { rating } = secureLocalStorage.getItem('user')
+
     Object.keys(rating).forEach((key) => {
         let maxValue = Math.max(...Object.values(rating[key]))
         let maxKeys = Object.keys(rating[key]).filter((k) => rating[key][k] === maxValue)
         let maxKey = maxKeys[Math.floor(Math.random() * maxKeys.length)]
-
+        key = key.replace(/Labels$/, '')
         reqUrl += `&${key}=${maxKey}`
     })
-
     return axios.get(reqUrl)
 }
 

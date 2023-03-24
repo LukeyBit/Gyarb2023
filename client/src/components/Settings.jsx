@@ -3,7 +3,7 @@ import secureLocalStorage from 'react-secure-storage'
 import { useDispatch, useSelector } from 'react-redux'
 import { updatePassword, updateUsername } from '../store/actions/userActions'
 
-const Settings = () => {
+const Settings = ({className}) => {
     const user = useRef(secureLocalStorage.getItem('user') || {})
     const [credentials, setCredentials] = useState({ password: '', oldPassword: '' })
     const [username, setUsername] = useState({ username: '' })
@@ -53,8 +53,8 @@ const Settings = () => {
     }
 
     return (
-        <div className='md:w-[35vw] mt-8'>
-            <div className='ml-8 shadow-lg rounded-lg p-12'>
+        <div className='lg:w-[35vw] lg:mt-8 mt-0 mb-10 lg:mb-0 lg:pr-0 pr-8 order-2 lg:order-1'>
+            <div className='ml-8 shadow-xl rounded-lg p-12'>
                 <h1 className='title-font text-2xl text-center'>Update your profile</h1>
                 <form autoComplete='off' onSubmit={handleUsernameSubmit} className='p-4'>
                     <div className='mt-2 ml-2 mb-6 py-auto'>

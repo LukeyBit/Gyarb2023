@@ -1,7 +1,16 @@
 import React from 'react'
-import { Team, Features  } from '../components'
+import { Team, Features } from '../components'
+import { Link } from 'react-router-dom'
 
 const Home = () => {
+  
+  const scrollHandler = () => {
+    const element = document.getElementById('about')
+    if (element) {
+      document.getElementById('about').scrollIntoView({ behavior: 'smooth' })
+    }
+  }
+
   return (
     <>
       <div className='w-full flex justify-center items-center flex-col h-[calc(100vh-4.6rem)]  bg-cover bg-center bg-no-repeat home__header-background'>
@@ -11,9 +20,9 @@ const Home = () => {
               <h1 className='title-font text-6xl font-bold text-center text-text-color-primary mb-4'>MealMaster</h1>
               <p className='text-xl text-font text-center text-text-color-secondary'>The best way to find your next meal</p>
             </div>
-            <button className='text-font text-white bg-primary hover:bg-secondary focus:ring-4 focus:outline-none focus:ring-fill-color font-medium rounded-lg text-sm px-5 py-2.5 text-center mt-4 mb-6'>
+            <Link onClick={scrollHandler} className='text-font text-white bg-primary hover:bg-secondary focus:ring-4 focus:outline-none focus:ring-fill-color font-medium rounded-lg text-sm px-5 py-2.5 text-center mt-4 mb-6'>
               <span>Get started</span>
-            </button>
+            </Link>
           </div>
         </div>
       </div>
