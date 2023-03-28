@@ -28,7 +28,7 @@ export const createUser = async (username, password) => {
       if (error && error.message.includes('UNIQUE constraint failed: users.username')) {
         resolve({ success: false, code: 401, message: 'Username already exists' })
       } else if (error) {
-        resolve({ success: false, code: 500, message: 'User not created' })
+        reject(error)
       }
       resolve({ success: true, code: 200, message: 'User created' })
     })
