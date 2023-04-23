@@ -42,6 +42,8 @@ export const createUser = (newUser) => axios.put(`${url}/create`, newUser)
  * @param {string} oldPassword 
  * @param {object} token object
  * @returns {function}
+ * 
+ * @description This function is used to update the password of a user
  */
 export const updatePassword = (id, password, oldPassword, token) => {
   let config = {
@@ -59,6 +61,8 @@ export const updatePassword = (id, password, oldPassword, token) => {
  * @param {string} username 
  * @param {object} token object
  * @returns {function}
+ * 
+ * @description This function is used to update the username of a user
  */
 export const updateUsername = (id, username, token) => {
   let config = {
@@ -87,6 +91,15 @@ export const updateTags = (id, tags, token) => {
   return axios.patch(`${url}/updateTags`, { id, tags }, config)
 }
 
+/**
+ * 
+ * @param {int} id 
+ * @param {object} rating 
+ * @param {object} token 
+ * @returns {function}
+ * 
+ * @description This function is used to update the rating of a user
+ */
 export const updateRating = (id, rating, token) => {
   let config = {
     headers: {

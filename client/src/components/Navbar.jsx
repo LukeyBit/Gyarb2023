@@ -9,20 +9,26 @@ import { logoutUser } from '../store/actions/userActions'
 import logo from '../assets/demo_logo.svg'
 
 const Navbar = () => {
+  // dispatch is used to dispatch actions to the store which in turn updates the state. Actions are defined in /store/actions/userActions.js or store reducers
   const dispatch = useDispatch()
+  // isMenuOpen is the state of the menu which is used to determine if the menu should be visible or not
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  // auth is the local state of the user authentication which is used to determine if the user is logged in or not
   const [auth, setAuth] = useState(secureLocalStorage.getItem('isAuthorized') || false)
+  // isAuthorized is the global state of the user authentication which is used to determine if the user is logged in or not
   const isAuthorized = useSelector(store => store.user.isAuthorized)
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen)
   }
 
+  // handleLogout is a callback function which dispatches the logoutUser action to the store which clears the user data from the store and secureLocalStorage and sends a response to the user
   const handleLogout = useCallback(() => {
     dispatch(logoutUser())
     setAuth(false)
   }, [dispatch])
 
+  // useEffect is used to update the auth state when the isAuthorized state changes to monitor if the user logs in or out
   useEffect(() => {
     if (isAuthorized) {
       setAuth(true)

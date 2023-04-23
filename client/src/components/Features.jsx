@@ -3,6 +3,13 @@ import searchImg from '../assets/search-img.jpg'
 import discoverImg from '../assets/discover-img.jpg'
 import recipeImg from '../assets/recipe-img.jpg'
 
+
+/**
+ * 
+ * @returns {JSX.Element} Features component
+ * @description Features component for the home page
+ * 
+ */
 const Features = () => (
   <div>
     <section id='about' className='text-center mx-auto w-[50vw] my-16 mb-8 lg:mb-16'>
