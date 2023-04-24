@@ -16,27 +16,14 @@ const Result = ({ result, index }) => {
     // Set loaded state to false
     const [loaded, setLoaded] = useState(false)
 
-    /**
-     * 
-     * @param {Event} e
-     * 
-     * @returns {void} as it only redirects the user to the recipe page
-     * 
-     * @description A function that redirects the user to the recipe page when they click on the result
-     * 
-     */
+    // Navigate to the recipe page when the user clicks on the recipe
     const handleRecipeClick = (e) => {
         e.preventDefault()
+        // Pass the recipe object to the recipe page
         navigate(`/recipe/${e.target.id}`, { state: { recipe: result.recipe } })
     }
 
-    /**
-     * 
-     * @returns {void} as it only sets the loaded state to true
-     * 
-     * @description A function that sets the loaded state to true when the image has loaded
-     * 
-     */
+    // Set loaded state to true when the image has loaded
     const imageLoaded = () => {
         setLoaded(true)
     }

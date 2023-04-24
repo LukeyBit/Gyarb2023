@@ -3,28 +3,43 @@ import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { loginUser } from '../store/actions/userActions'
 
-
-
+/**
+ * 
+ * @returns {JSX.Element} LogIn container
+ * 
+ * @description This container renders the login page
+ * 
+ */
 const LogIn = () => {
+  // Set credentials state to an object with the keys username and password
   const [credentials, setCredentials] = useState({ username: '', password: '' })
+  // Set response to the value of the response state
   const response = useSelector(state => state.response)
+  // Set dispatch to the value of the useDispatch hook
   const dispatch = useDispatch()
+  // Set navigate to the value of the useNavigate hook
   const navigate = useNavigate()
 
+  // Update credentials state when the value of the input changes
   const inputChange = (e) => {
     setCredentials({ ...credentials, [e.target.name]: e.target.value })
+    // Clear the response state if the user starts typing in the input
     if (credentials.username !== '' || credentials.password !== '') {
       dispatch({ type: 'CLEAR' })
     }
   }
 
+  // Log the user in
   const handleSubmit = (e) => {
     e.preventDefault()
 
+    // If the username or password is empty, dispatch an error message to the response state
     if (credentials.username === '' || credentials.password === '') {
       dispatch({ type: 'ERROR', payload: { success: false, message: 'Please fill in all fields' } })
     } else {
+      // If the username and password are not empty, dispatch the loginUser action
       dispatch(loginUser(credentials))
+      // If the response state is successful, navigate to the discover page
       if (response.success) {
         navigate('/discover', { replace: true })
       }
