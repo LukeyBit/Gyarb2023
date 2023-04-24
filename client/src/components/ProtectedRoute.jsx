@@ -25,8 +25,11 @@ const ProtectedRoute = ({ requirement = true }) => {
      * @returns {void} as it only sets the auth state or redirects the user to the home page
      */
     const checkAuth = useCallback(() => {
+        // Update auth state
         setAuth(secureLocalStorage.getItem('isAuthorized') || false)
+        // If the users logged in state doesn't match the requirement, redirect them to the home page
         if (auth !== requirement) {
+            // If there is no pending message, set the error message to the appropriate message
             if (!response.message) { 
                 if (requirement) {
                     dispatch({ type: 'ERROR', payload: { message: 'You must log in to visit this page' } })
@@ -34,15 +37,17 @@ const ProtectedRoute = ({ requirement = true }) => {
                     dispatch({ type: 'ERROR', payload: { message: 'You must be logged out to visit this page' } })
                 }
             }
+            // Redirect the user to the home page
             navigate('/', { replace: true })
         }
     }, [auth, requirement, response.message, dispatch, navigate])
 
+    // Check if the user is logged in or logged out when the component mounts and when the auth state changes
     useEffect(() => {
         checkAuth()
     }, [auth, checkAuth])
 
-    return (
+    return (// If the user passes checkAuth, render the route
         <Outlet />
     )
 }

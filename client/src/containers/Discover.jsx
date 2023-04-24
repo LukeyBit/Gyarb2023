@@ -1,6 +1,9 @@
 import React, { useState, useCallback, useEffect } from 'react'
+import secureLocalStorage from 'react-secure-storage'
+import { getRandomRecipes } from '../apis/recipeAPI'
 import { getRecommendedRecipes } from '../apis/recipeAPI'
 import { Result } from '../components'
+import { params } from '../apis/recipeAPI'
 import { BiUpArrow } from 'react-icons/bi'
 
 const Discover = () => {
@@ -18,12 +21,21 @@ const Discover = () => {
   const loadRecipes = useCallback(async () => {
     const { data } = await getRecommendedRecipes()
     setResults(data)
-    console.log(data)
   }, [setResults])
 
-  useEffect(() => {
-    loadRecipes()
-  }, [loadRecipes])
+  const randomRecipes = useCallback(async () => {
+      const { data } = await getRandomRecipes(`&health=${params.recipeParams.health[Math.random() * params.recipeParams.health.length | 0]}`)
+      setResults(data)
+    }, [setResults])
+
+  useEffect(() =>{
+    let user = secureLocalStorage.getItem('user') || {}
+    if (user.rating || user.preferences) {
+      loadRecipes()
+    } else {
+      randomRecipes()
+    }
+  }, [loadRecipes, randomRecipes])
 
   const handleGetNext = async () => {
     const { data } = await getRecommendedRecipes()

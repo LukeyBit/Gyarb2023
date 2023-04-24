@@ -75,7 +75,7 @@ export const getRecommendedRecipes = () => {
     }
 
     // Get the user's ratings from secureLocalStorage
-    let { rating } = secureLocalStorage.getItem('user')
+    let rating = secureLocalStorage.getItem('user').rating || {}
 
     // Get all the keys in the rating object.
     // Loop through each key and get the value with the highest number.
