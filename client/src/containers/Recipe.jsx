@@ -3,14 +3,20 @@ import { BiRightArrow } from 'react-icons/bi'
 import { useLocation } from 'react-router-dom'
 
 const Recipe = () => {
+  // Set dropdown state to false
   const [dropdown, setDropdown] = useState(false)
+  // Get the recipe object from the location state, passed from the Result component
   const location = useLocation()
   const recipe = location.state.recipe
 
+  // Toggle the dropdown state when the user clicks the dropdown button
   const toggleDropdown = () => {
     setDropdown(!dropdown)
   }
 
+  // Render the recipe page with all the recipe information from the API response
+  // The dropdown state is used to show or hide the dropdown menu
+  // Which contains a table with the nutrition information on a detailed level
   return (
     <div className='p-8 md:px-20 lg:pl-32 min-h-[calc(100vh-8.5rem)]'>
       <h1 className='md:text-6xl text-5xl title-font md:mt-6 mb-2'>{recipe.label}</h1>

@@ -5,37 +5,51 @@ import { useNavigate } from 'react-router-dom'
 
 
 const SignUp = () => {
+  // Set credentials state to an object with the keys username and password
   const [credentials, setCredentials] = useState({username: '', password: ''})
+  // Set formError state to an object with the key message
   const [formError, setError] = useState({message: ''})
+  // Set dispatch to the value of the useDispatch hook
   const dispatch = useDispatch()
+  // Set response to the value of the response state
   const response = useSelector(store => store.response)
+  // Set navigate to the value of the useNavigate hook
   const navigate = useNavigate()
 
+  // Regex for username validation (only letters and numbers)
   const usernameRegex = /^[a-zåäöA-ZÅÄÖ0-9]+$/
 
+  // Update credentials state when the value of the input changes
   const inputChange = (e) => {
+    // Set the value of the input to the corresponding key, the input name, in the credentials state
     setCredentials({...credentials, [e.target.name]: e.target.value})
+    // Clear the response state and error message if the user starts typing in the input
     if (credentials.username !== '' || credentials.password !== '') {
       setError({message: null})
     }
   }
 
+  // Create a new user
   const handleSubmit = (e) => {
     e.preventDefault()
+    // If the username or password is shorter than 3 characters, dispatch an error message to the response state
     if (credentials.username.length < 3 || credentials.password.length < 3) {
       setError({...formError, message: 'Usernames and passwords must be at least 3 characters long'})
       dispatch({type: 'ERROR', payload: {message: 'Usernames and passwords must be at least 3 characters long'}})
     } else if (!usernameRegex.test(credentials.username)) {
+      // If the username doesn't match the regex, dispatch an error message to the response state
       setError({...formError, message: 'Usernames can only contain only letters and numbers'})
       dispatch({type: 'ERROR', payload: {message: 'Usernames can only contain only letters and numbers'}})
     } else {
+      // If the username and password are valid, dispatch the createUser action
       dispatch(createUser(credentials))
     }
   }
 
+  // If the response state is successful, navigate to the profile page
   useEffect(() => {
     if (response.success) {
-      navigate('/discover')
+      navigate('/profile')
     } else {
       setError({ message: response.message })
     }

@@ -1,15 +1,29 @@
 import React, { useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 
+/**
+ * 
+ * @param {object} params containing the result object and the index of the result 
+ * 
+ * @returns {JSX.Element} Result component
+ * 
+ * @description A component that renders a result from the search results on the Search or Discover page
+ * 
+ */
 const Result = ({ result, index }) => {
+    // Get navigate function from useNavigate hook
     const navigate = useNavigate()
+    // Set loaded state to false
     const [loaded, setLoaded] = useState(false)
 
+    // Navigate to the recipe page when the user clicks on the recipe
     const handleRecipeClick = (e) => {
         e.preventDefault()
+        // Pass the recipe object to the recipe page
         navigate(`/recipe/${e.target.id}`, { state: { recipe: result.recipe } })
     }
 
+    // Set loaded state to true when the image has loaded
     const imageLoaded = () => {
         setLoaded(true)
     }
@@ -18,7 +32,8 @@ const Result = ({ result, index }) => {
         <div key={result._links.self.href} className='flex md:flex-row flex-col mb-6 border-2 border-gray-200'>
             <div className='flex flex-row justify-center align-middle h-48'>
                 <img src={result.recipe.images.SMALL.url} alt={result.recipe.label} className={`md:object-scale-down h-full object-cover w-full ${!loaded && 'hidden'}`} onLoad={imageLoaded} />
-                {!loaded &&
+                {// If the image hasn't loaded, render the loading spinner
+                !loaded &&
                     <div className='flex flex-row justify-center items-center w-48'>
                         <svg aria-hidden="true" className="w-10 h-10 text-gray-200 animate-spin fill-primary" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="currentColor" />

@@ -3,6 +3,15 @@ import { Routes, Route } from 'react-router-dom'
 import { Home, Discover, LogIn, Profile, SignUp, Search, NotFound, Recipe } from './containers'
 import { Navbar, Message, Footer, ProtectedRoute } from './components'
 
+/**
+ * 
+ * @returns {JSX.Element} App
+ * 
+ * @description App component is the parent component of all the other components.
+ * It contains the Navbar, Message, Footer, and Routes components.
+ * The Routes component contains the Routes to all the other components.
+ * 
+ */
 function App() {
   return (
     <>

@@ -5,34 +5,47 @@ import { getRecipes, getNextRecipes } from '../apis/recipeAPI'
 import { BiUpArrow, BiSearch } from 'react-icons/bi'
 
 const Search = () => {
+  // noResultsMessage is a ref that holds the message to display when there are no results
   const noResultsMessage = useRef('Search for recipes by keywords and/or filters')
+  // query state is the search query
   const [query, setQuery] = useState('')
+  // results state is an object containing the result information with recipe objects from the API
   const [results, setResults] = useState({})
+  // toTopVisible state is a boolean that determines whether the scroll to top button is visible
   const [toTopVisible, setToTopVisible] = useState(false)
+  // dispatch is a function that dispatches an action to the store
   const dispatch = useDispatch()
 
+  // Handle search input change
   const handleSearchChange = (e) => {
     setQuery(e.target.value)
   }
 
+  // Handle search submit
   const handleSearchSubmit = async (e) => {
     e.preventDefault()
+    // Set the noResultsMessage ref to a new message when the first search is submitted
     noResultsMessage.current = 'No results found'
+    // Get the filters from sessionStorage
     let filters = JSON.parse(sessionStorage.getItem('filters')) || {}
+    // If the query or filters are not empty, get the recipes from the API
     if (query !== '' || filters !== {}) {
       const { data } = await getRecipes(query)
       setResults(data)
     } else {
+      // If the query and filters are empty, dispatch an error action to the store to display an error message
       dispatch({ type: 'ERROR', payload: { success: false, message: 'Please fill in a search phrase or select a filter' } })
     }
   }
 
+  // Handle load more button click
   const handleGetNext = async () => {
     const { data } = await getNextRecipes(results._links.next.href)
     data.hits = [...results.hits, ...data.hits]
     setResults({ ...results, to: data.to, count: data.count, _links: data._links, hits: data.hits })
   }
 
+  // Set toTopVisible state to true when the user scrolls down more than 350px
   window.addEventListener('scroll', () => {
     if (window.scrollY > 350) {
       setToTopVisible(true)
@@ -56,14 +69,14 @@ const Search = () => {
           </div>
         </form>
         <div className='flex flex-col justify-center align-middle px-10' >
-          {
+          { // If there are results, map over the results and display them, otherwise display the noResultsMessage
             results.hits && results.hits.length > 0
               ? results.hits.map((result, index) => (
                 <Result key={result._links.self.href} result={result} index={index} />
               ))
               : <div className='text-font md:text-2xl text-xl text-center md:px-0 px-4' >{noResultsMessage.current}</div>
           }
-          {
+          { // If there are results and the number of results is less than the total number of available results, display the load more button
             results.hits && results.hits.length > 0 && results.to < results.count &&
             <button className='text-font text-white bg-primary hover:bg-secondary focus:ring-4 focus:outline-none focus:ring-secondary font-medium rounded-lg px-3 py-2.5 mb-12' onClick={handleGetNext} type='button' >
               Load more

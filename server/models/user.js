@@ -1,6 +1,54 @@
+/**
+ * @file user.js
+ * @fileoverview User model for database actions
+ * 
+ * @author {Lukas Andersson, Theo Lindqvist}
+ * @version 1.0
+ * 
+ * @requires bcrypt
+ * @requires ../utils/db
+ * 
+ * @exports checkUser
+ * @exports createUser
+ * @exports updatePassword
+ * @exports updateUsername
+ * @exports tagsUpdate
+ * @exports ratingUpdate
+ * 
+ * @typedef {string} username
+ * @typedef {string} password
+ * @typedef {string} oldPassword
+ * @typedef {int} id
+ * @typedef {object} success
+ * @typedef {object} user
+ * @typedef {object} error
+ * 
+ * @property {int} id
+ * @property {string} username
+ * @property {string} password
+ * @property {string} tags
+ * @property {string} rating
+ * @property {boolean} success
+ * @property {int} code
+ * @property {string} message
+ */
 import { db } from '../utils/db.js'
 import bcrypt from 'bcrypt'
 
+/**
+ * @async
+ * 
+ * @param {string} username 
+ * @param {string} password 
+ * 
+ * @returns {Promise} promise object
+ * @returns {object} user object
+ * @returns {boolean} false
+ * 
+ * @description This function is used to check if a user exists in the database and if the submitted password matches the one in the database
+ * 
+ * @throws {error} error
+ */
 export const checkUser = async (username, password) => {
   return new Promise((resolve, reject) => {
     db.get('SELECT * FROM users WHERE username = ?', [username], async (error, row) => {
@@ -8,6 +56,7 @@ export const checkUser = async (username, password) => {
         reject(error)
       }
       if (row) {
+        //Compare hashed password with submitted password
         const match = await bcrypt.compare(password, row.password)
         if (match) {
           resolve({ success: true, code: 200, user: { id: row.id, username: row.username, tags: JSON.parse(row.tags), rating: JSON.parse(row.rating) } })
@@ -21,6 +70,20 @@ export const checkUser = async (username, password) => {
   })
 }
 
+/**
+ * @async
+ * 
+ * @param {string} username
+ * @param {string} password
+ * 
+ * @returns {Promise} promise object
+ * @returns {object} success object
+ * @returns {object} error object
+ * 
+ * @description This function is used to create a new user in the database
+ * 
+ * @throws {error} error
+ */
 export const createUser = async (username, password) => {
   password = await bcrypt.hash(password, 10);
   return new Promise((resolve, reject) => {
@@ -35,17 +98,20 @@ export const createUser = async (username, password) => {
   })
 }
 
-export const updateUser = (id, username, password) => {
-  return new Promise((resolve, reject) => {
-    db.run('UPDATE users SET username = ?, password = ? WHERE id = ?', [username, password, id], (error) => {
-      if (error) {
-        reject(error)
-      }
-      resolve(true)
-    })
-  })
-}
-
+/**
+ * 
+ * @param {int} id 
+ * @param {string} password 
+ * @param {string} oldPassword 
+ * 
+ * @returns {Promise} promise object
+ * @returns {object} success object
+ * @returns {object} error object
+ * 
+ * @description This function is used to update the password of a user
+ * 
+ * @throws {error} error
+ */
 export const updatePassword = (id, password, oldPassword) => {
   return new Promise((resolve, reject) => {
     db.get('SELECT password FROM users WHERE id = ?', [id], async (error, row) => {
@@ -69,6 +135,19 @@ export const updatePassword = (id, password, oldPassword) => {
   })
 }
 
+/**
+ * 
+ * @param {int} id 
+ * @param {string} username 
+ * 
+ * @returns {Promise} promise object
+ * @returns {object} success object
+ * @returns {object} error object
+ * 
+ * @description This function is used to update the username of a user
+ * 
+ * @throws {error} error
+ */
 export const updateUsername = (id, username) => {
   return new Promise((resolve, reject) => {
     db.get('SELECT username FROM users ', (error, row) => {
@@ -90,6 +169,19 @@ export const updateUsername = (id, username) => {
   })
 }
 
+/**
+ * 
+ * @param {int} id
+ * @param {object} tags
+ * 
+ * @returns {Promise} promise object
+ * @returns {object} success object
+ * @returns {object} error object
+ * 
+ * @description This function is used to update a users tags
+ * 
+ * @throws {error} error
+ */
 export const tagsUpdate = (id, tags) => {
   return new Promise((resolve, reject) => {
     db.run(
@@ -105,6 +197,19 @@ export const tagsUpdate = (id, tags) => {
   })
 }
 
+/**
+ * 
+ * @param {int} id 
+ * @param {string} rating 
+ * 
+ * @returns {Promise} promise object
+ * @returns {object} success object
+ * @returns {object} error object
+ * 
+ * @description This function is used to update a users rating
+ * 
+ * @throws {error} error
+ */
 export const ratingUpdate = (id, rating) => {
   return new Promise((resolve, reject) => {
     db.run(

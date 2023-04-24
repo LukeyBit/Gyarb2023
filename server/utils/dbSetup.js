@@ -1,3 +1,22 @@
+/**
+ * @file dbSetup.js
+ * @fileoverview This file contains the function that sets up the database
+ * 
+ * @param {import('sqlite3').Database} db
+ * 
+ * @author {Lukas Andersson, Theo Lindqvist}
+ * @version 1.0
+ * 
+ * @requires bcrypt
+ * @requires ./db
+ * 
+ * @typedef {function} dbSetup
+ * @typedef {function} closeDb
+ * 
+ * @description This file contains the function that sets up the database
+ * 
+ * @exports dbSetup
+ */
 import * as bcrypt from 'bcrypt'
 import { db, closeDb } from './db.js'
 

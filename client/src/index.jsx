@@ -6,6 +6,13 @@ import App from './App'
 import './index.css'
 import { BrowserRouter } from 'react-router-dom'
 
+/**
+ * 
+ * Creates the root element in the public html, adds the store to the application, adds the router parent element
+ * and renders the App component inside it.
+ * 
+ */
+
 const container = document.getElementById('root')
 const root = createRoot(container)
 

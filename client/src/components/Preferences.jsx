@@ -5,8 +5,22 @@ import secureLocalStorage from 'react-secure-storage'
 import { params, getRandomRecipes } from '../apis/recipeAPI'
 import { BiSearch } from 'react-icons/bi'
 
-const Preferences = ({className}) => {
+/**
+ * 
+ * @returns {JSX.Element} Preferences component which allows the user to select their preferences
+ * 
+ * @description This component allows the user to select their preferences food preferences and update their rating for each preference
+ * 
+ */
+const Preferences = () => {
 
+    /**
+     * 
+     * @param {string} str 
+     * @returns {object} object with keys as tags and values as 0
+     * 
+     * @description This function takes in a string which is a preference category and returns an object with it's possible values as tags and values as 0
+     */
     const tagsToObject = (str) => {
         let obj = {}
         params.recipeParams[str].forEach(tag => {
@@ -15,42 +29,63 @@ const Preferences = ({className}) => {
         })
         return obj
     }
-
+    // labelList is a list of all the preference categories
     const labelList = ['healthLabels', 'dietLabels', 'cuisineType', 'dishType']
+    // user is the user data stored in secureLocalStorage
     const user = secureLocalStorage.getItem('user')
+    // userTags is the list of tags the user has selected
     let userTags = user.preferences || []
+    // isMounted is a boolean value which is used to check if the component is mounted with all the data necessary
     const isMounted = useRef(false)
+    // dispatch is a function which is used to dispatch actions to the redux store
     const dispatch = useDispatch()
 
+    // preferenceTags is a list of all the tags the user can select which are the recipeParams health tags
     const [preferenceTags, setPreferenceTags] = useState(params.recipeParams.health)
-
+    // userRating is an object which stores the user's rating for each preference category
     const [userRating, setUserRating] = useState(user.rating || { healthLabels: tagsToObject('health'), dietLabels: tagsToObject('diet'), cuisineType: tagsToObject('cuisineType'), dishType: tagsToObject('dishType') })
+    // loading is a boolean value which is used to check if the image is being loaded
     const [loading, setLoading] = useState(true)
+    // search is a string which stores the user's search input for tags
     const [search, setSearch] = useState('')
+    // recipes is a list of recipes fetched from the API
     const [recipes, setRecipes] = useState([])
+    // pictures is a list of objects which stores the image link and name of the recipes and the index of the recipe in the recipes list
     const [pictures, setPictures] = useState([])
+    // clickedTags is a list of tags the user has selected
     const [clickedTags, setClickedTags] = useState([])
+    // searchResult is a list of tags which match the user's search input
     const [searchResult, setSearchResult] = useState([])
 
+    /**
+     *  returns {void} as it only loads data from the API and updates the state
+     * 
+     * @description This function loads data from the API and updates the state
+     */
     const loadData = async () => {
+        // if the user has not selected any tags, then the API is called with a random health tag
         if (userTags.length === 0) {
             const { data } = await getRandomRecipes(`&health=${preferenceTags[Math.random() * preferenceTags.length | 0]}`)
-            setRecipes(data.hits)
-            getTwoRecipes(0, data.hits)
+            setRecipes(data.hits) // data.hits is a list of recipes
+            getTwoRecipes(0, data.hits) // getTwoRecipes is called to get two recipes from the list of recipes and display them
         } else {
+            // if the user has selected tags, then the API is called with the user's tags
             const { data } = await getRandomRecipes(`&health=${userTags.join('&health=')}`)
-            setRecipes(data.hits)
-            getTwoRecipes(0, data.hits)
+            setRecipes(data.hits) // data.hits is a list of recipes
+            getTwoRecipes(0, data.hits) // getTwoRecipes is called to get two recipes from the list of recipes and display them
         }
     }
 
 
     const getTwoRecipes = (index, data) => {
+        // if the index is 20 or greater than 20, then the API is called again to get more recipes
         if (index >= 20) {
             loadData()
         } else {
+            // if the index is less than 20, then two recipes are selected from the list of recipes and displayed
             const r1 = data[index]
             const r2 = data[index + 1]
+            // updates pictures with the image link and name of the recipes and the index of two of the recipes in the recipes list
             setPictures([
                 { link: r1.recipe.image, name: r1.recipe.label, index: index },
                 { link: r2.recipe.image, name: r2.recipe.label, index: index + 1 }
@@ -58,64 +93,115 @@ const Preferences = ({className}) => {
         }
     }
 
-
+    // useEffect is used to call loadData when the component is mounted as it is done on page load
     useEffect(() => {
         if (!isMounted.current) {
-            console.log('Fetching...')
+            // Loads data from the API and updates the state
             loadData()
+            // Updates the clickedTags state with the user's selected tags
             setClickedTags([...userTags])
+            // Updates the preferenceTags state with the tags the user has not selected
             setPreferenceTags(preferenceTags.filter(tag => !userTags.includes(tag)))
+            // Updates the isMounted state to true
             isMounted.current = true
         }// eslint-disable-next-line
     }, [])
 
+    /**
+     * 
+     * @param {Event} e 
+     * 
+     * @returns {void} as it only updates the state
+     * 
+     * @description This function is called when the user clicks on a tag and updates the selected tags in secureLocalStorage as well as in the server database
+     * 
+     */
     const handleSubmit = (e) => {
         e.preventDefault()
-
         dispatch(updateTags(clickedTags))
     }
 
+    /**
+     * 
+     * @param {Event} e 
+     * 
+     * @returns {void} as it only updates the state
+     * 
+     * @description This function is called when the user types in the search bar and updates the search state and searchResult state
+     * 
+     */
     const handleSearch = (e) => {
         e.preventDefault()
+        // Sets the search state to the user's input
         setSearch(e.target.value.toLowerCase())
+        // If the user's input is empty or null, then the searchResult state is set to an empty list
         if (e.target.value === '' || e.target.value === null) {
             setSearchResult([])
         } else {
+            // If the user's input is not empty or null, then the searchResult state is set to a list of tags which match the user's input
             setSearchResult(preferenceTags.filter(tag => tag.toLowerCase().includes(e.target.value.toLowerCase())))
         }
     }
 
+    /**
+     * 
+     * @param {Event} e
+     * 
+     * @returns {void} as it only updates the state
+     * 
+     * @description This function is called when the user clicks on a tag and updates the clickedTags state and preferenceTags state 
+     */
     const handleCheck = (e) => {
         e.preventDefault()
+        // Sets checked to true or false depending on whether the checkbox is checked or not
         const checked = e.target.checked
+        // Sets name to the name of the checkbox
         const name = e.target.name
+        // If the checkbox is now checked, then the clickedTags state is updated with the name of the checkbox and the preferenceTags state is updated without the name of the checkbox
         if (checked) {
             setClickedTags([...clickedTags, name])
             setPreferenceTags(preferenceTags.filter(tag => tag !== name))
             setSearchResult(searchResult.filter(tag => tag !== name))
         } else {
+            // If the checkbox is now unchecked, then the clickedTags state is updated without the name of the checkbox and the preferenceTags state is updated with the name of the checkbox
             setClickedTags(clickedTags.filter(tag => tag !== name))
             setPreferenceTags([...preferenceTags, name])
             if (search !== '' && name.toLowerCase().includes(search)) {
                 setSearchResult([...searchResult, name])
             }
         }
+        // Sets the search state to the value of the search input to update the search result
         setSearch(document.getElementById('search').value)
     }
 
-
+    /**
+     * 
+     * @param {Event} e 
+     * 
+     * @returns {void} as it only updates the state
+     * 
+     * @description This function is called when the user clicks on a recipe that they prefer and updates the userRating state and calls handleRating
+     */
     const handleRating = (e) => {
         e.preventDefault()
+        // Sets rating to the userRating state
         let rating = userRating
+        // For each recipe category, if the recipe has the label, then the rating is increased in that category
         labelList.forEach(key => {
+            // Selects the recipes labels and replaces the spaces with hyphens to match the API request format
             recipes[e.target.id].recipe[key].forEach(label => {
                 label = label.replace(/ /g, '-')
+                // Updates the rating to increase the rating of every label in the recipe categories
                 rating = { ...rating, [key]: { ...rating[key], [label.toLowerCase()]: rating[key][label.toLowerCase()] + 1 } }
             })
         })
+        // Sets loading to true to display the loading animation
         setLoading(true)
+        // Dispatches the updateRating action to update the user's rating in the server database and secureLocalStorage
         dispatch(updateRating(rating))
+        // Updates the userRating state to the new rating
         setUserRating(rating)
+        // Calls getTwoRecipes to get two new recipes to display
         getTwoRecipes(pictures[1].index + 1, recipes)
     }
 
@@ -139,7 +225,8 @@ const Preferences = ({className}) => {
                         </div>
                         <div id='showTags' className='flex overflow-y-auto w-full md:max-h-20'>
                         <div className='flex flex-wrap'>
-                                {clickedTags.map((tag) => {
+                                {// Maps all selected tags to display them
+                                clickedTags.map((tag) => {
                                     return (
                                         <div className='flex justify-center flex-row w-max h-min text-white m-1 p-1 rounded bg-primary hover:border-primary hover:bg-secondary hover:animate-pulse' key={tag}>
                                             <input type="checkbox" checked={true} onChange={handleCheck} name={tag} id={tag} className='mt-2 mr-2 hidden peer text-font' />
@@ -152,7 +239,8 @@ const Preferences = ({className}) => {
                         <div id='showTagSearch' className=' overflow-y-auto w-full md:max-h-20'>
                             <div className='flex flex-wrap overflow-y-auto'>
                                 {(searchResult.length === 0 && search !== '') && <p className='text-sm m-2'>No tags found</p>}
-                                {searchResult.map((tag) => {
+                                {// Maps all tags that match the search to display them
+                                searchResult.map((tag) => {
                                     return (
                                         <div className='flex justify-center flex-row w-max h-min text-secondary m-1 p-1 rounded border border-secondary hover:border-primary hover:text-primary hover:animate-pulse' key={tag}>
                                             <input type="checkbox" onChange={handleCheck} name={tag} id={tag} className='mt-2 mr-2 hidden peer text-font' />
@@ -170,7 +258,8 @@ const Preferences = ({className}) => {
                 <h1 className='text-text-color-primary mt-2 text-2xl title-font'>Which is better?</h1>
                 <p className='text-text-color-primary text-font'>Rate food to get recommendations based on your preferences</p>
                 <div className='flex flex-row gap-12 mt-3'>
-                    {pictures.map((pic) => {
+                    {//Displays the two recipes to let the user choose which one they prefer
+                    pictures.map((pic) => {
                         return (
                             <div onClick={handleRating} className='w-44 h-fit md:w-60 text-center pb-5' key={pic.index}>
                                 <img id={pic.index} className='rounded hover:border-4 hover:border-primary duration-100' src={pic.link} alt="food_pic" style={{ display: loading ? 'none' : 'block' }} onLoad={imageLoaded} />

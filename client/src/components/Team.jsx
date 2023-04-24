@@ -1,5 +1,11 @@
 import React from 'react'
 
+/**
+ * 
+ * @returns {JSX.Element} Team component
+ * 
+ * @description This component renders the team component where the user can see the team behind MealMaster
+ */
 const Team = () => {
   return (
     <section className='bg-white'>
@@ -10,7 +16,7 @@ const Team = () => {
           </div>
           <div className='grid gap-8 mb-6 lg:mb-16 md:grid-cols-2'>
             <div className='items-center bg-gray-50 rounded-lg shadow sm:flex'>
-            <div className='w-32 h-32 object-cover bg-cover bg-center bg-no-repeat home__team-img'></div>
+            <div className='w-40 h-full object-cover bg-cover bg-right bg-no-repeat home__team-img_lukas'></div>
               <div className='p-5'>
                 <h3 className='text-xl font-bold tracking-tight text-gray-900'>
                   <p>Lukas Andersson</p>
@@ -27,7 +33,7 @@ const Team = () => {
               </div>
             </div>
             <div className='items-center bg-gray-50 rounded-lg shadow sm:flex'>
-              <div className='w-32 h-32 object-cover bg-cover bg-center bg-no-repeat home__team-img'></div>
+              <div className='w-40 h-full object-cover bg-cover bg-center bg-no-repeat home__team-img_theo'></div>
               <div className='p-5'>
                 <h3 className='text-xl font-bold tracking-tight text-gray-900'>
                   <p>Theo Lindqvist</p>

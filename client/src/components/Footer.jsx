@@ -1,6 +1,12 @@
 import React from 'react'
 import badge from '../assets/edamam_badge.svg'
 
+/**
+ * 
+ * @returns {JSX.Element} Footer component
+ * 
+ * @description Footer component for the entire application containing copyright information and attribution to the Edamam API
+ */
 const Footer = () => {
   return (
     <footer className='flex flex-col md:flex-row justify-center md:gap-0 gap-2 items-center p-2 bg-fill-color w-full border-t-4 border-t-primary' >

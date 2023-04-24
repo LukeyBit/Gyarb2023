@@ -2,8 +2,15 @@ import React from 'react'
 import { Team, Features } from '../components'
 import { Link } from 'react-router-dom'
 
+/**
+ * 
+ * @returns {JSX.Element} Home container
+ * 
+ * @description This container renders the home page
+ * 
+ */
 const Home = () => {
-  
+  // Scroll to the about section when the user clicks the get started button
   const scrollHandler = () => {
     const element = document.getElementById('about')
     if (element) {
