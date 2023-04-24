@@ -1,6 +1,14 @@
+/**
+  * This file contains all the custom Tailwind CSS classes and variables.
+  * It is imported in the app.jsx file to provide the global css to the site.
+  * The classes are used as utility classes in the components.
+  * and the classes are bulit using the @apply directive to apply the tailwind classes to other classes.
+  * The variables are used to set the colors of the site.
+**/
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+/* Fonts */
 @import url("https://fonts.googleapis.com/css2?family=Lobster&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Cambo&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Roboto+Slab&display=swap");
