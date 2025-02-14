@@ -18,6 +18,8 @@ To build the database run the following command within the server folder:
 npm run dbSetup
 ```
 
+To use the API, sign up for a free API key at [Edamam Recipe and Nutrition API](https://api.edamam.com/) and insert your credentials in the `client/src/apis/recipeAPI/params.json` file on the rows labeled `appID` and `appKey` in the [params.json file](client/src/apis/recipeAPI/params.json).
+
 The following are the default credentials:
 
 | Username | Password |
